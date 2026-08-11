@@ -138,10 +138,10 @@
 
 ## Phase 5: PWA Preparation, Offline Reading, and Update Safety
 
-- [ ] Task: Define failing offline-readiness tests
-  - [ ] Cover complete manifests, missing assets, bad hashes, interruption, retry, and atomic readiness
-  - [ ] Cover version replacement and preservation of the prior ready package
-  - [ ] Cover evicted-cache detection and calm recovery states
+- [x] Task: Define failing offline-readiness tests `15eb37a`
+  - [x] Cover complete manifests, missing assets, bad hashes, interruption, retry, and atomic readiness
+  - [x] Cover version replacement and preservation of the prior ready package
+  - [x] Cover evicted-cache detection and calm recovery states
 - [ ] Task: Implement explicit book preparation
   - [ ] Download the complete immutable package through a bounded preparation flow
   - [ ] Verify required responses and hashes before committing readiness
