@@ -8,6 +8,7 @@ export interface BookshelfViewProps {
   strings: BookshelfStrings;
   storyTitle: { en: string; id: string };
   cardState: BookCardState;
+  keepsake?: boolean;
   onOpen: () => void;
   onContinue: () => void;
   onReadAgain: () => void;
@@ -23,6 +24,7 @@ export function BookshelfView({
   strings,
   storyTitle,
   cardState,
+  keepsake = false,
   onOpen,
   onContinue,
   onReadAgain,
@@ -41,6 +43,7 @@ export function BookshelfView({
           <p className="book-card__status" aria-live="polite">
             {cardState === 'preparing' ? strings.preparing : ''}
           </p>
+          {keepsake ? <p className="book-card__keepsake">{strings.keepsake}</p> : null}
           <div className="book-card__actions">
             {cardState === 'new' && (
               <button type="button" className="book-card__action" onClick={onPrepare}>

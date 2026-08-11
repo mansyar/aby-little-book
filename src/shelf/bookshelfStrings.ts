@@ -15,6 +15,8 @@ export interface BookshelfStrings {
   caregiver: string;
   /** Begin action on the portal preview. */
   begin: string;
+  /** Lumi keepsake line shown on the shelf after completion. */
+  keepsake: string;
 }
 
 export const BOOKSHELF_STRINGS: Record<'en' | 'id', BookshelfStrings> = {
@@ -27,6 +29,7 @@ export const BOOKSHELF_STRINGS: Record<'en' | 'id', BookshelfStrings> = {
     readAgain: 'Read again',
     caregiver: 'For grown-ups',
     begin: 'Begin',
+    keepsake: 'Lumi glows on your shelf.',
   },
   id: {
     shelfTitle: 'Rak bukumu',
@@ -37,6 +40,7 @@ export const BOOKSHELF_STRINGS: Record<'en' | 'id', BookshelfStrings> = {
     readAgain: 'Baca lagi',
     caregiver: 'Untuk orang dewasa',
     begin: 'Mulai',
+    keepsake: 'Lumi bersinar di rakmu.',
   },
 };
 
