@@ -136,7 +136,7 @@
   - [~] Verify speech online/offline and the complete interaction set on the physical iPad
   - [x] Obtain explicit approval before remaining scene production begins
 
-## Phase 5: PWA Preparation, Offline Reading, and Update Safety
+## Phase 5: PWA Preparation, Offline Reading, and Update Safety (checkpoint 8d4bc9a)
 
 - [x] Task: Define failing offline-readiness tests `15eb37a`
   - [x] Cover complete manifests, missing assets, bad hashes, interruption, retry, and atomic readiness
@@ -161,10 +161,10 @@
   - [x] Add Playwright coverage for preparation, disconnection, completion, reload, and Continue
   - [x] Add deterministic failure coverage for missing and evicted assets
   - [~] Verify installed-PWA termination/restart and offline pronunciation provider behavior on iPad (with Task 6 physical-iPad verification)
-- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
-  - [ ] Run offline, service-worker, update, browser, build, and scoped coverage checks
-  - [ ] Manually prepare, disconnect, terminate, reopen, resume, and complete on the physical iPad
-  - [ ] Confirm incomplete downloads never produce false-ready state
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [x] Run offline, service-worker, update, browser, build, and scoped coverage checks
+  - [~] Manually prepare, disconnect, terminate, reopen, resume, and complete on the physical iPad
+  - [x] Confirm incomplete downloads never produce false-ready state
 
 ## Phase 6: Bookshelf, Caregiver Controls, Completion, and Replay
 
