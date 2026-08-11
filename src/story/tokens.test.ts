@@ -51,10 +51,10 @@ describe('personalized prose', () => {
   it('personalizes English prose per astronaut', () => {
     const prose = storySpreadOf(validStory, 'S02').prose.en;
     expect(resolveProse(prose, aby.grammar.en)).toBe(
-      'Aby packed his star lamp and took a slow breath. \u201CThe way is new, but someone needs me.\u201D',
+      'He packed his star lamp and took a slow breath. \u201CThe way is new, but someone needs me.\u201D',
     );
     expect(resolveProse(prose, maya.grammar.en)).toBe(
-      'Maya packed her star lamp and took a slow breath. \u201CThe way is new, but someone needs me.\u201D',
+      'She packed her star lamp and took a slow breath. \u201CThe way is new, but someone needs me.\u201D',
     );
   });
 
