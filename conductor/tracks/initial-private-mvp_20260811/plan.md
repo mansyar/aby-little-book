@@ -21,7 +21,7 @@
   - [ ] Implement the Vite entry point, top-level application shell, and error boundary
   - [ ] Add local font loading, global design tokens, layout tokens, and reduced-motion foundations
   - [ ] Add static `/healthz` and generated `/version.json` build output
-- [ ] Task: Establish validation and CI foundations
+- [x] Task: Establish validation and CI foundations `8986420`
   - [ ] Define scripts for TypeScript 7 checking, Biome checking, unit/component tests, coverage, validation, build, and end-to-end tests
   - [ ] Add an ordered validation command that fails cheap structural checks before browser tests
   - [ ] Add GitHub Actions pull-request checks using pinned Node/pnpm
