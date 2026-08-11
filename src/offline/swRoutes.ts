@@ -16,7 +16,7 @@ export type RouteKind = 'package-asset' | 'version' | 'health' | 'navigation' | 
 
 export function classifyRequest(url: URL, mode: RequestMode | null = null): RouteKind {
   const pathname = url.pathname;
-  if (pathname.startsWith(PACKAGE_BASE_PATH + '/')) {
+  if (pathname.startsWith(`${PACKAGE_BASE_PATH}/`)) {
     return 'package-asset';
   }
   if (pathname === '/version.json') {

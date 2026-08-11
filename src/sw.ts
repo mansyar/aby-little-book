@@ -55,7 +55,7 @@ registerRoute(({ url }) => kindOf(url, null) === 'health', new NetworkOnly());
 // are never navigations (excluded defensively).
 registerRoute(
   ({ url, request }) =>
-    request.mode === 'navigate' && !url.pathname.startsWith(PACKAGE_BASE_PATH + '/'),
+    request.mode === 'navigate' && !url.pathname.startsWith(`${PACKAGE_BASE_PATH}/`),
   async ({ request, url, event }) => {
     const strategy = new NetworkFirst({
       cacheName: SHELL_CACHE_NAME,

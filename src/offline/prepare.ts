@@ -41,7 +41,7 @@ export async function preparePackage(
   let preparation = reducePreparation(createPreparationFromManifest(manifest), { type: 'begin' });
 
   for (const asset of manifest.assets) {
-    const url = deps.basePath + '/' + asset.src;
+    const url = `${deps.basePath}/${asset.src}`;
     try {
       const response = await deps.fetchImpl(url);
       if (!response.ok) {

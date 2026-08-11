@@ -27,7 +27,7 @@ describe('classifyRequest', () => {
       ),
     ).toBe('package-asset');
     expect(
-      classify(PACKAGE_BASE_PATH + '/the-starlight-rescue-0.1.0/assets/layers/bg-space.webp?x=1'),
+      classify(`${PACKAGE_BASE_PATH}/the-starlight-rescue-0.1.0/assets/layers/bg-space.webp?x=1`),
     ).toBe('package-asset');
   });
 
