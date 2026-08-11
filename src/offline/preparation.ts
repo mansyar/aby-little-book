@@ -123,11 +123,14 @@ export function reducePreparation(
       return next;
     }
     case 'asset-verified': {
-      if (state.phase !== 'verifying' || !state.unverified.includes(event.assetId)) {
+      if (
+        (state.phase !== 'downloading' && state.phase !== 'verifying') ||
+        !state.unverified.includes(event.assetId)
+      ) {
         return state;
       }
       const unverified = without(state.unverified, event.assetId);
-      if (unverified.length === 0) {
+      if (state.pending.length === 0 && unverified.length === 0) {
         const next = { ...state, unverified, phase: 'ready' as const };
         return { ...next, previousReady: readinessOf(next) };
       }
