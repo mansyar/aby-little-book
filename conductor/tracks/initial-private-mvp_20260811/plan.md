@@ -105,12 +105,12 @@
   - [x] Implement DOM-composited registered WebP layers with validated ordering `d2254ba`
   - [x] Load only the active layout and bound previous/active/next decoded scenes `d2254ba`
   - [x] Decode destination assets before navigation commit where supported `1a2c2dd`
-- [~] Task: Implement responsive reader composition
-  - [ ] Write failing tests for layout classification and semantic prose controls
-  - [ ] Implement authored iPad-landscape and phone-portrait camera layouts
-  - [ ] Implement text-safe story panel placement and localized fit behavior
-  - [ ] Add desktop pointer/keyboard adaptation without creating a third authored art layout
-- [ ] Task: Implement navigation and interaction ownership
+- [x] Task: Implement responsive reader composition `b1fc210`
+  - [x] Write failing tests for layout classification and semantic prose controls
+  - [x] Implement authored iPad-landscape and phone-portrait camera layouts
+  - [x] Implement text-safe story panel placement and localized fit behavior
+  - [x] Add desktop pointer/keyboard adaptation without creating a third authored art layout
+- [~] Task: Implement navigation and interaction ownership
   - [ ] Write failing tests for swipe thresholds, edge taps, keyboard navigation, and target ownership
   - [ ] Implement Pointer Events, pointer capture, and navigation commit locking
   - [ ] Ensure word, lamp, choice, and protected controls never leak into page navigation
