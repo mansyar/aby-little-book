@@ -142,8 +142,8 @@ must remain green:
 - [ ] Specification and acceptance criteria are satisfied
 - [ ] Relevant tests pass at the appropriate level
 - [ ] Logic-bearing code meets 80% line and branch coverage
-- [ ] Strict TypeScript passes
-- [ ] ESLint and formatting checks pass
+- [ ] Strict TypeScript 7 passes
+- [ ] Biome lint and format checks pass using the project code style guides
 - [ ] Relevant content, locale, route, asset, and hash validators pass
 - [ ] Chromium and WebKit journeys pass when browser behavior changed
 - [ ] Accessibility semantics, focus, touch targets, keyboard use, contrast,
@@ -174,8 +174,7 @@ pnpm dev
 CI=true pnpm test
 pnpm test:coverage
 CI=true pnpm test:e2e
-pnpm lint
-pnpm format:check
+pnpm biome:check
 pnpm typecheck
 pnpm validate
 pnpm build
@@ -231,7 +230,7 @@ A task is complete when:
 2. Required tests or alternative evidence exist and pass.
 3. Changed logic meets the scoped coverage rule.
 4. Relevant automated and manual quality gates pass.
-5. The implementation is simple, type-safe, accessible, and consistent with the
+5. The implementation is simple, TypeScript 7 type-safe, accessible, and consistent with the
    product and technical standards.
 6. Documentation is updated where needed.
 7. The functional change is committed once, with a task summary attached as a

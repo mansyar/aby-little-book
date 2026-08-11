@@ -16,7 +16,7 @@ backend API, database server, authentication layer, or cloud synchronization.
 
 ## Language and Toolchain
 
-- Strict TypeScript
+- Strict TypeScript 7
 - Node.js 24 LTS, pinned for local development and CI
 - pnpm, pinned through `packageManager` and Corepack
 - Committed `pnpm-lock.yaml`
@@ -75,7 +75,9 @@ backend API, database server, authentication layer, or cloud synchronization.
 - Playwright for Chromium and WebKit journeys, offline behavior, responsive
   layouts, and deterministic visual evidence
 - Physical iPad Safari testing remains a release gate
-- ESLint, formatting checks, and strict TypeScript checks
+- Biome for linting and formatting, configured to enforce the applicable
+  TypeScript, HTML/CSS, and general code style guides
+- Strict TypeScript 7 checks
 - Build-time validation for localization parity, Zod content schemas, route
   graphs, asset references, and hashes
 - Automated accessibility checks supplemented by keyboard, touch, reduced-motion,
@@ -123,3 +125,10 @@ Prefer platform APIs and small, focused dependencies. Add a dependency only when
 it solves a demonstrated requirement more safely or accessibly than project-owned
 code. Changes to the architectural choices in this document require an explicit
 technical decision rather than an incidental implementation choice.
+
+At initial installation and intentional upgrade points, select the newest stable
+package versions that are mutually compatible with Node.js 24, TypeScript 7, and
+each package's declared engine and peer-dependency ranges. Pin the selected
+versions through `package.json` and `pnpm-lock.yaml`; do not use prereleases or
+blindly upgrade one package past the compatibility range of the rest of the
+toolchain.

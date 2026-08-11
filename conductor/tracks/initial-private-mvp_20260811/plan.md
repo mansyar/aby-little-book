@@ -1,0 +1,282 @@
+# Implementation Plan: Initial Private MVP
+
+## Phase 1: Toolchain, Quality Gates, and Static Shell
+
+- [ ] Task: Establish the pinned Node.js and pnpm project
+  - [ ] Create the React/Vite project using Node.js 24 LTS and strict TypeScript 7
+  - [ ] Pin pnpm through `packageManager` and Corepack
+  - [ ] Inspect stable package versions, engine requirements, and peer ranges
+  - [ ] Select the newest mutually compatible stable dependency set
+  - [ ] Pin accepted versions in `package.json` and `pnpm-lock.yaml`
+  - [ ] Record any package held below latest and the compatibility reason
+  - [ ] Define feature-first source and test directory boundaries
+- [ ] Task: Configure Biome and test tooling
+  - [ ] Configure Biome linting and formatting to enforce the selected TypeScript, HTML/CSS, and general code style guides
+  - [ ] Add focused project overrides only where a documented guide rule cannot be represented directly
+  - [ ] Configure Vitest, Testing Library, coverage, and browser-like test setup
+  - [ ] Configure Playwright projects for Chromium and WebKit
+  - [ ] Scope the 80% line/branch threshold to logic-bearing code
+- [ ] Task: Create the minimal static application shell
+  - [ ] Write a failing component test for the accessible application landmark and localized initial state
+  - [ ] Implement the Vite entry point, top-level application shell, and error boundary
+  - [ ] Add local font loading, global design tokens, layout tokens, and reduced-motion foundations
+  - [ ] Add static `/healthz` and generated `/version.json` build output
+- [ ] Task: Establish validation and CI foundations
+  - [ ] Define scripts for TypeScript 7 checking, Biome checking, unit/component tests, coverage, validation, build, and end-to-end tests
+  - [ ] Add an ordered validation command that fails cheap structural checks before browser tests
+  - [ ] Add GitHub Actions pull-request checks using pinned Node/pnpm
+  - [ ] Run TypeScript 7 and Biome as required pull-request gates
+  - [ ] Add artifact and cache handling without publishing or deploying
+- [ ] Task: Establish the static container baseline
+  - [ ] Add a pinned multi-stage Node builder and unprivileged Nginx runtime
+  - [ ] Configure port 8080, SPA fallback, MIME types, cache policy, security headers, and no-index behavior
+  - [ ] Add a container health check against `/healthz`
+  - [ ] Verify the runtime image contains only reviewed static output and configuration
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [ ] Run configured quality, test, build, and container smoke checks
+  - [ ] Manually verify the shell in Chromium and WebKit at iPad, phone, and desktop dimensions
+  - [ ] Confirm local fonts, health/version output, reduced-motion baseline, and non-root container behavior
+
+## Phase 2: Content, Package, and Localization Contracts
+
+- [ ] Task: Define failing contract tests and invalid fixtures
+  - [ ] Add failing tests for valid and invalid story documents
+  - [ ] Add failing tests for localized token resolution and personalized text
+  - [ ] Add failing tests for route graph validity and convergence
+  - [ ] Add failing tests for asset/package manifests, hashes, versions, and safe-region metadata
+- [ ] Task: Implement Zod contracts and inferred types
+  - [ ] Define story, spread, prose token, interaction, astronaut, route, and ending schemas
+  - [ ] Define localized UI and story-resource schemas for exactly `en` and `id`
+  - [ ] Define asset-layer, layout, package-manifest, and package-readiness schemas
+  - [ ] Keep domain types inferred from authoritative schemas
+- [ ] Task: Implement build-time validators
+  - [ ] Validate English/Indonesian UI key parity
+  - [ ] Validate story schema, references, route traversal, lock rules, and convergence
+  - [ ] Validate asset references, dimensions, layer ordering, hashes, and package budgets
+  - [ ] Produce actionable diagnostics without exposing them in child-facing UI
+- [ ] Task: Encode the approved story structure
+  - [ ] Add the three astronaut choices and route-neutral astronaut personalization
+  - [ ] Add both complete route graphs and their shared converged ending
+  - [ ] Add initial English and Indonesian story resources with no placeholder identifiers
+  - [ ] Add versioned package metadata for *The Starlight Rescue*
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [ ] Run contract tests, negative fixtures, locale parity, graph, reference, and hash validators
+  - [ ] Manually review diagnostics and inspect representative English/Indonesian resolved content
+  - [ ] Confirm invalid packages cannot enter runtime-ready state
+
+## Phase 3: Application State, Reader Engine, and Persistence
+
+- [ ] Task: Define failing application-state tests
+  - [ ] Cover finite application views and invalid events
+  - [ ] Cover opening, continuing, closing, completing, and replaying
+  - [ ] Cover settings and language changes without progress loss
+  - [ ] Cover stable-save boundaries and restart restoration
+- [ ] Task: Implement the pure application reducer
+  - [ ] Model bookshelf, preparation, preview, reader, completion, and caregiver states
+  - [ ] Reject invalid transitions without corrupting state
+  - [ ] Keep view navigation independent of a routing library
+- [ ] Task: Define failing reader-engine tests
+  - [ ] Cover forward/back navigation, both routes, route selection, and route lock
+  - [ ] Cover route convergence, replay, alternate-route discovery, and completion
+  - [ ] Cover astronaut choice without narrative-progress divergence
+- [ ] Task: Implement the pure reader engine
+  - [ ] Resolve the current spread and valid next/previous destinations
+  - [ ] Preserve selected route when navigating backward
+  - [ ] Emit stable progress snapshots at defined boundaries
+  - [ ] Keep optional interactions independent of story completion
+- [ ] Task: Define failing persistence and migration tests
+  - [ ] Cover first launch, current-version reads, malformed records, and migrations
+  - [ ] Cover settings, progress, choices, history, completion, keepsake, and readiness
+  - [ ] Cover reset semantics and transaction failure behavior
+- [ ] Task: Implement IndexedDB repositories
+  - [ ] Add the `idb` database schema and versioned migrations
+  - [ ] Implement focused settings, progress, completion, and package-state repositories
+  - [ ] Restore only validated stable state and recover calmly from unusable local data
+  - [ ] Keep repository interfaces independent of hypothetical cloud synchronization
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [ ] Run reducer, route, persistence, migration, and scoped coverage checks
+  - [ ] Manually exercise save/reload/Continue, language changes, both routes, replay, and reset in a development harness
+  - [ ] Confirm no runtime network service or sensitive data storage was introduced
+
+## Phase 4: Spread 08 Representative Vertical Slice
+
+- [ ] Task: Build the layered scene renderer contract
+  - [ ] Write failing tests for active-layout selection, semantic layer output, and scene descriptions
+  - [ ] Implement DOM-composited registered WebP layers with validated ordering
+  - [ ] Load only the active layout and bound previous/active/next decoded scenes
+  - [ ] Decode destination assets before navigation commit where supported
+- [ ] Task: Implement responsive reader composition
+  - [ ] Write failing tests for layout classification and semantic prose controls
+  - [ ] Implement authored iPad-landscape and phone-portrait camera layouts
+  - [ ] Implement text-safe story panel placement and localized fit behavior
+  - [ ] Add desktop pointer/keyboard adaptation without creating a third authored art layout
+- [ ] Task: Implement navigation and interaction ownership
+  - [ ] Write failing tests for swipe thresholds, edge taps, keyboard navigation, and target ownership
+  - [ ] Implement Pointer Events, pointer capture, and navigation commit locking
+  - [ ] Ensure word, lamp, choice, and protected controls never leak into page navigation
+  - [ ] Cancel active speech and hints when navigation commits
+- [ ] Task: Implement isolated word pronunciation
+  - [ ] Write failing tests for token controls, provider selection, cancellation, non-overlap, and unavailable speech
+  - [ ] Implement a browser SpeechSynthesis provider behind a focused interface
+  - [ ] Add accessible pressed/busy feedback without blocking reading
+  - [ ] Add the reviewed-clip provider boundary without activating fallback clips prematurely
+- [ ] Task: Integrate the Share the Light interaction
+  - [ ] Add the approved Spread 08 iPad and phone assets and manifest references
+  - [ ] Write failing component/browser tests for lamp ownership, delayed hint, response, and reduced-motion equivalent
+  - [ ] Implement the optional lamp response with restrained CSS/WAAPI effects
+  - [ ] Preserve full comprehension when the interaction is ignored or motion is reduced
+- [ ] Task: Validate visual and accessibility evidence
+  - [ ] Add deterministic Chromium/WebKit rest and response captures
+  - [ ] Verify alpha edges, seams, layer order, target alignment, safe regions, and bilingual panel fit
+  - [ ] Verify semantics, focus, touch targets, keyboard use, contrast, and reduced motion
+  - [ ] Measure loading, transition responsiveness, and memory behavior on the target iPad
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [ ] Run unit, component, browser, visual, build, and scoped coverage gates
+  - [ ] Manually verify Spread 08 in both locales and layouts
+  - [ ] Verify speech online/offline and the complete interaction set on the physical iPad
+  - [ ] Obtain explicit approval before remaining scene production begins
+
+## Phase 5: PWA Preparation, Offline Reading, and Update Safety
+
+- [ ] Task: Define failing offline-readiness tests
+  - [ ] Cover complete manifests, missing assets, bad hashes, interruption, retry, and atomic readiness
+  - [ ] Cover version replacement and preservation of the prior ready package
+  - [ ] Cover evicted-cache detection and calm recovery states
+- [ ] Task: Implement explicit book preparation
+  - [ ] Download the complete immutable package through a bounded preparation flow
+  - [ ] Verify required responses and hashes before committing readiness
+  - [ ] Store atomic package state in IndexedDB and assets in Cache Storage
+  - [ ] Provide progress, retry, and non-blaming recovery UI
+- [ ] Task: Implement the project-owned service worker
+  - [ ] Configure `vite-plugin-pwa` in `injectManifest` mode with `src/sw.ts`
+  - [ ] Precache only the app shell and serve prepared immutable story assets
+  - [ ] Implement appropriate revalidation for shell, manifest, service worker, and version files
+  - [ ] Avoid cache rules for third-party or remotely hosted runtime resources
+- [ ] Task: Implement safe update behavior
+  - [ ] Write failing tests for update detection during idle and active reading states
+  - [ ] Defer activation that would interrupt an open reader
+  - [ ] Preserve stable progress and provide a calm update action at a safe boundary
+  - [ ] Verify update and rollback behavior across package/application versions
+- [ ] Task: Prove offline and restart journeys
+  - [ ] Add Playwright coverage for preparation, disconnection, completion, reload, and Continue
+  - [ ] Add deterministic failure coverage for missing and evicted assets
+  - [ ] Verify installed-PWA termination/restart and offline pronunciation provider behavior on iPad
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [ ] Run offline, service-worker, update, browser, build, and scoped coverage checks
+  - [ ] Manually prepare, disconnect, terminate, reopen, resume, and complete on the physical iPad
+  - [ ] Confirm incomplete downloads never produce false-ready state
+
+## Phase 6: Bookshelf, Caregiver Controls, Completion, and Replay
+
+- [ ] Task: Implement bookshelf and portal flows
+  - [ ] Write failing component tests for new, preparing, ready, in-progress, and complete states
+  - [ ] Implement the celestial shelf, book card, portal preview, Open, Continue, and Read Again actions
+  - [ ] Keep status and actions understandable in both locales and without motion
+- [ ] Task: Implement caregiver controls
+  - [ ] Write failing tests for adult gate, dialog focus, settings, preparation, and reset confirmation
+  - [ ] Implement language, sound, text, reduced-motion, preparation, and protected reset controls
+  - [ ] State destructive consequences plainly and restore focus correctly
+- [ ] Task: Implement completion and keepsake
+  - [ ] Write failing tests for close-book completion, Lumi persistence, replay, and alternate-route discovery
+  - [ ] Implement the calm ending transition and Lumi shelf presence
+  - [ ] Preserve route history while resetting current-reading state for replay
+  - [ ] Avoid points, streaks, confetti, or reward-like escalation
+- [ ] Task: Complete end-to-end application journeys
+  - [ ] Add Playwright first-launch through preparation and opening
+  - [ ] Add both routes, all astronauts, completion, Continue, replay, and reset
+  - [ ] Add locale switching, speech cancellation, interaction ownership, keyboard, and reduced-motion journeys
+  - [ ] Verify phone portrait and desktop adaptations
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [ ] Run component, journey, accessibility, browser, and scoped coverage gates
+  - [ ] Manually complete every shell and caregiver flow in both locales
+  - [ ] Confirm all destructive and parent-only actions are protected and comprehensible
+
+## Phase 7: Full Story Art and Content Integration
+
+- [ ] Task: Finalize the production scene schedule
+  - [ ] Inventory every required spread, route state, response state, locale fit case, and layout
+  - [ ] Reuse approved characters, materials, lighting, cameras, and export conventions
+  - [ ] Record text-safe, character-safe, fold, and target bounds before rendering
+- [ ] Task: Produce remaining Blender scenes in reviewable batches
+  - [ ] Establish camera composition and safe-region guides for each batch
+  - [ ] Capture draft composition review before detailed rendering
+  - [ ] Render approved soft-clay references and interaction states in Eevee
+  - [ ] Preserve stable source files and reproducibility metadata
+- [ ] Task: Export and validate runtime layer packages
+  - [ ] Export registered transparent PNG masters
+  - [ ] Produce optimized transparent WebP delivery variants
+  - [ ] Generate manifests with dimensions, order, roles, bounds, hashes, settings, and budgets
+  - [ ] Run automated reference, hash, alpha, dimension, and budget validation
+- [ ] Task: Integrate final bilingual story content
+  - [ ] Replace all temporary prose or scene references with reviewed English and Indonesian content
+  - [ ] Resolve personalization naturally in both languages
+  - [ ] Validate every spread, word token, astronaut, route, interaction, and ending
+  - [ ] Confirm no story text is baked into artwork
+- [ ] Task: Verify every scene in real browsers
+  - [ ] Capture deterministic rest/response evidence for approved iPad and phone layouts
+  - [ ] Check seams, occlusion, target alignment, safe-region fit, panel fit, and response timing
+  - [ ] Verify performance and bounded memory on representative heavy scenes
+  - [ ] Resolve all placeholder, missing-asset, and production-quality findings
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [ ] Run content, package, asset, browser-composition, budget, and production-build gates
+  - [ ] Manually review every spread, route, interaction, and layout in both languages
+  - [ ] Confirm runtime output excludes Blender sources, PNG masters, and review artifacts
+
+## Phase 8: Accessibility, Device, and Family Validation
+
+- [ ] Task: Complete the automated release-candidate matrix
+  - [ ] Run TypeScript 7, Biome, locale, schema, graph, asset, hash, unit, component, build, and coverage gates
+  - [ ] Run all critical Playwright journeys in Chromium and WebKit
+  - [ ] Review deterministic visual evidence rather than blindly updating baselines
+  - [ ] Resolve every release-blocking defect
+- [ ] Task: Complete accessibility review
+  - [ ] Audit landmarks, names, descriptions, focus order, dialogs, and live feedback
+  - [ ] Verify keyboard-only and pointer operation
+  - [ ] Verify touch targets, contrast, text sizing, orientation, and zoom behavior
+  - [ ] Verify reduced-motion and non-audio equivalents
+- [ ] Task: Complete bilingual and content review
+  - [ ] Review English story/UI wording for age fit, warmth, and consistency
+  - [ ] Complete fluent-adult Indonesian review for natural phrasing and equal meaning
+  - [ ] Verify every localized state and both authored layouts
+  - [ ] Record and resolve approved language corrections
+- [ ] Task: Complete physical-iPad acceptance
+  - [ ] Install and prepare the PWA on the family iPad
+  - [ ] Complete both routes online and offline
+  - [ ] Terminate/reopen, resume, update, and recover from representative failures
+  - [ ] Verify pronunciation, gestures, orientation, performance, and memory behavior
+- [ ] Task: Complete child and caregiver observation
+  - [ ] Prepare a privacy-preserving observation checklist without analytics or recording
+  - [ ] Observe navigation, comprehension, calm engagement, optional interactions, and replay interest
+  - [ ] Observe caregiver understanding of shared reading, preparation, settings, and reset
+  - [ ] Record findings and resolve release-blocking confusion or discomfort
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [ ] Re-run only gates affected by validation fixes plus the complete release-candidate command
+  - [ ] Present the final automated, accessibility, bilingual, iPad, and family evidence
+  - [ ] Obtain explicit approval to create the private release
+
+## Phase 9: Immutable Private Release and Rollback
+
+- [ ] Task: Finalize production image and supply-chain checks
+  - [ ] Pin builder and runtime image references
+  - [ ] Build once with version, commit, and OCI metadata
+  - [ ] Verify non-root runtime, read-only compatibility, health, version, headers, and runtime contents
+  - [ ] Generate provenance/SBOM where supported and pass the agreed vulnerability gate
+- [ ] Task: Configure protected release automation
+  - [ ] Trigger only from owner-approved semantic `v0.x.y` releases
+  - [ ] Verify the tag points to an allowed green `main` commit
+  - [ ] Publish immutable semantic and commit tags to private GHCR
+  - [ ] Record the exact image digest in release evidence
+- [ ] Task: Deploy the immutable image through Coolify
+  - [ ] Configure private GHCR read access and protected deployment credentials
+  - [ ] Deploy the exact semantic tag or digest on port 8080 over HTTPS
+  - [ ] Verify `/healthz`, `/version.json`, cache/security/no-index headers, and image identity
+  - [ ] Complete the critical installed/offline family journey against production
+- [ ] Task: Prove rollback and finalize release records
+  - [ ] Record the prior known-good immutable image
+  - [ ] Execute and verify the documented rollback procedure
+  - [ ] Restore the approved release if rollback was a drill
+  - [ ] Publish curated private release notes with validation status and known issues
+- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [ ] Verify the deployed Git tag, GHCR digest, Coolify image, and `/version.json` agree
+  - [ ] Present health, security, install, offline, family-journey, and rollback evidence
+  - [ ] Obtain explicit confirmation that the private MVP track is complete
