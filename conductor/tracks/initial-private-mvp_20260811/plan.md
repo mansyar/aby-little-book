@@ -142,11 +142,11 @@
   - [x] Cover complete manifests, missing assets, bad hashes, interruption, retry, and atomic readiness
   - [x] Cover version replacement and preservation of the prior ready package
   - [x] Cover evicted-cache detection and calm recovery states
-- [ ] Task: Implement explicit book preparation
-  - [ ] Download the complete immutable package through a bounded preparation flow
-  - [ ] Verify required responses and hashes before committing readiness
-  - [ ] Store atomic package state in IndexedDB and assets in Cache Storage
-  - [ ] Provide progress, retry, and non-blaming recovery UI
+- [x] Task: Implement explicit book preparation `37c81dc`
+  - [x] Download the complete immutable package through a bounded preparation flow
+  - [x] Verify required responses and hashes before committing readiness
+  - [x] Store atomic package state in IndexedDB and assets in Cache Storage
+  - [x] Provide progress, retry, and non-blaming recovery UI
 - [ ] Task: Implement the project-owned service worker
   - [ ] Configure `vite-plugin-pwa` in `injectManifest` mode with `src/sw.ts`
   - [ ] Precache only the app shell and serve prepared immutable story assets
