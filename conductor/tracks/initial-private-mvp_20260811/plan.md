@@ -115,12 +115,12 @@
   - [x] Implement Pointer Events, pointer capture, and navigation commit locking
   - [x] Ensure word, lamp, choice, and protected controls never leak into page navigation
   - [x] Cancel active speech and hints when navigation commits
-- [~] Task: Implement isolated word pronunciation
-  - [ ] Write failing tests for token controls, provider selection, cancellation, non-overlap, and unavailable speech
-  - [ ] Implement a browser SpeechSynthesis provider behind a focused interface
-  - [ ] Add accessible pressed/busy feedback without blocking reading
-  - [ ] Add the reviewed-clip provider boundary without activating fallback clips prematurely
-- [ ] Task: Integrate the Share the Light interaction
+- [x] Task: Implement isolated word pronunciation `03e5df7`
+  - [x] Write failing tests for token controls, provider selection, cancellation, non-overlap, and unavailable speech
+  - [x] Implement a browser SpeechSynthesis provider behind a focused interface
+  - [x] Add accessible pressed/busy feedback without blocking reading
+  - [x] Add the reviewed-clip provider boundary without activating fallback clips prematurely
+- [~] Task: Integrate the Share the Light interaction
   - [ ] Add the approved Spread 08 iPad and phone assets and manifest references
   - [ ] Write failing component/browser tests for lamp ownership, delayed hint, response, and reduced-motion equivalent
   - [ ] Implement the optional lamp response with restrained CSS/WAAPI effects
