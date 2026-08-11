@@ -2,10 +2,26 @@
 // resources with the approved production content; these fixtures stay as the
 // minimal valid baseline for schema and validator tests.
 
+import type {
+  AssetLayer,
+  PackageManifest,
+  PackageReadiness,
+  SceneLayout,
+  Spread,
+  Story,
+} from './contracts';
+
 // Loose shape used by negative tests to corrupt a valid fixture the way
 // unvalidated JSON would arrive at the schema boundary.
+export type MutableSpread = {
+  id: string;
+  title: unknown;
+  prose: Record<string, string>;
+  interaction?: unknown;
+};
+
 export type MutableStory = {
-  spreads: Record<string, { id: string; title: unknown; prose: Record<string, string>; interaction?: unknown }>;
+  spreads: Record<string, MutableSpread>;
   routes: Array<{ id: string; spreadIds: string[] }>;
   astronauts: Array<{ id: string; grammar: unknown }>;
   version: unknown;
@@ -14,6 +30,47 @@ export type MutableStory = {
 
 export function cloneStory(): MutableStory {
   return structuredClone(validStory) as unknown as MutableStory;
+}
+
+// Fixture access helpers guard noUncheckedIndexedAccess without assertions.
+export function spreadOf(story: MutableStory, id: string): MutableSpread {
+  const spread = story.spreads[id];
+  if (spread === undefined) {
+    throw new Error(`Fixture has no spread '${id}'.`);
+  }
+  return spread;
+}
+
+export function routeOf(story: MutableStory, index: number): { id: string; spreadIds: string[] } {
+  const route = story.routes[index];
+  if (route === undefined) {
+    throw new Error(`Fixture has no route at index ${index}.`);
+  }
+  return route;
+}
+
+export function astronautOf(story: MutableStory, index: number): { id: string; grammar: unknown } {
+  const astronaut = story.astronauts[index];
+  if (astronaut === undefined) {
+    throw new Error(`Fixture has no astronaut at index ${index}.`);
+  }
+  return astronaut;
+}
+
+export function storySpreadOf(story: Story, id: string): Spread {
+  const spread = story.spreads[id];
+  if (spread === undefined) {
+    throw new Error(`Fixture has no spread '${id}'.`);
+  }
+  return spread;
+}
+
+export function storyAstronautOf<T>(story: { astronauts: T[] }, index: number): T {
+  const astronaut = story.astronauts[index];
+  if (astronaut === undefined) {
+    throw new Error(`Fixture has no astronaut at index ${index}.`);
+  }
+  return astronaut;
 }
 
 export const validGrammar = {
@@ -48,11 +105,13 @@ export const validIndonesianGrammar = {
   niko: { name: 'Niko', subject: 'dia', subjectCap: 'Dia', object: 'dia', possessive: 'miliknya' },
 };
 
-export const validStory = {
+const ASTRONAUT_IDS = ['aby', 'maya', 'niko'] as const;
+
+export const validStory: Story = {
   id: 'the-starlight-rescue',
   title: { en: 'The Starlight Rescue', id: 'Penyelamatan Cahaya Bintang' },
   version: '0.1.0',
-  astronauts: ['aby', 'maya', 'niko'].map((id) => ({
+  astronauts: ASTRONAUT_IDS.map((id) => ({
     id,
     grammar: {
       en: validGrammar[id],
@@ -194,7 +253,7 @@ export const validStory = {
   ],
 };
 
-export const validAssetLayers = [
+export const validAssetLayers: AssetLayer[] = [
   {
     id: 'bg-space',
     role: 'background',
@@ -225,12 +284,12 @@ export const validAssetLayers = [
   },
 ];
 
-export const validLayouts = [
+export const validLayouts: SceneLayout[] = [
   { id: 'ipad-landscape', layerIds: ['bg-space', 'char-aby', 'fx-glow'] },
   { id: 'phone-portrait', layerIds: ['bg-space', 'char-aby', 'fx-glow'] },
 ];
 
-export const validManifest = {
+export const validManifest: PackageManifest = {
   packageId: 'the-starlight-rescue-0.1.0',
   storyId: 'the-starlight-rescue',
   storyVersion: '0.1.0',
@@ -239,7 +298,7 @@ export const validManifest = {
   totalBytes: 2048 * 1536 * 3,
 };
 
-export const validReadiness = {
+export const validReadiness: PackageReadiness = {
   ready: true,
   packageId: 'the-starlight-rescue-0.1.0',
   storyVersion: '0.1.0',

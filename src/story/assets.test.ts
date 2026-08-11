@@ -1,7 +1,18 @@
 import { describe, expect, it } from 'vitest';
+import {
+  assetLayerSchema,
+  layoutSchema,
+  packageManifestSchema,
+  packageReadinessSchema,
+} from './contracts';
 import { validAssetLayers, validLayouts, validManifest, validReadiness } from './fixtures';
-import { assetLayerSchema, layoutSchema, packageManifestSchema, packageReadinessSchema } from './contracts';
-import { assertLayerOrderUnique, assertLayoutLayersExist, assertReadinessConsistent, assertSafeRegion } from './validators';
+import {
+  assertLayerOrderUnique,
+  assertLayoutLayersExist,
+  assertReadinessConsistent,
+  assertSafeRegion,
+  validateManifest,
+} from './validators';
 
 describe('asset layer contract', () => {
   it('accepts a well-formed webp layer with a sha256 digest', () => {
@@ -35,7 +46,9 @@ describe('layout contract', () => {
   });
 
   it('rejects an unsupported layout id', () => {
-    expect(layoutSchema.safeParse({ id: 'smartwatch', layerIds: ['bg-space'] }).success).toBe(false);
+    expect(layoutSchema.safeParse({ id: 'smartwatch', layerIds: ['bg-space'] }).success).toBe(
+      false,
+    );
   });
 });
 
@@ -79,8 +92,9 @@ describe('package readiness contract', () => {
 
 describe('semantic asset guards', () => {
   it('rejects duplicate layer order values', () => {
-    const layers = structuredClone(validAssetLayers);
-    layers[2].order = 0;
+    const layers = validAssetLayers.map((layer, index) =>
+      index === 2 ? { ...layer, order: 0 } : layer,
+    );
     expect(assertLayerOrderUnique(layers)).not.toEqual([]);
   });
 
@@ -92,5 +106,22 @@ describe('semantic asset guards', () => {
   it('rejects a safe region outside normalized bounds', () => {
     expect(assertSafeRegion({ x: 0.9, y: 0.2, width: 0.4, height: 0.3 })).not.toEqual([]);
     expect(assertSafeRegion({ x: 0.1, y: 0.2, width: 0.4, height: 0.3 })).toEqual([]);
+  });
+});
+
+describe('package manifest validation', () => {
+  it('accepts a complete valid manifest', () => {
+    expect(validateManifest(validManifest)).toEqual([]);
+  });
+
+  it('rejects an empty asset set', () => {
+    const broken = { ...validManifest, assets: [] };
+    expect(validateManifest(broken)).not.toEqual([]);
+  });
+
+  it('rejects a zero byte budget', () => {
+    const broken = { ...validManifest, totalBytes: 0 };
+    const codes = validateManifest(broken).map((d) => d.code);
+    expect(codes).toContain('package-zero-budget');
   });
 });

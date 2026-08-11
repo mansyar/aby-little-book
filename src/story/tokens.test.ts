@@ -1,17 +1,23 @@
 import { describe, expect, it } from 'vitest';
-import { validStory } from './fixtures';
-import { findAstronautGrammar, resolveTokens, resolveProse } from './tokens';
+import { storyAstronautOf, storySpreadOf, validStory } from './fixtures';
+import { findAstronautGrammar, resolveProse, resolveTokens } from './tokens';
 
-const aby = validStory.astronauts[0];
-const maya = validStory.astronauts[1];
-const niko = validStory.astronauts[2];
+const aby = storyAstronautOf(validStory, 0);
+const maya = storyAstronautOf(validStory, 1);
+const niko = storyAstronautOf(validStory, 2);
 
 describe('token resolution', () => {
   it('resolves the name token for each astronaut', () => {
     const text = 'High above Earth, {name} watched the stars blink.';
-    expect(resolveTokens(text, aby.grammar.en)).toBe('High above Earth, Aby watched the stars blink.');
-    expect(resolveTokens(text, maya.grammar.en)).toBe('High above Earth, Maya watched the stars blink.');
-    expect(resolveTokens(text, niko.grammar.en)).toBe('High above Earth, Niko watched the stars blink.');
+    expect(resolveTokens(text, aby.grammar.en)).toBe(
+      'High above Earth, Aby watched the stars blink.',
+    );
+    expect(resolveTokens(text, maya.grammar.en)).toBe(
+      'High above Earth, Maya watched the stars blink.',
+    );
+    expect(resolveTokens(text, niko.grammar.en)).toBe(
+      'High above Earth, Niko watched the stars blink.',
+    );
   });
 
   it('resolves gendered pronouns to match the astronaut', () => {
@@ -28,8 +34,12 @@ describe('token resolution', () => {
 
   it('resolves the name token in Indonesian for every astronaut', () => {
     const text = 'Jauh di atas Bumi, {name} memandang bintang-bintang berkelip.';
-    expect(resolveTokens(text, aby.grammar.id)).toBe('Jauh di atas Bumi, Aby memandang bintang-bintang berkelip.');
-    expect(resolveTokens(text, niko.grammar.id)).toBe('Jauh di atas Bumi, Niko memandang bintang-bintang berkelip.');
+    expect(resolveTokens(text, aby.grammar.id)).toBe(
+      'Jauh di atas Bumi, Aby memandang bintang-bintang berkelip.',
+    );
+    expect(resolveTokens(text, niko.grammar.id)).toBe(
+      'Jauh di atas Bumi, Niko memandang bintang-bintang berkelip.',
+    );
   });
 
   it('throws on an unknown token so placeholders cannot reach rendering', () => {
@@ -39,7 +49,7 @@ describe('token resolution', () => {
 
 describe('personalized prose', () => {
   it('personalizes English prose per astronaut', () => {
-    const prose = validStory.spreads.S02.prose.en;
+    const prose = storySpreadOf(validStory, 'S02').prose.en;
     expect(resolveProse(prose, aby.grammar.en)).toBe(
       'Aby packed his star lamp and took a slow breath. \u201CThe way is new, but someone needs me.\u201D',
     );

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { cloneStory, validStory } from './fixtures';
 import type { Story } from './contracts';
+import { cloneStory, routeOf, spreadOf, validStory } from './fixtures';
 import { validateRouteGraph } from './validators';
 
 function errorCodes(story: Story): string[] {
@@ -16,31 +16,64 @@ describe('route graph validation', () => {
 
   it('requires exactly ten spreads per route', () => {
     const broken = cloneStory();
-    broken.routes[0].spreadIds = broken.routes[0].spreadIds.slice(0, 9);
+    routeOf(broken, 0).spreadIds = routeOf(broken, 0).spreadIds.slice(0, 9);
     expect(errorCodes(broken as unknown as Story)).toContain('route-spread-count');
   });
 
   it('rejects a route referencing an unknown spread', () => {
     const broken = cloneStory();
-    broken.routes[1].spreadIds = ['S01', 'S02', 'S03', 'B04', 'B05', 'B06', 'S07', 'S08', 'S09', 'Z99'];
+    routeOf(broken, 1).spreadIds = [
+      'S01',
+      'S02',
+      'S03',
+      'B04',
+      'B05',
+      'B06',
+      'S07',
+      'S08',
+      'S09',
+      'Z99',
+    ];
     expect(errorCodes(broken as unknown as Story)).toContain('route-unknown-spread');
   });
 
   it('rejects a route with a dead end that never reaches the ending', () => {
     const broken = cloneStory();
-    broken.routes[0].spreadIds = ['S01', 'S02', 'S03', 'A04', 'A05', 'A06', 'S07', 'S08', 'S09'];
+    routeOf(broken, 0).spreadIds = ['S01', 'S02', 'S03', 'A04', 'A05', 'A06', 'S07', 'S08', 'S09'];
     expect(errorCodes(broken as unknown as Story)).toContain('route-missing-ending');
   });
 
   it('rejects a route that skips the convergence spread', () => {
     const broken = cloneStory();
-    broken.routes[1].spreadIds = ['S01', 'S02', 'S03', 'B04', 'B05', 'B06', 'S08', 'S09', 'S10', 'B04'];
+    routeOf(broken, 1).spreadIds = [
+      'S01',
+      'S02',
+      'S03',
+      'B04',
+      'B05',
+      'B06',
+      'S08',
+      'S09',
+      'S10',
+      'B04',
+    ];
     expect(errorCodes(broken as unknown as Story)).toContain('route-missing-convergence');
   });
 
   it('rejects a route containing a cycle', () => {
     const broken = cloneStory();
-    broken.routes[0].spreadIds = ['S01', 'S02', 'S03', 'A04', 'A05', 'A06', 'A04', 'S07', 'S08', 'S09'];
+    routeOf(broken, 0).spreadIds = [
+      'S01',
+      'S02',
+      'S03',
+      'A04',
+      'A05',
+      'A06',
+      'A04',
+      'S07',
+      'S08',
+      'S09',
+    ];
     expect(errorCodes(broken as unknown as Story)).toContain('route-cycle');
   });
 
@@ -52,7 +85,7 @@ describe('route graph validation', () => {
 
   it('requires the choice spread to define the route-choice interaction', () => {
     const broken = cloneStory();
-    delete broken.spreads.S03.interaction;
+    delete spreadOf(broken, 'S03').interaction;
     expect(errorCodes(broken as unknown as Story)).toContain('choice-interaction-missing');
   });
 
@@ -64,7 +97,7 @@ describe('route graph validation', () => {
 
   it('forbids gendered pronoun tokens in Indonesian prose', () => {
     const broken = cloneStory();
-    broken.spreads.S01.prose.id = '{subject_cap} memandang bintang-bintang.';
+    spreadOf(broken, 'S01').prose.id = '{subject_cap} memandang bintang-bintang.';
     expect(errorCodes(broken as unknown as Story)).toContain('id-pronoun-token');
   });
 });
