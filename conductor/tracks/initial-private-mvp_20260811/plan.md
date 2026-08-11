@@ -10,7 +10,7 @@
   - [ ] Pin accepted versions in `package.json` and `pnpm-lock.yaml`
   - [ ] Record any package held below latest and the compatibility reason
   - [ ] Define feature-first source and test directory boundaries
-- [ ] Task: Configure Biome and test tooling
+- [x] Task: Configure Biome and test tooling `fd5d5c3`
   - [ ] Configure Biome linting and formatting to enforce the selected TypeScript, HTML/CSS, and general code style guides
   - [ ] Add focused project overrides only where a documented guide rule cannot be represented directly
   - [ ] Configure Vitest, Testing Library, coverage, and browser-like test setup
