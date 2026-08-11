@@ -1,0 +1,30 @@
+# Dependencies and build output
+node_modules/
+dist/
+dev-dist/
+.pnpm-store/
+
+# Test and browser artifacts
+coverage/
+playwright-report/
+test-results/
+blob-report/
+.playwright-cli/
+
+# Version control and automation
+.git/
+.github/
+conductor/
+
+# Project documents and art sources stay out of the build context
+docs/
+art/
+
+# Local environment
+.env
+.env.*
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
