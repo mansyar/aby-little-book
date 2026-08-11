@@ -1,6 +1,6 @@
 # Implementation Plan: Initial Private MVP
 
-## Phase 1: Toolchain, Quality Gates, and Static Shell
+## Phase 1: Toolchain, Quality Gates, and Static Shell (checkpoint eb379d4)
 
 - [x] Task: Establish the pinned Node.js and pnpm project `7bafb7b`
   - [ ] Create the React/Vite project using Node.js 24 LTS and strict TypeScript 7
@@ -32,10 +32,10 @@
   - [ ] Configure port 8080, SPA fallback, MIME types, cache policy, security headers, and no-index behavior
   - [ ] Add a container health check against `/healthz`
   - [ ] Verify the runtime image contains only reviewed static output and configuration
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
-  - [ ] Run configured quality, test, build, and container smoke checks
-  - [ ] Manually verify the shell in Chromium and WebKit at iPad, phone, and desktop dimensions
-  - [ ] Confirm local fonts, health/version output, reduced-motion baseline, and non-root container behavior
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [x] Run configured quality, test, build, and container smoke checks
+  - [x] Manually verify the shell in Chromium and WebKit at iPad, phone, and desktop dimensions
+  - [x] Confirm local fonts, health/version output, reduced-motion baseline, and non-root container behavior
 
 ## Phase 2: Content, Package, and Localization Contracts
 
