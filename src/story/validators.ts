@@ -201,8 +201,8 @@ export function assertReadinessConsistent(readiness: PackageReadiness): Diagnost
 }
 
 // Whole-manifest validation: non-empty assets, positive byte budget, unique
-// layer ordering, layouts that only reference declared layers, and authored
-// cameras/panels within normalized bounds.
+// layer ordering within each authored layout, layouts that only reference
+// declared layers, and authored cameras/panels within normalized bounds.
 export function validateManifest(manifest: PackageManifest): Diagnostic[] {
   const diagnostics: Diagnostic[] = [];
   if (manifest.assets.length === 0) {
@@ -216,9 +216,10 @@ export function validateManifest(manifest: PackageManifest): Diagnostic[] {
       ),
     );
   }
-  diagnostics.push(...assertLayerOrderUnique(manifest.assets));
   for (const layout of manifest.layouts) {
-    diagnostics.push(...assertLayoutLayersExist(layout, manifest.assets));
+    const layoutLayers = manifest.assets.filter((layer) => layer.layout === layout.id);
+    diagnostics.push(...assertLayerOrderUnique(layoutLayers));
+    diagnostics.push(...assertLayoutLayersExist(layout, layoutLayers));
     diagnostics.push(...assertLayoutCameraInBounds(layout));
     diagnostics.push(...assertLayoutPanelInBounds(layout));
   }

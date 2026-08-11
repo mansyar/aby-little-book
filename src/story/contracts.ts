@@ -128,6 +128,14 @@ export const assetLayerSchema = z.object({
   height: z.number().int().positive(),
   sha256: z.string().regex(SHA256_PATTERN),
   safeRegion: safeRegionSchema.optional(),
+  // The authored layout this layer belongs to. Layer ids repeat across
+  // layouts (each layout has its own full-frame render of the same element),
+  // so layout membership is explicit rather than inferred from src.
+  layout: z.enum(LAYOUT_IDS),
+  // Authored art state: absent means the layer belongs to the rest state;
+  // 'response' layers (fx-lamp-beam, fx-shared-glow) appear only when the
+  // spread's optional interaction is activated.
+  state: z.enum(['rest', 'response']).optional(),
 });
 export type AssetLayer = z.infer<typeof assetLayerSchema>;
 

@@ -19,8 +19,27 @@ export function activeLayoutLayers(manifest: PackageManifest, layoutId: string):
   }
   const referenced = new Set(layout.layerIds);
   return manifest.assets
-    .filter((layer) => referenced.has(layer.id))
+    .filter((layer) => layer.layout === layoutId && referenced.has(layer.id))
     .sort((a, b) => a.order - b.order);
+}
+
+export type SceneState = 'rest' | 'response';
+
+/**
+ * Composes the layers visible in a scene state: rest layers always; response
+ * layers (authored state 'response', e.g. fx-lamp-beam, fx-shared-glow) join
+ * them only when the spread's optional interaction is activated.
+ */
+export function layersForState(
+  manifest: PackageManifest,
+  layoutId: string,
+  state: SceneState,
+): AssetLayer[] {
+  const layers = activeLayoutLayers(manifest, layoutId);
+  if (state === 'response') {
+    return layers;
+  }
+  return layers.filter((layer) => (layer.state ?? 'rest') === 'rest');
 }
 
 export function resolveAssetSrc(src: string, basePath: string = '/'): string {

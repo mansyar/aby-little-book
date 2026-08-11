@@ -6,7 +6,13 @@
 import { describe, expect, it } from 'vitest';
 import type { AssetLayer, SceneLayout } from '../story/contracts';
 import { validManifest } from '../story/fixtures';
-import { activeLayoutLayers, cameraRect, resolveAssetSrc, selectLayout } from './layout';
+import {
+  activeLayoutLayers,
+  cameraRect,
+  layersForState,
+  resolveAssetSrc,
+  selectLayout,
+} from './layout';
 
 describe('selectLayout', () => {
   it('picks phone-portrait for narrow portrait viewports', () => {
@@ -55,6 +61,22 @@ describe('activeLayoutLayers', () => {
     const layers = activeLayoutLayers(manifest, 'ipad-landscape');
     expect(layers.map((layer) => layer.id)).toEqual(['bg-space', 'char-aby']);
     expect(layers.some((layer: AssetLayer) => layer.id === 'fx-glow')).toBe(false);
+  });
+});
+
+describe('layersForState', () => {
+  it('hides response layers in the rest state', () => {
+    const layers = layersForState(validManifest, 'ipad-landscape', 'rest');
+    expect(layers.map((layer) => layer.id)).toEqual(['bg-space', 'char-aby']);
+  });
+
+  it('includes response layers once the interaction is activated', () => {
+    const layers = layersForState(validManifest, 'ipad-landscape', 'response');
+    expect(layers.map((layer) => layer.id)).toEqual(['bg-space', 'char-aby', 'fx-glow']);
+  });
+
+  it('returns an empty list for an unknown layout', () => {
+    expect(layersForState(validManifest, 'desktop', 'response')).toEqual([]);
   });
 });
 

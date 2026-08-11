@@ -77,9 +77,9 @@ describe('predecodeScene', () => {
     await predecodeScene(validManifest, 'ipad-landscape', '/base', factory);
     expect(images).toHaveLength(3);
     expect(images.map((image) => image.src)).toEqual([
-      '/base/assets/layers/bg-space.webp',
-      '/base/assets/layers/char-aby.webp',
-      '/base/assets/layers/fx-glow.webp',
+      '/base/assets/layers/ipad-landscape/bg-space.webp',
+      '/base/assets/layers/ipad-landscape/char-aby.webp',
+      '/base/assets/layers/ipad-landscape/fx-glow.webp',
     ]);
   });
 
@@ -94,6 +94,6 @@ describe('predecodeScene', () => {
     const layouts = [{ ...(landscape as SceneLayout), layerIds: ['bg-space'] }];
     await predecodeScene({ ...validManifest, layouts }, 'ipad-landscape', '/base', factory);
     expect(images).toHaveLength(1);
-    expect(images[0]?.src).toBe('/base/assets/layers/bg-space.webp');
+    expect(images[0]?.src).toBe('/base/assets/layers/ipad-landscape/bg-space.webp');
   });
 });

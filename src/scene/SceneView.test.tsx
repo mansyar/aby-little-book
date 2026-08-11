@@ -51,9 +51,9 @@ describe('SceneView', () => {
     const { container } = renderScene();
     const images = imagesOf(container);
     expect(images).toHaveLength(3);
-    expect(images[0]).toHaveAttribute('src', '/base/assets/layers/bg-space.webp');
-    expect(images[1]).toHaveAttribute('src', '/base/assets/layers/char-aby.webp');
-    expect(images[2]).toHaveAttribute('src', '/base/assets/layers/fx-glow.webp');
+    expect(images[0]).toHaveAttribute('src', '/base/assets/layers/ipad-landscape/bg-space.webp');
+    expect(images[1]).toHaveAttribute('src', '/base/assets/layers/ipad-landscape/char-aby.webp');
+    expect(images[2]).toHaveAttribute('src', '/base/assets/layers/ipad-landscape/fx-glow.webp');
   });
 
   it('marks every layer image as decorative and non-draggable', () => {

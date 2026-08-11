@@ -1,5 +1,5 @@
-import type { KeyboardEventHandler, PointerEventHandler } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import type { PointerEventHandler } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { evaluateGesture, type NavigationDirection, navigationKeyFor } from './navigation';
 
 export interface UseReaderGesturesOptions {
@@ -12,7 +12,6 @@ export interface ReaderGestureHandlers {
   onPointerDown: PointerEventHandler<HTMLElement>;
   onPointerUp: PointerEventHandler<HTMLElement>;
   onPointerCancel: PointerEventHandler<HTMLElement>;
-  onKeyDown: KeyboardEventHandler<HTMLElement>;
 }
 
 function isInteractiveTarget(target: EventTarget | null): boolean {
@@ -30,12 +29,17 @@ function viewportOf(element: HTMLElement): { width: number; height: number } {
 /**
  * Owns reader navigation gestures on the scene stage.
  *
- * Pointer Events with pointer capture track one gesture at a time; the gesture
- * is evaluated with the pure `evaluateGesture` contract (swipe thresholds, edge
- * taps, target ownership). A committed navigation locks further gestures until
- * the transition lock elapses, which is also when the reader cancels active
- * speech and hints. Keyboard page-turns use `navigationKeyFor` and never fire
- * while an interactive target has focus.
+ * Pointer Events track one gesture at a time; the gesture is evaluated with
+ * the pure `evaluateGesture` contract (swipe thresholds, edge taps, target
+ * ownership). A committed navigation locks further gestures until the
+ * transition lock elapses, which is also when the reader cancels active
+ * speech and hints.
+ *
+ * Keyboard page-turns listen at the window level so reading works no matter
+ * where focus happens to be (the stage, a word control, or the page body
+ * before the reader gains focus). `navigationKeyFor` never fires while an
+ * interactive target has focus, and the lock suppresses repeats during a
+ * page-turn.
  */
 export function useReaderGestures({ onNavigate, lockDurationMs }: UseReaderGesturesOptions): {
   handlers: ReaderGestureHandlers;
@@ -44,17 +48,16 @@ export function useReaderGestures({ onNavigate, lockDurationMs }: UseReaderGestu
   const [locked, setLocked] = useState(false);
   const startRef = useRef<{ x: number; y: number; targetIsInteractive: boolean } | null>(null);
   const lockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const onNavigateRef = useRef(onNavigate);
+  onNavigateRef.current = onNavigate;
 
-  useEffect(() => {
-    return () => {
-      if (lockTimerRef.current !== null) {
-        clearTimeout(lockTimerRef.current);
-      }
-    };
-  }, []);
+  // The lock is read from the event listener (attached once) via a ref so the
+  // listener never needs to be re-attached on every navigation.
+  const lockedRef = useRef(locked);
+  lockedRef.current = locked;
 
   function commit(direction: NavigationDirection) {
-    onNavigate(direction);
+    onNavigateRef.current(direction);
     setLocked(true);
     if (lockTimerRef.current !== null) {
       clearTimeout(lockTimerRef.current);
@@ -65,6 +68,33 @@ export function useReaderGestures({ onNavigate, lockDurationMs }: UseReaderGestu
     }, lockDurationMs);
   }
 
+  // The layout effect attaches once; it reaches the current commit through a
+  // ref so the listener never observes a stale handler or lock.
+  const commitRef = useRef(commit);
+  commitRef.current = commit;
+
+  // Layout effect: the page-turn listener must exist before first paint so an
+  // arrow key pressed the instant a reading session appears is never lost.
+  useLayoutEffect(() => {
+    function onWindowKeyDown(event: KeyboardEvent) {
+      if (lockedRef.current) {
+        return;
+      }
+      const direction = navigationKeyFor(event.key, isInteractiveTarget(event.target));
+      if (direction !== null) {
+        event.preventDefault();
+        commitRef.current(direction);
+      }
+    }
+    window.addEventListener('keydown', onWindowKeyDown);
+    return () => {
+      window.removeEventListener('keydown', onWindowKeyDown);
+      if (lockTimerRef.current !== null) {
+        clearTimeout(lockTimerRef.current);
+      }
+    };
+  }, []);
+
   const onPointerDown: PointerEventHandler<HTMLElement> = (event) => {
     if (locked) {
       return;
@@ -74,12 +104,9 @@ export function useReaderGestures({ onNavigate, lockDurationMs }: UseReaderGestu
       y: event.clientY,
       targetIsInteractive: isInteractiveTarget(event.target),
     };
-    try {
-      event.currentTarget.setPointerCapture(event.pointerId);
-    } catch {
-      // Pointer capture is a progressive enhancement; some test environments
-      // do not implement it for synthetic pointer ids.
-    }
+    // No pointer capture: capturing on the stage would retarget pointerup and
+    // the resulting click away from interactive children (the lamp, word
+    // controls), silently swallowing their activation.
   };
 
   const onPointerUp: PointerEventHandler<HTMLElement> = (event) => {
@@ -106,16 +133,5 @@ export function useReaderGestures({ onNavigate, lockDurationMs }: UseReaderGestu
     startRef.current = null;
   };
 
-  const onKeyDown: KeyboardEventHandler<HTMLElement> = (event) => {
-    if (locked) {
-      return;
-    }
-    const direction = navigationKeyFor(event.key, isInteractiveTarget(event.target));
-    if (direction !== null) {
-      event.preventDefault();
-      commit(direction);
-    }
-  };
-
-  return { handlers: { onPointerDown, onPointerUp, onPointerCancel, onKeyDown }, locked };
+  return { handlers: { onPointerDown, onPointerUp, onPointerCancel }, locked };
 }

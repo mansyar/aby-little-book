@@ -86,18 +86,19 @@ describe('useReaderGestures', () => {
     expect(onNavigate).toHaveBeenCalledTimes(2);
   });
 
-  it('navigates with the keyboard when the stage has focus and no target is focused', () => {
+  it('navigates with the keyboard from anywhere, no target focused', () => {
     vi.useFakeTimers();
     const onNavigate = vi.fn();
-    const { getByTestId } = render(<Harness onNavigate={onNavigate} />);
-    const stage = getByTestId('stage');
-    fireEvent.keyDown(stage, { key: 'ArrowRight' });
+    render(<Harness onNavigate={onNavigate} />);
+    // The page-turn listener is window-scoped: reading works before the stage
+    // gains focus, and after focus moves off it.
+    fireEvent.keyDown(window, { key: 'ArrowRight' });
     expect(onNavigate).toHaveBeenCalledExactlyOnceWith('forward');
     // Let the transition lock elapse before the next keypress.
     act(() => {
       vi.advanceTimersByTime(200);
     });
-    fireEvent.keyDown(stage, { key: 'ArrowLeft' });
+    fireEvent.keyDown(window, { key: 'ArrowLeft' });
     expect(onNavigate).toHaveBeenCalledTimes(2);
     expect(onNavigate).toHaveBeenLastCalledWith('backward');
   });

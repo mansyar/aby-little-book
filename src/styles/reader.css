@@ -1,0 +1,144 @@
+/* Reader composition styles (Spread 08 vertical slice).
+ * Restrained motion: the lamp hint pulses gently; the response layers fade
+ * in. The global reduced-motion block in global.css already zeroes animation
+ * durations, so the pulse degrades to a static ring and the fade becomes an
+ * instant swap — the hint--static class provides an explicit non-animated
+ * emphasis for the component flag as well. */
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.scene__stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.scene__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: inherit;
+  display: block;
+}
+
+.scene__layer--response {
+  animation: scene-fade 700ms var(--ease-calm) both;
+}
+
+@keyframes scene-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.scene__panel {
+  position: absolute;
+  z-index: 1;
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-night-900) 82%, transparent);
+  padding: var(--space-4) var(--space-5);
+  color: var(--color-text);
+}
+
+.scene__panel h2 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.scene__panel p {
+  font-size: var(--text-lg);
+  line-height: 1.5;
+}
+
+/* Isolated word pronunciation controls inside the prose. */
+.prose {
+  display: inline;
+}
+
+.prose__word {
+  display: inline;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.prose__word:hover,
+.prose__word:focus-visible {
+  background: color-mix(in srgb, var(--color-star-400) 22%, transparent);
+}
+
+.prose__word--speaking {
+  color: var(--color-star-400);
+  background: color-mix(in srgb, var(--color-star-400) 22%, transparent);
+}
+
+/* Lamp interaction target positioned over the authored target region. */
+.lamp-interaction {
+  position: absolute;
+  z-index: 2;
+}
+
+.lamp-target {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+}
+
+.lamp-target--hint {
+  animation: lamp-hint 2.4s var(--ease-calm) infinite;
+}
+
+.lamp-target--hint-static {
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--color-star-400);
+  opacity: 0.7;
+}
+
+@keyframes lamp-hint {
+  0%,
+  100% {
+    box-shadow: 0 0 0 2px transparent;
+  }
+  50% {
+    box-shadow: 0 0 0 5px var(--color-star-400);
+  }
+}
+
+.lamp-target__hint {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  border-radius: var(--radius-md);
+  background: var(--color-night-800);
+  color: var(--color-cream-100);
+  font-size: var(--text-sm);
+  padding: var(--space-1) var(--space-2);
+}
