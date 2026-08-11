@@ -18,7 +18,7 @@ describe('boundScenes', () => {
   });
 
   it('binds previous, active, and next scenes mid-story', () => {
-    const session = goForward(goForward(makeSession()));
+    const session = goForward(makeSession());
     expect(boundScenes(session)).toEqual({ previous: 'S01', active: 'S02', next: 'S03' });
   });
 
@@ -29,8 +29,9 @@ describe('boundScenes', () => {
   });
 
   it('binds no next scene at the ending', () => {
-    let session = makeSession();
-    for (let step = 0; step < 12; step += 1) {
+    let session = goForward(goForward(makeSession()));
+    session = chooseRoute(session, 'asteroid-garden');
+    for (let step = 0; step < 7; step += 1) {
       session = goForward(session);
     }
     expect(session.completed).toBe(true);

@@ -4,8 +4,8 @@
 // landscape layout (never a third authored art layout).
 
 import { describe, expect, it } from 'vitest';
-import { validManifest } from '../story/fixtures';
 import type { AssetLayer } from '../story/contracts';
+import { validManifest } from '../story/fixtures';
 import { activeLayoutLayers, resolveAssetSrc, selectLayout } from './layout';
 
 describe('selectLayout', () => {
@@ -42,13 +42,14 @@ describe('activeLayoutLayers', () => {
   });
 
   it('returns an empty list when the layout references no layers', () => {
-    const layers = activeLayoutLayers({ ...validManifest, layouts: [{ id: 'phone-portrait', layerIds: [] }] }, 'phone-portrait');
+    const layouts = [{ id: 'phone-portrait' as const, layerIds: [] }];
+    const layers = activeLayoutLayers({ ...validManifest, layouts }, 'phone-portrait');
     expect(layers).toEqual([]);
   });
 
   it('omits layers the layout does not reference', () => {
-    const layout = { id: 'ipad-landscape', layerIds: ['bg-space', 'char-aby'] };
-    const manifest = { ...validManifest, layouts: [layout] };
+    const layouts = [{ id: 'ipad-landscape' as const, layerIds: ['bg-space', 'char-aby'] }];
+    const manifest = { ...validManifest, layouts };
     const layers = activeLayoutLayers(manifest, 'ipad-landscape');
     expect(layers.map((layer) => layer.id)).toEqual(['bg-space', 'char-aby']);
     expect(layers.some((layer: AssetLayer) => layer.id === 'fx-glow')).toBe(false);
@@ -57,13 +58,15 @@ describe('activeLayoutLayers', () => {
 
 describe('resolveAssetSrc', () => {
   it('prefixes relative asset sources with the base path', () => {
-    expect(resolveAssetSrc('assets/layers/bg-space.webp', '/stories/the-starlight-rescue-0.1.0')).toBe(
-      '/stories/the-starlight-rescue-0.1.0/assets/layers/bg-space.webp',
-    );
+    expect(
+      resolveAssetSrc('assets/layers/bg-space.webp', '/stories/the-starlight-rescue-0.1.0'),
+    ).toBe('/stories/the-starlight-rescue-0.1.0/assets/layers/bg-space.webp');
   });
 
   it('leaves absolute sources untouched', () => {
-    expect(resolveAssetSrc('/assets/layers/bg-space.webp', '/base')).toBe('/assets/layers/bg-space.webp');
+    expect(resolveAssetSrc('/assets/layers/bg-space.webp', '/base')).toBe(
+      '/assets/layers/bg-space.webp',
+    );
   });
 
   it('defaults the base path to the site root', () => {

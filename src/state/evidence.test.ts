@@ -5,21 +5,33 @@
 
 import 'fake-indexeddb/auto';
 import { afterEach, it } from 'vitest';
-import { initialAppState, reduceAppState } from '../app/appState';
 import type { AppState } from '../app/appState';
+import { initialAppState, reduceAppState } from '../app/appState';
 import { openDatabase } from '../persistence/db';
-import { loadProgress, loadSettings, resetStoryState, saveProgress, saveSettings } from '../persistence/repos';
-import { chooseRoute, createSession, goForward, snapshot } from '../reader/engine';
+import {
+  loadProgress,
+  loadSettings,
+  resetStoryState,
+  saveProgress,
+  saveSettings,
+} from '../persistence/repos';
+import { chooseRoute, createSession, fromSnapshot, goForward, snapshot } from '../reader/engine';
 import { story } from '../story/starlight-rescue';
 
 const DB_NAME = 'aby-little-book-evidence';
 
-async function makeReader(): Promise<{ state: AppState; db: Awaited<ReturnType<typeof openDatabase>> }> {
+async function makeReader(): Promise<{
+  state: AppState;
+  db: Awaited<ReturnType<typeof openDatabase>>;
+}> {
   const db = await openDatabase(DB_NAME);
   let state = initialAppState();
   state = reduceAppState(state, { type: 'open-story' });
   state = reduceAppState(state, { type: 'begin-preparation' });
-  state = reduceAppState(state, { type: 'preparation-ready', session: createSession(story, 'aby', 'en') });
+  state = reduceAppState(state, {
+    type: 'preparation-ready',
+    session: createSession(story, 'aby', 'en'),
+  });
   return { state, db };
 }
 
@@ -45,11 +57,18 @@ it('manual harness: save/reload/Continue, language, routes, replay, reset', asyn
   report('at route choice', `${session.currentSpreadId} route=${String(session.route)}`);
   await saveProgress(db, snapshot(session, Date.now()));
 
-  // 2. "Close and reopen the book" — reload state from the database.
+  // 2. "Close and reopen the book" — reload state from the database and
+  // rebuild the session through the engine's snapshot restoration.
   const restored = await loadProgress(db, 'the-starlight-rescue');
-  report('restored after reload', `spread=${restored?.currentSpreadId} history=${restored?.history.join(',')}`);
+  report(
+    'restored after reload',
+    `spread=${restored?.currentSpreadId} history=${restored?.history.join(',')}`,
+  );
   let continued = initialAppState();
-  continued = reduceAppState(continued, { type: 'continue-story', session: restored! });
+  continued = reduceAppState(continued, {
+    type: 'continue-story',
+    session: fromSnapshot(restored!),
+  });
   report('continue-story view', continued.view);
 
   // 3. Live language change mid-session keeps progress.
@@ -67,14 +86,23 @@ it('manual harness: save/reload/Continue, language, routes, replay, reset', asyn
       s = goForward(s);
       steps += 1;
     }
-    report(`route ${route}`, `completed=${s.completed} at ${s.currentSpreadId} after ${steps} steps`);
+    report(
+      `route ${route}`,
+      `completed=${s.completed} at ${s.currentSpreadId} after ${steps} steps`,
+    );
   }
 
   // 5. Replay from completion gives a fresh preview session.
   let done = reduceAppState(initialAppState(), { type: 'open-story' });
   done = reduceAppState(done, { type: 'begin-preparation' });
-  done = reduceAppState(done, { type: 'preparation-ready', session: createSession(story, 'aby', 'en') });
-  done = reduceAppState(done, { type: 'update-reader', session: { ...done.session!, completed: true } });
+  done = reduceAppState(done, {
+    type: 'preparation-ready',
+    session: createSession(story, 'aby', 'en'),
+  });
+  done = reduceAppState(done, {
+    type: 'update-reader',
+    session: { ...done.session!, completed: true },
+  });
   done = reduceAppState(done, { type: 'replay' });
   report('replay', `view=${done.view} session=${String(done.session)}`);
 
@@ -83,7 +111,10 @@ it('manual harness: save/reload/Continue, language, routes, replay, reset', asyn
   let caregiver = reduceAppState(initialAppState(), { type: 'open-caregiver' });
   caregiver = reduceAppState(caregiver, { type: 'reset' });
   await resetStoryState(db);
-  report('reset', `view=${caregiver.view} progress=${await loadProgress(db, 'the-starlight-rescue')}`);
+  report(
+    'reset',
+    `view=${caregiver.view} progress=${await loadProgress(db, 'the-starlight-rescue')}`,
+  );
   report('settings kept', JSON.stringify(await loadSettings(db)));
 
   db.close();
