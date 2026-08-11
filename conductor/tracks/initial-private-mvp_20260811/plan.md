@@ -176,12 +176,12 @@
   - [ ] Write failing tests for adult gate, dialog focus, settings, preparation, and reset confirmation
   - [ ] Implement language, sound, text, reduced-motion, preparation, and protected reset controls
   - [ ] State destructive consequences plainly and restore focus correctly
-- [~] Task: Implement completion and keepsake
+- [x] Task: Implement completion and keepsake ``2ef04d9``
   - [ ] Write failing tests for close-book completion, Lumi persistence, replay, and alternate-route discovery
   - [ ] Implement the calm ending transition and Lumi shelf presence
   - [ ] Preserve route history while resetting current-reading state for replay
   - [ ] Avoid points, streaks, confetti, or reward-like escalation
-- [ ] Task: Complete end-to-end application journeys
+- [~] Task: Complete end-to-end application journeys
   - [ ] Add Playwright first-launch through preparation and opening
   - [ ] Add both routes, all astronauts, completion, Continue, replay, and reset
   - [ ] Add locale switching, speech cancellation, interaction ownership, keyboard, and reduced-motion journeys
