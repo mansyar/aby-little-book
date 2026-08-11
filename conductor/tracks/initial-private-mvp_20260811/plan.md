@@ -39,12 +39,12 @@
 
 ## Phase 2: Content, Package, and Localization Contracts
 
-- [ ] Task: Define failing contract tests and invalid fixtures
+- [x] Task: Define failing contract tests and invalid fixtures `6594116`
   - [ ] Add failing tests for valid and invalid story documents
   - [ ] Add failing tests for localized token resolution and personalized text
   - [ ] Add failing tests for route graph validity and convergence
   - [ ] Add failing tests for asset/package manifests, hashes, versions, and safe-region metadata
-- [ ] Task: Implement Zod contracts and inferred types
+- [x] Task: Implement Zod contracts and inferred types `8aef2a0`
   - [ ] Define story, spread, prose token, interaction, astronaut, route, and ending schemas
   - [ ] Define localized UI and story-resource schemas for exactly `en` and `id`
   - [ ] Define asset-layer, layout, package-manifest, and package-readiness schemas
