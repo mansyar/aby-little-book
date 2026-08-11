@@ -110,12 +110,12 @@
   - [x] Implement authored iPad-landscape and phone-portrait camera layouts
   - [x] Implement text-safe story panel placement and localized fit behavior
   - [x] Add desktop pointer/keyboard adaptation without creating a third authored art layout
-- [~] Task: Implement navigation and interaction ownership
-  - [ ] Write failing tests for swipe thresholds, edge taps, keyboard navigation, and target ownership
-  - [ ] Implement Pointer Events, pointer capture, and navigation commit locking
-  - [ ] Ensure word, lamp, choice, and protected controls never leak into page navigation
-  - [ ] Cancel active speech and hints when navigation commits
-- [ ] Task: Implement isolated word pronunciation
+- [x] Task: Implement navigation and interaction ownership `c0bbea0`
+  - [x] Write failing tests for swipe thresholds, edge taps, keyboard navigation, and target ownership
+  - [x] Implement Pointer Events, pointer capture, and navigation commit locking
+  - [x] Ensure word, lamp, choice, and protected controls never leak into page navigation
+  - [x] Cancel active speech and hints when navigation commits
+- [~] Task: Implement isolated word pronunciation
   - [ ] Write failing tests for token controls, provider selection, cancellation, non-overlap, and unavailable speech
   - [ ] Implement a browser SpeechSynthesis provider behind a focused interface
   - [ ] Add accessible pressed/busy feedback without blocking reading
