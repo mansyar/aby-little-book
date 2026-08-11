@@ -18,7 +18,8 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "biome:check": "biome check .",
-    "biome:format": "biome format --write ."
+    "biome:format": "biome format --write .",
+    "validate": "pnpm typecheck && pnpm biome:check && pnpm test:coverage && pnpm build && pnpm test:e2e"
   },
   "dependencies": {
     "idb": "8.0.3",
