@@ -147,12 +147,12 @@
   - [x] Verify required responses and hashes before committing readiness
   - [x] Store atomic package state in IndexedDB and assets in Cache Storage
   - [x] Provide progress, retry, and non-blaming recovery UI
-- [ ] Task: Implement the project-owned service worker
-  - [ ] Configure `vite-plugin-pwa` in `injectManifest` mode with `src/sw.ts`
-  - [ ] Precache only the app shell and serve prepared immutable story assets
-  - [ ] Implement appropriate revalidation for shell, manifest, service worker, and version files
-  - [ ] Avoid cache rules for third-party or remotely hosted runtime resources
-- [ ] Task: Implement safe update behavior
+- [x] Task: Implement the project-owned service worker `51a550e`
+  - [x] Configure `vite-plugin-pwa` in `injectManifest` mode with `src/sw.ts`
+  - [x] Precache only the app shell and serve prepared immutable story assets
+  - [x] Implement appropriate revalidation for shell, manifest, service worker, and version files
+  - [x] Avoid cache rules for third-party or remotely hosted runtime resources
+- [~] Task: Implement safe update behavior
   - [ ] Write failing tests for update detection during idle and active reading states
   - [ ] Defer activation that would interrupt an open reader
   - [ ] Preserve stable progress and provide a calm update action at a safe boundary
