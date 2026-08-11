@@ -27,7 +27,7 @@
   - [ ] Add GitHub Actions pull-request checks using pinned Node/pnpm
   - [ ] Run TypeScript 7 and Biome as required pull-request gates
   - [ ] Add artifact and cache handling without publishing or deploying
-- [ ] Task: Establish the static container baseline
+- [x] Task: Establish the static container baseline `eb379d4`
   - [ ] Add a pinned multi-stage Node builder and unprivileged Nginx runtime
   - [ ] Configure port 8080, SPA fallback, MIME types, cache policy, security headers, and no-index behavior
   - [ ] Add a container health check against `/healthz`
