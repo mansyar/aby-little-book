@@ -12,7 +12,13 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "biome:check": "biome check .",
+    "biome:format": "biome format --write ."
   },
   "dependencies": {
     "idb": "8.0.3",
