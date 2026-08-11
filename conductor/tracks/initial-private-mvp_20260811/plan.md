@@ -100,11 +100,11 @@
 
 ## Phase 4: Spread 08 Representative Vertical Slice
 
-- [ ] Task: Build the layered scene renderer contract
-  - [ ] Write failing tests for active-layout selection, semantic layer output, and scene descriptions
-  - [ ] Implement DOM-composited registered WebP layers with validated ordering
-  - [ ] Load only the active layout and bound previous/active/next decoded scenes
-  - [ ] Decode destination assets before navigation commit where supported
+- [x] Task: Build the layered scene renderer contract
+  - [x] Write failing tests for active-layout selection, semantic layer output, and scene descriptions `e373312`
+  - [x] Implement DOM-composited registered WebP layers with validated ordering `d2254ba`
+  - [x] Load only the active layout and bound previous/active/next decoded scenes `d2254ba`
+  - [x] Decode destination assets before navigation commit where supported `1a2c2dd`
 - [ ] Task: Implement responsive reader composition
   - [ ] Write failing tests for layout classification and semantic prose controls
   - [ ] Implement authored iPad-landscape and phone-portrait camera layouts
