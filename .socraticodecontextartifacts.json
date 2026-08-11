@@ -1,0 +1,9 @@
+{
+  "artifacts": [
+    {
+      "name": "project-documentation",
+      "path": "./docs",
+      "description": "Product, roadmap, story, UX, technical design, art direction, and Blender spike documentation."
+    }
+  ]
+}

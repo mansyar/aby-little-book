@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Share the Light — Layer Proof</title>
+  <style>
+    :root { color-scheme: dark; font-family: Georgia, "Times New Roman", serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #071126; color: #241a38; }
+    .proof { position: relative; width: min(100vw, 133.333vh); aspect-ratio: 4 / 3; overflow: hidden; background: #0b1f47; }
+    .layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .response { opacity: 0; mix-blend-mode: screen; filter: brightness(2.4) saturate(1.35); transition: opacity 650ms ease; }
+    .proof.is-lit .response { opacity: .9; }
+    .text-panel { position: absolute; left: 4.7%; top: 17%; width: 37%; padding: clamp(16px, 2.3vw, 36px); border: 1px solid rgb(255 241 213 / 75%); border-radius: 28px 18px 30px 20px; background: rgb(255 246 224 / 92%); box-shadow: 0 18px 45px rgb(5 9 31 / 25%), inset 0 0 0 5px rgb(255 255 255 / 25%); font-size: clamp(20px, 2.25vw, 38px); line-height: 1.42; text-wrap: balance; }
+    .lamp-target { position: absolute; left: 73%; top: 44%; width: 11%; aspect-ratio: 1; border: 0; border-radius: 50%; background: transparent; cursor: pointer; transition: background 650ms ease, box-shadow 650ms ease, transform 650ms ease; }
+    .proof.is-lit .lamp-target { background: radial-gradient(circle, rgb(255 244 184 / 46%) 0 18%, rgb(255 190 79 / 22%) 36%, transparent 68%); box-shadow: 0 0 28px 12px rgb(255 194 77 / 24%), 0 0 58px 28px rgb(255 150 53 / 13%); transform: scale(1.12); }
+    .lamp-target:focus-visible { outline: 5px solid #ffe39a; outline-offset: 4px; }
+    .hint { position: absolute; left: 78.5%; top: 52%; width: 3%; aspect-ratio: 1; border-radius: 50%; border: 2px solid rgb(255 227 154 / 75%); opacity: 0; animation: hint 1.8s ease-out 7s 1; pointer-events: none; }
+    .proof.is-lit .hint { display: none; }
+    .toolbar { position: fixed; z-index: 5; top: 12px; right: 12px; display: flex; gap: 8px; font: 600 14px/1.2 system-ui, sans-serif; }
+    .toolbar button { min-height: 44px; padding: 8px 14px; border: 1px solid rgb(255 255 255 / 35%); border-radius: 999px; color: white; background: rgb(6 14 38 / 82%); }
+    .status { position: absolute; left: 4.7%; bottom: 4%; color: rgb(255 255 255 / 72%); font: 600 13px/1.2 system-ui, sans-serif; letter-spacing: .04em; }
+    @keyframes hint { 0% { opacity: 0; transform: scale(.6); } 30% { opacity: 1; } 100% { opacity: 0; transform: scale(2.2); } }
+    @media (prefers-reduced-motion: reduce) { .response, .lamp-target { transition: none; } .hint { animation: none; } }
+    @media (max-aspect-ratio: 4 / 5) {
+      .proof { width: min(100vw, 56.25vh); aspect-ratio: 9 / 16; }
+      .text-panel { left: 6.7%; top: auto; bottom: 4.2%; width: 86.6%; padding: 20px; border-radius: 24px 18px 25px 19px; font-size: clamp(19px, 5.1vw, 30px); }
+      .lamp-target { left: 48%; top: 42%; width: 18%; }
+      .hint { left: 55.5%; top: 48%; width: 6%; }
+      .status { left: 6.7%; bottom: 1.4%; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="proof" id="proof" aria-label="Layered responsive proof for Spread 8">
+    <img class="layer" data-asset="bg-space" alt="">
+    <img class="layer" data-asset="env-moon" alt="">
+    <img class="layer" data-asset="shadow-integration" alt="">
+    <img class="layer response" data-asset="fx-shared-glow" alt="">
+    <img class="layer" data-asset="char-aby" alt="">
+    <img class="layer response" data-asset="fx-lamp-beam" alt="">
+    <img class="layer" data-asset="char-lumi" alt="">
+    <img class="layer" data-asset="prop-lamp" alt="">
+    <img class="layer" data-asset="fg-moon" alt="">
+    <p class="text-panel" id="storyText">Aby held out the warm star lamp. “Stay near my light, Lumi. We can go together.”</p>
+    <button class="lamp-target" id="lampTarget" aria-label="Light the star lamp"></button>
+    <span class="hint" aria-hidden="true"></span>
+    <span class="status" id="status">WEBP LAYERS · REST STATE</span>
+  </main>
+  <nav class="toolbar" aria-label="Proof controls">
+    <button id="language" type="button">Bahasa Indonesia</button>
+    <button id="reset" type="button">Reset light</button>
+  </nav>
+  <script>
+    const proof = document.querySelector('#proof');
+    const storyText = document.querySelector('#storyText');
+    const status = document.querySelector('#status');
+    const language = document.querySelector('#language');
+    const layerRoot = '../renders/webp-test/';
+    let locale = 'en';
+
+    function layout() { return matchMedia('(max-aspect-ratio: 4 / 5)').matches ? 'phone' : 'ipad'; }
+    function loadLayers() {
+      const mode = layout();
+      document.querySelectorAll('[data-asset]').forEach((image) => {
+        image.src = `${layerRoot}starlight-sp08-${mode}-${image.dataset.asset}.webp`;
+      });
+      status.textContent = `WEBP LAYERS · ${mode.toUpperCase()} · ${proof.classList.contains('is-lit') ? 'RESPONSE' : 'REST'} STATE`;
+    }
+    function lightLamp() { proof.classList.add('is-lit'); loadLayers(); }
+    function resetLamp() { proof.classList.remove('is-lit'); loadLayers(); }
+
+    document.querySelector('#lampTarget').addEventListener('click', lightLamp);
+    document.querySelector('#reset').addEventListener('click', resetLamp);
+    language.addEventListener('click', () => {
+      locale = locale === 'en' ? 'id' : 'en';
+      storyText.textContent = locale === 'en'
+        ? 'Aby held out the warm star lamp. “Stay near my light, Lumi. We can go together.”'
+        : 'Aby mengangkat lampu bintang yang hangat. “Tetaplah dekat cahayaku, Lumi. Kita bisa pergi bersama.”';
+      language.textContent = locale === 'en' ? 'Bahasa Indonesia' : 'English';
+      document.documentElement.lang = locale;
+    });
+    addEventListener('resize', loadLayers);
+    loadLayers();
+  </script>
+</body>
+</html>

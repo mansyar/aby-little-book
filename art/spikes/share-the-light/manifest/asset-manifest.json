@@ -1,0 +1,1122 @@
+{
+  "schemaVersion": 1,
+  "spike": "share-the-light",
+  "sceneId": "SP08_SHARE_LIGHT",
+  "selectedLook": "soft-clay",
+  "renderEngine": "BLENDER_EEVEE",
+  "blenderVersion": "5.2.0 LTS",
+  "generatedAt": "2026-08-11",
+  "assets": [
+    {
+      "assetId": "bg-space",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-bg-space.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 0,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 2507274,
+      "renderSeconds": 1.521,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "BG_SPACE"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-bg-space.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 11004,
+        "savingsPercent": 99.6
+      }
+    },
+    {
+      "assetId": "env-moon",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-env-moon.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 10,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 1679840,
+      "renderSeconds": 1.087,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "ENV_MOON"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-env-moon.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 23850,
+        "savingsPercent": 98.6
+      }
+    },
+    {
+      "assetId": "shadow-integration",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-shadow-integration.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 20,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 738256,
+      "renderSeconds": 0.669,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "HOLDOUTS_SHADOWS"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-shadow-integration.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 26758,
+        "savingsPercent": 96.4
+      }
+    },
+    {
+      "assetId": "char-aby",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-char-aby.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 30,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 1105672,
+      "renderSeconds": 0.8,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "CHAR_ABY"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-char-aby.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 28738,
+        "savingsPercent": 97.4
+      }
+    },
+    {
+      "assetId": "char-lumi",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-char-lumi.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 40,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 906768,
+      "renderSeconds": 0.804,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "CHAR_LUMI"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-char-lumi.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 19564,
+        "savingsPercent": 97.8
+      }
+    },
+    {
+      "assetId": "prop-lamp",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-prop-lamp.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 50,
+      "alpha": "straight-transparent",
+      "interactive": true,
+      "state": "rest",
+      "fileSizeBytes": 729440,
+      "renderSeconds": 0.719,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "PROP_LAMP"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "targetBounds": [
+        1961,
+        684,
+        200,
+        200
+      ],
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-prop-lamp.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 12040,
+        "savingsPercent": 98.3
+      }
+    },
+    {
+      "assetId": "fg-moon",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-fg-moon.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 60,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 840346,
+      "renderSeconds": 0.752,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "FG_MOON"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-fg-moon.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 13088,
+        "savingsPercent": 98.4
+      }
+    },
+    {
+      "assetId": "fx-lamp-beam",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-fx-lamp-beam.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 45,
+      "alpha": "straight-transparent",
+      "interactive": true,
+      "state": "response",
+      "fileSizeBytes": 742414,
+      "renderSeconds": 1.425,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "FX_LAMP_BEAM"
+      ],
+      "responseEffectRevision": "uv-radial-cards-v4",
+      "eeveeRenderSamples": 256,
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-fx-lamp-beam.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 22344,
+        "savingsPercent": 97.0
+      }
+    },
+    {
+      "assetId": "fx-shared-glow",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-fx-shared-glow.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 25,
+      "alpha": "straight-transparent",
+      "interactive": true,
+      "state": "response",
+      "fileSizeBytes": 1257563,
+      "renderSeconds": 1.717,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "FX_SHARED_GLOW"
+      ],
+      "responseEffectRevision": "uv-radial-cards-v4",
+      "eeveeRenderSamples": 256,
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-fx-shared-glow.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 128676,
+        "savingsPercent": 89.8
+      }
+    },
+    {
+      "assetId": "reference-rest",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-reference-rest.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 999,
+      "alpha": "opaque",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 2805047,
+      "renderSeconds": 1.869,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "BG_SPACE",
+        "ENV_MOON",
+        "HOLDOUTS_SHADOWS",
+        "CHAR_ABY",
+        "CHAR_LUMI",
+        "PROP_LAMP",
+        "FG_MOON"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-reference-rest.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 41484,
+        "savingsPercent": 98.5
+      }
+    },
+    {
+      "assetId": "reference-response",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "ipad",
+      "filename": "starlight-sp08-ipad-reference-response.png",
+      "format": "png",
+      "pixelWidth": 2048,
+      "pixelHeight": 1536,
+      "canvasBounds": [
+        0,
+        0,
+        2048,
+        1536
+      ],
+      "layerOrder": 999,
+      "alpha": "opaque",
+      "interactive": false,
+      "state": "response",
+      "fileSizeBytes": 2864164,
+      "renderSeconds": 7.598,
+      "camera": "CAM_IPAD_SPREAD",
+      "visibleCollections": [
+        "BG_SPACE",
+        "ENV_MOON",
+        "HOLDOUTS_SHADOWS",
+        "FX_SHARED_GLOW",
+        "CHAR_ABY",
+        "FX_LAMP_BEAM",
+        "CHAR_LUMI",
+        "PROP_LAMP",
+        "FG_MOON"
+      ],
+      "responseEffectRevision": "uv-radial-cards-v4",
+      "eeveeRenderSamples": 256,
+      "safeRegions": {
+        "textSafeBounds": [
+          96,
+          210,
+          760,
+          760
+        ],
+        "characterSafeBounds": [
+          900,
+          180,
+          1050,
+          1120
+        ],
+        "centerFoldX": 1024
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-ipad-reference-response.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 41398,
+        "savingsPercent": 98.6
+      }
+    },
+    {
+      "assetId": "bg-space",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-bg-space.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 0,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 1681277,
+      "renderSeconds": 1.224,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "BG_SPACE"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-bg-space.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 7226,
+        "savingsPercent": 99.6
+      }
+    },
+    {
+      "assetId": "env-moon",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-env-moon.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 10,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 1057157,
+      "renderSeconds": 0.883,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "ENV_MOON"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-env-moon.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 13942,
+        "savingsPercent": 98.7
+      }
+    },
+    {
+      "assetId": "shadow-integration",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-shadow-integration.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 20,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 539449,
+      "renderSeconds": 0.617,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "HOLDOUTS_SHADOWS"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-shadow-integration.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 36986,
+        "savingsPercent": 93.1
+      }
+    },
+    {
+      "assetId": "char-aby",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-char-aby.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 30,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 1008771,
+      "renderSeconds": 0.713,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "CHAR_ABY"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-char-aby.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 28096,
+        "savingsPercent": 97.2
+      }
+    },
+    {
+      "assetId": "char-lumi",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-char-lumi.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 40,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 772873,
+      "renderSeconds": 0.691,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "CHAR_LUMI"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-char-lumi.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 21414,
+        "savingsPercent": 97.2
+      }
+    },
+    {
+      "assetId": "prop-lamp",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-prop-lamp.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 50,
+      "alpha": "straight-transparent",
+      "interactive": true,
+      "state": "rest",
+      "fileSizeBytes": 511364,
+      "renderSeconds": 0.622,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "PROP_LAMP"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "targetBounds": [
+        525,
+        905,
+        168,
+        168
+      ],
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-prop-lamp.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 11746,
+        "savingsPercent": 97.7
+      }
+    },
+    {
+      "assetId": "fg-moon",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-fg-moon.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 60,
+      "alpha": "straight-transparent",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 524591,
+      "renderSeconds": 0.569,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "FG_MOON"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-fg-moon.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 7942,
+        "savingsPercent": 98.5
+      }
+    },
+    {
+      "assetId": "fx-lamp-beam",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-fx-lamp-beam.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 45,
+      "alpha": "straight-transparent",
+      "interactive": true,
+      "state": "response",
+      "fileSizeBytes": 555978,
+      "renderSeconds": 1.414,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "FX_LAMP_BEAM"
+      ],
+      "responseEffectRevision": "uv-radial-cards-v4",
+      "eeveeRenderSamples": 256,
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-fx-lamp-beam.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 31672,
+        "savingsPercent": 94.3
+      }
+    },
+    {
+      "assetId": "fx-shared-glow",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-fx-shared-glow.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 25,
+      "alpha": "straight-transparent",
+      "interactive": true,
+      "state": "response",
+      "fileSizeBytes": 1305252,
+      "renderSeconds": 1.604,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "FX_SHARED_GLOW"
+      ],
+      "responseEffectRevision": "uv-radial-cards-v4",
+      "eeveeRenderSamples": 256,
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-fx-shared-glow.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 209342,
+        "savingsPercent": 84.0
+      }
+    },
+    {
+      "assetId": "reference-rest",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-reference-rest.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 999,
+      "alpha": "opaque",
+      "interactive": false,
+      "state": "rest",
+      "fileSizeBytes": 2006108,
+      "renderSeconds": 1.541,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "BG_SPACE",
+        "ENV_MOON",
+        "HOLDOUTS_SHADOWS",
+        "CHAR_ABY",
+        "CHAR_LUMI",
+        "PROP_LAMP",
+        "FG_MOON"
+      ],
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-reference-rest.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 39172,
+        "savingsPercent": 98.0
+      }
+    },
+    {
+      "assetId": "reference-response",
+      "sceneId": "SP08_SHARE_LIGHT",
+      "layoutClass": "phone",
+      "filename": "starlight-sp08-phone-reference-response.png",
+      "format": "png",
+      "pixelWidth": 1080,
+      "pixelHeight": 1920,
+      "canvasBounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "layerOrder": 999,
+      "alpha": "opaque",
+      "interactive": false,
+      "state": "response",
+      "fileSizeBytes": 2114926,
+      "renderSeconds": 7.03,
+      "camera": "CAM_PHONE_PAGE",
+      "visibleCollections": [
+        "BG_SPACE",
+        "ENV_MOON",
+        "HOLDOUTS_SHADOWS",
+        "FX_SHARED_GLOW",
+        "CHAR_ABY",
+        "FX_LAMP_BEAM",
+        "CHAR_LUMI",
+        "PROP_LAMP",
+        "FG_MOON"
+      ],
+      "responseEffectRevision": "uv-radial-cards-v4",
+      "eeveeRenderSamples": 256,
+      "safeRegions": {
+        "textSafeBounds": [
+          72,
+          1510,
+          936,
+          330
+        ],
+        "characterSafeBounds": [
+          30,
+          350,
+          1020,
+          1080
+        ],
+        "centerFoldX": null
+      },
+      "deliveryVariant": {
+        "filename": "starlight-sp08-phone-reference-response.webp",
+        "format": "webp",
+        "quality": 82,
+        "fileSizeBytes": 41034,
+        "savingsPercent": 98.1
+      }
+    }
+  ],
+  "notes": {
+    "storyTextBakedIntoArt": false,
+    "primaryLayout": "ipad",
+    "interactionTarget": "prop-lamp",
+    "responseLayers": [
+      "fx-lamp-beam",
+      "fx-shared-glow"
+    ],
+    "masterFormat": "PNG",
+    "responseEffectTechnique": "camera-facing UV radial cards",
+    "webTextRequired": true
+  },
+  "status": "technical-export-complete",
+  "renderSettings": {
+    "engine": "BLENDER_EEVEE",
+    "taaRenderSamplesForResponse": 256,
+    "colorMode": "RGBA for layers; RGB for references"
+  },
+  "totals": {
+    "assetCount": 22,
+    "pngBytes": 28254530,
+    "webpBytes": 817516,
+    "webpSavingsPercent": 97.1,
+    "webpComplete": true
+  }
+}

@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output and generated caches
+dist/
+dev-dist/
+.vite/
+.cache/
+coverage/
+*.tsbuildinfo
+.eslintcache
+
+# Test and browser automation artifacts
+playwright-report/
+test-results/
+blob-report/
+.playwright-cli/
+
+# Runtime logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.local
+
+# Editor and IDE state
+.idea/
+.vscode/
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Blender recovery and backup files
+# Keep canonical .blend source files tracked.
+*.blend1
+*.blend2
+*.blend@
+*.blend~
+*.autosave
+quit.blend
+
+# Temporary working directories
+tmp/
+temp/
