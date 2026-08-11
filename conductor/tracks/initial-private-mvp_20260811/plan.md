@@ -168,11 +168,11 @@
 
 ## Phase 6: Bookshelf, Caregiver Controls, Completion, and Replay
 
-- [ ] Task: Implement bookshelf and portal flows
+- [~] Task: Implement bookshelf and portal flows
   - [ ] Write failing component tests for new, preparing, ready, in-progress, and complete states
   - [ ] Implement the celestial shelf, book card, portal preview, Open, Continue, and Read Again actions
   - [ ] Keep status and actions understandable in both locales and without motion
-- [ ] Task: Implement caregiver controls
+- [~] Task: Implement caregiver controls
   - [ ] Write failing tests for adult gate, dialog focus, settings, preparation, and reset confirmation
   - [ ] Implement language, sound, text, reduced-motion, preparation, and protected reset controls
   - [ ] State destructive consequences plainly and restore focus correctly
