@@ -16,7 +16,7 @@
   - [ ] Configure Vitest, Testing Library, coverage, and browser-like test setup
   - [ ] Configure Playwright projects for Chromium and WebKit
   - [ ] Scope the 80% line/branch threshold to logic-bearing code
-- [ ] Task: Create the minimal static application shell
+- [x] Task: Create the minimal static application shell `96d0a14`
   - [ ] Write a failing component test for the accessible application landmark and localized initial state
   - [ ] Implement the Vite entry point, top-level application shell, and error boundary
   - [ ] Add local font loading, global design tokens, layout tokens, and reduced-motion foundations
