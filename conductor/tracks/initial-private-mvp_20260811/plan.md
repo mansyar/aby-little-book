@@ -181,12 +181,12 @@
   - [ ] Implement the calm ending transition and Lumi shelf presence
   - [ ] Preserve route history while resetting current-reading state for replay
   - [ ] Avoid points, streaks, confetti, or reward-like escalation
-- [~] Task: Complete end-to-end application journeys
-  - [ ] Add Playwright first-launch through preparation and opening
-  - [ ] Add both routes, all astronauts, completion, Continue, replay, and reset
-  - [ ] Add locale switching, speech cancellation, interaction ownership, keyboard, and reduced-motion journeys
-  - [ ] Verify phone portrait and desktop adaptations
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Complete end-to-end application journeys `9c53466`
+  - [x] Add Playwright first-launch through preparation and opening
+  - [x] Add both routes, all astronauts, completion, Continue, replay, and reset
+  - [x] Add locale switching, speech cancellation, interaction ownership, keyboard, and reduced-motion journeys
+  - [x] Verify phone portrait and desktop adaptations
+- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
   - [ ] Run component, journey, accessibility, browser, and scoped coverage gates
   - [ ] Manually complete every shell and caregiver flow in both locales
   - [ ] Confirm all destructive and parent-only actions are protected and comprehensible
