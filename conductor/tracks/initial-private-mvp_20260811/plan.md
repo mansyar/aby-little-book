@@ -64,39 +64,39 @@
   - [x] Manually review diagnostics and inspect representative English/Indonesian resolved content
   - [x] Confirm invalid packages cannot enter runtime-ready state
 
-## Phase 3: Application State, Reader Engine, and Persistence
+## Phase 3: Application State, Reader Engine, and Persistence (checkpoint 29a6ed6)
 
-- [ ] Task: Define failing application-state tests
-  - [ ] Cover finite application views and invalid events
-  - [ ] Cover opening, continuing, closing, completing, and replaying
-  - [ ] Cover settings and language changes without progress loss
-  - [ ] Cover stable-save boundaries and restart restoration
-- [ ] Task: Implement the pure application reducer
-  - [ ] Model bookshelf, preparation, preview, reader, completion, and caregiver states
-  - [ ] Reject invalid transitions without corrupting state
-  - [ ] Keep view navigation independent of a routing library
-- [ ] Task: Define failing reader-engine tests
-  - [ ] Cover forward/back navigation, both routes, route selection, and route lock
-  - [ ] Cover route convergence, replay, alternate-route discovery, and completion
-  - [ ] Cover astronaut choice without narrative-progress divergence
-- [ ] Task: Implement the pure reader engine
-  - [ ] Resolve the current spread and valid next/previous destinations
-  - [ ] Preserve selected route when navigating backward
-  - [ ] Emit stable progress snapshots at defined boundaries
-  - [ ] Keep optional interactions independent of story completion
-- [ ] Task: Define failing persistence and migration tests
+- [x] Task: Define failing application-state tests `2101588`
+  - [x] Cover finite application views and invalid events
+  - [x] Cover opening, continuing, closing, completing, and replaying
+  - [x] Cover settings and language changes without progress loss
+  - [x] Cover stable-save boundaries and restart restoration
+- [x] Task: Implement the pure application reducer `7446368`
+  - [x] Model bookshelf, preparation, preview, reader, completion, and caregiver states
+  - [x] Reject invalid transitions without corrupting state
+  - [x] Keep view navigation independent of a routing library
+- [x] Task: Define failing reader-engine tests `5f499b8`
+  - [x] Cover forward/back navigation, both routes, route selection, and route lock
+  - [x] Cover route convergence, replay, alternate-route discovery, and completion
+  - [x] Cover astronaut choice without narrative-progress divergence
+- [x] Task: Implement the pure reader engine `ccaec5b`
+  - [x] Resolve the current spread and valid next/previous destinations
+  - [x] Preserve selected route when navigating backward
+  - [x] Emit stable progress snapshots at defined boundaries
+  - [x] Keep optional interactions independent of story completion
+- [x] Task: Define failing persistence and migration tests `4a237c2`
   - [ ] Cover first launch, current-version reads, malformed records, and migrations
   - [ ] Cover settings, progress, choices, history, completion, keepsake, and readiness
   - [ ] Cover reset semantics and transaction failure behavior
-- [ ] Task: Implement IndexedDB repositories
+- [x] Task: Implement IndexedDB repositories `29a6ed6`
   - [ ] Add the `idb` database schema and versioned migrations
   - [ ] Implement focused settings, progress, completion, and package-state repositories
-  - [ ] Restore only validated stable state and recover calmly from unusable local data
-  - [ ] Keep repository interfaces independent of hypothetical cloud synchronization
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
-  - [ ] Run reducer, route, persistence, migration, and scoped coverage checks
-  - [ ] Manually exercise save/reload/Continue, language changes, both routes, replay, and reset in a development harness
-  - [ ] Confirm no runtime network service or sensitive data storage was introduced
+  - [x] Restore only validated stable state and recover calmly from unusable local data
+  - [x] Keep repository interfaces independent of hypothetical cloud synchronization
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [x] Run reducer, route, persistence, migration, and scoped coverage checks
+  - [x] Manually exercise save/reload/Continue, language changes, both routes, replay, and reset in a development harness
+  - [x] Confirm no runtime network service or sensitive data storage was introduced
 
 ## Phase 4: Spread 08 Representative Vertical Slice
 
