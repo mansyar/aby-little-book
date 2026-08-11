@@ -28,7 +28,7 @@ export async function loadSettings(db: AbyDB): Promise<SettingsRecord | null> {
 
 export async function saveSettings(
   db: AbyDB,
-  settings: { locale: Locale; astronautId: AstronautId },
+  settings: Partial<SettingsRecord> & { locale: Locale; astronautId: AstronautId },
 ): Promise<void> {
   const parsed = settingsRecordSchema.safeParse({ id: SETTINGS_KEY, ...settings });
   if (!parsed.success) {

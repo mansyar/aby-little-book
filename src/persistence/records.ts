@@ -9,6 +9,10 @@ export const settingsRecordSchema = z.object({
   id: z.literal('app'),
   locale: z.enum(LOCALES),
   astronautId: z.enum(ASTRONAUT_IDS),
+  // Caregiver preferences; optional so older records load unchanged.
+  soundEnabled: z.boolean().optional(),
+  textScale: z.enum(['standard', 'large']).optional(),
+  reducedMotion: z.boolean().optional(),
 });
 export type SettingsRecord = z.infer<typeof settingsRecordSchema>;
 
