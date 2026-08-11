@@ -1,7 +1,19 @@
 import { describe, expect, it } from 'vitest';
+import type { RouteId } from '../story/contracts';
 import { story as starlightStory } from '../story/starlight-rescue';
+import {
+  chooseRoute,
+  createSession,
+  fromSnapshot,
+  goBack,
+  goForward,
+  loadStory,
+  nextDestination,
+  previousDestination,
+  resolveSpread,
+  snapshot,
+} from './engine';
 import type { ReaderSession } from './types';
-import { createSession, chooseRoute, goForward, goBack, resolveSpread, snapshot, fromSnapshot, loadStory, nextDestination, previousDestination } from './engine';
 
 function walk(session: ReaderSession, steps: number): ReaderSession {
   let current = session;
@@ -40,25 +52,56 @@ describe('reader engine navigation', () => {
 
     const atStart = createSession(starlightStory, 'aby', 'en');
     expect(chooseRoute(atStart, 'asteroid-garden')).toBe(atStart);
-    expect(chooseRoute(atChoice, 'unknown-route')).toBe(atChoice);
+    expect(chooseRoute(atChoice, 'unknown-route' as RouteId)).toBe(atChoice);
   });
 
   it('follows the asteroid-garden route through convergence', () => {
-    const session = chooseRoute(walk(createSession(starlightStory, 'aby', 'en'), 2), 'asteroid-garden');
-    const route = walk(session, 6);
+    const session = chooseRoute(
+      walk(createSession(starlightStory, 'aby', 'en'), 2),
+      'asteroid-garden',
+    );
+    const route = walk(session, 7);
     expect(route.currentSpreadId).toBe('S10');
-    expect(route.history).toEqual(['S01', 'S02', 'S03', 'A04', 'A05', 'A06', 'S07', 'S08', 'S09', 'S10']);
+    expect(route.history).toEqual([
+      'S01',
+      'S02',
+      'S03',
+      'A04',
+      'A05',
+      'A06',
+      'S07',
+      'S08',
+      'S09',
+      'S10',
+    ]);
   });
 
   it('follows the singing-starfield route through convergence', () => {
-    const session = chooseRoute(walk(createSession(starlightStory, 'aby', 'en'), 2), 'singing-starfield');
-    const route = walk(session, 6);
+    const session = chooseRoute(
+      walk(createSession(starlightStory, 'aby', 'en'), 2),
+      'singing-starfield',
+    );
+    const route = walk(session, 7);
     expect(route.currentSpreadId).toBe('S10');
-    expect(route.history).toEqual(['S01', 'S02', 'S03', 'B04', 'B05', 'B06', 'S07', 'S08', 'S09', 'S10']);
+    expect(route.history).toEqual([
+      'S01',
+      'S02',
+      'S03',
+      'B04',
+      'B05',
+      'B06',
+      'S07',
+      'S08',
+      'S09',
+      'S10',
+    ]);
   });
 
   it('completes only when the final spread is reached', () => {
-    const session = chooseRoute(walk(createSession(starlightStory, 'aby', 'en'), 2), 'asteroid-garden');
+    const session = chooseRoute(
+      walk(createSession(starlightStory, 'aby', 'en'), 2),
+      'asteroid-garden',
+    );
     const finished = walk(session, 7);
     expect(finished.completed).toBe(true);
     expect(finished.currentSpreadId).toBe('S10');
@@ -67,8 +110,11 @@ describe('reader engine navigation', () => {
   });
 
   it('locks the route: backing to the choice spread cannot switch routes', () => {
-    const session = chooseRoute(walk(createSession(starlightStory, 'aby', 'en'), 2), 'asteroid-garden');
-    const atChoiceAgain = walk(session, 3);
+    const session = chooseRoute(
+      walk(createSession(starlightStory, 'aby', 'en'), 2),
+      'asteroid-garden',
+    );
+    const atChoiceAgain = goBack(goForward(session));
     expect(atChoiceAgain.currentSpreadId).toBe('S03');
     expect(chooseRoute(atChoiceAgain, 'singing-starfield')).toBe(atChoiceAgain);
     expect(goForward(atChoiceAgain).currentSpreadId).toBe('A04');
@@ -89,14 +135,17 @@ describe('reader engine navigation', () => {
   });
 
   it('supports replay and alternate-route discovery', () => {
-    const first = chooseRoute(walk(createSession(starlightStory, 'aby', 'en'), 2), 'asteroid-garden');
+    const first = chooseRoute(
+      walk(createSession(starlightStory, 'aby', 'en'), 2),
+      'asteroid-garden',
+    );
     const finished = walk(first, 7);
     expect(finished.completed).toBe(true);
 
     const replay = createSession(starlightStory, 'aby', 'en');
     expect(replay.route).toBeNull();
     const second = chooseRoute(walk(replay, 2), 'singing-starfield');
-    expect(walk(second, 6).currentSpreadId).toBe('S10');
+    expect(walk(second, 7).currentSpreadId).toBe('S10');
   });
 
   it('keeps astronaut choice independent of narrative progress', () => {
@@ -115,7 +164,10 @@ describe('reader engine navigation', () => {
   });
 
   it('emits stable progress snapshots and restores sessions from them', () => {
-    const session = walk(chooseRoute(walk(createSession(starlightStory, 'aby', 'en'), 2), 'asteroid-garden'), 1);
+    const session = walk(
+      chooseRoute(walk(createSession(starlightStory, 'aby', 'en'), 2), 'asteroid-garden'),
+      1,
+    );
     expect(session.currentSpreadId).toBe('A04');
     const saved = snapshot(session, 1234);
     expect(saved).toEqual({
