@@ -63,11 +63,23 @@ export const proseLineSchema = localizedTextSchema;
 export type ProseLine = z.infer<typeof proseLineSchema>;
 
 export const interactionSchema = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('route-choice'), target: z.string().min(1), required: z.literal(true) }),
+  z.object({
+    kind: z.literal('route-choice'),
+    target: z.string().min(1),
+    required: z.literal(true),
+  }),
   z.object({ kind: z.literal('reveal'), target: z.string().min(1), required: z.literal(false) }),
   z.object({ kind: z.literal('find-tap'), target: z.string().min(1), required: z.literal(false) }),
-  z.object({ kind: z.literal('chain-reveal'), target: z.string().min(1), required: z.literal(false) }),
-  z.object({ kind: z.literal('character-response'), target: z.string().min(1), required: z.literal(false) }),
+  z.object({
+    kind: z.literal('chain-reveal'),
+    target: z.string().min(1),
+    required: z.literal(false),
+  }),
+  z.object({
+    kind: z.literal('character-response'),
+    target: z.string().min(1),
+    required: z.literal(false),
+  }),
 ]);
 export type Interaction = z.infer<typeof interactionSchema>;
 

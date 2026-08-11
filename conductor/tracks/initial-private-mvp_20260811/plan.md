@@ -37,7 +37,7 @@
   - [x] Manually verify the shell in Chromium and WebKit at iPad, phone, and desktop dimensions
   - [x] Confirm local fonts, health/version output, reduced-motion baseline, and non-root container behavior
 
-## Phase 2: Content, Package, and Localization Contracts
+## Phase 2: Content, Package, and Localization Contracts (checkpoint 7c804b1)
 
 - [x] Task: Define failing contract tests and invalid fixtures `6594116`
   - [ ] Add failing tests for valid and invalid story documents
@@ -59,10 +59,10 @@
   - [ ] Add both complete route graphs and their shared converged ending
   - [ ] Add initial English and Indonesian story resources with no placeholder identifiers
   - [ ] Add versioned package metadata for *The Starlight Rescue*
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
-  - [ ] Run contract tests, negative fixtures, locale parity, graph, reference, and hash validators
-  - [ ] Manually review diagnostics and inspect representative English/Indonesian resolved content
-  - [ ] Confirm invalid packages cannot enter runtime-ready state
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [x] Run contract tests, negative fixtures, locale parity, graph, reference, and hash validators
+  - [x] Manually review diagnostics and inspect representative English/Indonesian resolved content
+  - [x] Confirm invalid packages cannot enter runtime-ready state
 
 ## Phase 3: Application State, Reader Engine, and Persistence
 

@@ -1,7 +1,8 @@
 // One-off Phase 1 evidence capture: static shell at required layouts in both engines.
 // Run with: node scripts/shell-evidence.mjs (expects a preview server on port 4173).
-import { chromium, webkit } from '@playwright/test';
+
 import { mkdirSync } from 'node:fs';
+import { chromium, webkit } from '@playwright/test';
 
 const baseUrl = process.env.BASE_URL ?? 'http://127.0.0.1:4173';
 const outDir = 'evidence/phase1';
@@ -53,5 +54,7 @@ netPage.on('request', (request) => {
   if (!url.startsWith(baseUrl)) external.push(url);
 });
 await netPage.goto(baseUrl, { waitUntil: 'networkidle' });
-console.log(`external requests: ${external.length === 0 ? 'none (all resources local)' : external.join(', ')}`);
+console.log(
+  `external requests: ${external.length === 0 ? 'none (all resources local)' : external.join(', ')}`,
+);
 await netBrowser.close();
