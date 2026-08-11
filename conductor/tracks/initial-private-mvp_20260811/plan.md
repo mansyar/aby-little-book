@@ -98,7 +98,7 @@
   - [x] Manually exercise save/reload/Continue, language changes, both routes, replay, and reset in a development harness
   - [x] Confirm no runtime network service or sensitive data storage was introduced
 
-## Phase 4: Spread 08 Representative Vertical Slice
+## Phase 4: Spread 08 Representative Vertical Slice (checkpoint 5ae34f0)
 
 - [x] Task: Build the layered scene renderer contract
   - [x] Write failing tests for active-layout selection, semantic layer output, and scene descriptions `e373312`
@@ -130,11 +130,11 @@
   - [x] Verify alpha edges, seams, layer order, target alignment, safe regions, and bilingual panel fit
   - [x] Verify semantics, focus, touch targets, keyboard use, contrast, and reduced motion
   - [~] Measure loading, transition responsiveness, and memory behavior on the target iPad (with Task 7 physical-iPad verification)
-- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
-  - [ ] Run unit, component, browser, visual, build, and scoped coverage gates
-  - [ ] Manually verify Spread 08 in both locales and layouts
-  - [ ] Verify speech online/offline and the complete interaction set on the physical iPad
-  - [ ] Obtain explicit approval before remaining scene production begins
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [x] Run unit, component, browser, visual, build, and scoped coverage gates
+  - [x] Manually verify Spread 08 in both locales and layouts
+  - [~] Verify speech online/offline and the complete interaction set on the physical iPad
+  - [x] Obtain explicit approval before remaining scene production begins
 
 ## Phase 5: PWA Preparation, Offline Reading, and Update Safety
 
