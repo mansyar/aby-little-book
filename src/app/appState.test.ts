@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { story as starlightStory } from '../story/starlight-rescue';
 import type { ReaderSession } from '../reader/types';
-import { initialAppState, reduceAppState, isSaveBoundary, SAVE_BOUNDARY_TYPES } from './appState';
+import { story as starlightStory } from '../story/starlight-rescue';
 import type { AppEvent } from './appState';
+import { initialAppState, isSaveBoundary, reduceAppState, SAVE_BOUNDARY_TYPES } from './appState';
 
 function makeSession(overrides: Partial<ReaderSession> = {}): ReaderSession {
   return {
@@ -44,7 +44,8 @@ describe('application state machine', () => {
     const preparing = reduceAppState(preview, { type: 'begin-preparation' });
     expect(preparing.view).toBe('preparation');
 
-    expect(reduceAppState(initialAppState(), { type: 'begin-preparation' })).toBe(initialAppState());
+    const base = initialAppState();
+    expect(reduceAppState(base, { type: 'begin-preparation' })).toBe(base);
   });
 
   it('enters the reader when preparation is ready', () => {
@@ -58,7 +59,11 @@ describe('application state machine', () => {
   });
 
   it('continues a restored session into the reader', () => {
-    const session = makeSession({ currentSpreadId: 'A05', route: 'asteroid-garden', history: ['S01', 'S02', 'S03', 'A04', 'A05'] });
+    const session = makeSession({
+      currentSpreadId: 'A05',
+      route: 'asteroid-garden',
+      history: ['S01', 'S02', 'S03', 'A04', 'A05'],
+    });
     const state = reduceAppState(initialAppState(), { type: 'continue-story', session });
     expect(state.view).toBe('reader');
     expect(state.session).toBe(session);
@@ -84,8 +89,9 @@ describe('application state machine', () => {
   });
 
   it('rejects reader updates when no session exists', () => {
-    const state = reduceAppState(initialAppState(), { type: 'update-reader', session: makeSession() });
-    expect(state).toBe(initialAppState());
+    const base = initialAppState();
+    const state = reduceAppState(base, { type: 'update-reader', session: makeSession() });
+    expect(state).toBe(base);
   });
 
   it('closes the reader back to the bookshelf without losing preparation', () => {
@@ -121,7 +127,10 @@ describe('application state machine', () => {
   });
 
   it('changes the astronaut outside the reader only', () => {
-    const changed = reduceAppState(initialAppState(), { type: 'set-astronaut', astronautId: 'maya' });
+    const changed = reduceAppState(initialAppState(), {
+      type: 'set-astronaut',
+      astronautId: 'maya',
+    });
     expect(changed.astronautId).toBe('maya');
 
     const preview = reduceAppState(initialAppState(), { type: 'open-story' });
@@ -142,7 +151,8 @@ describe('application state machine', () => {
     expect(replayed.view).toBe('preview');
     expect(replayed.session).toBeNull();
 
-    expect(reduceAppState(initialAppState(), { type: 'replay' })).toBe(initialAppState());
+    const base = initialAppState();
+    expect(reduceAppState(base, { type: 'replay' })).toBe(base);
   });
 
   it('resets from the caregiver, keeping settings but clearing story state', () => {
@@ -161,9 +171,11 @@ describe('application state machine', () => {
     const invalidEvents: AppEvent[] = [
       { type: 'close-reader' },
       { type: 'update-reader', session: makeSession() },
-      { type: 'continue-story', session: makeSession() },
       { type: 'preparation-ready', session: makeSession() },
-      { type: 'open-caregiver' },
+      { type: 'begin-preparation' },
+      { type: 'replay' },
+      { type: 'reset' },
+      { type: 'close-caregiver' },
     ];
     for (const event of invalidEvents) {
       expect(reduceAppState(base, event)).toBe(base);
