@@ -157,11 +157,11 @@
   - [x] Defer activation that would interrupt an open reader
   - [x] Preserve stable progress and provide a calm update action at a safe boundary
   - [x] Verify update and rollback behavior across package/application versions
-- [~] Task: Prove offline and restart journeys
-  - [ ] Add Playwright coverage for preparation, disconnection, completion, reload, and Continue
-  - [ ] Add deterministic failure coverage for missing and evicted assets
-  - [ ] Verify installed-PWA termination/restart and offline pronunciation provider behavior on iPad
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Prove offline and restart journeys `8d4bc9a`
+  - [x] Add Playwright coverage for preparation, disconnection, completion, reload, and Continue
+  - [x] Add deterministic failure coverage for missing and evicted assets
+  - [~] Verify installed-PWA termination/restart and offline pronunciation provider behavior on iPad (with Task 6 physical-iPad verification)
+- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
   - [ ] Run offline, service-worker, update, browser, build, and scoped coverage checks
   - [ ] Manually prepare, disconnect, terminate, reopen, resume, and complete on the physical iPad
   - [ ] Confirm incomplete downloads never produce false-ready state
