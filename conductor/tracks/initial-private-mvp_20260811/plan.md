@@ -125,12 +125,12 @@
   - [x] Write failing component/browser tests for lamp ownership, delayed hint, response, and reduced-motion equivalent
   - [x] Implement the optional lamp response with restrained CSS/WAAPI effects
   - [x] Preserve full comprehension when the interaction is ignored or motion is reduced
-- [ ] Task: Validate visual and accessibility evidence
-  - [ ] Add deterministic Chromium/WebKit rest and response captures
-  - [ ] Verify alpha edges, seams, layer order, target alignment, safe regions, and bilingual panel fit
-  - [ ] Verify semantics, focus, touch targets, keyboard use, contrast, and reduced motion
-  - [ ] Measure loading, transition responsiveness, and memory behavior on the target iPad
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Validate visual and accessibility evidence `5ae34f0`
+  - [x] Add deterministic Chromium/WebKit rest and response captures
+  - [x] Verify alpha edges, seams, layer order, target alignment, safe regions, and bilingual panel fit
+  - [x] Verify semantics, focus, touch targets, keyboard use, contrast, and reduced motion
+  - [~] Measure loading, transition responsiveness, and memory behavior on the target iPad (with Task 7 physical-iPad verification)
+- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
   - [ ] Run unit, component, browser, visual, build, and scoped coverage gates
   - [ ] Manually verify Spread 08 in both locales and layouts
   - [ ] Verify speech online/offline and the complete interaction set on the physical iPad
