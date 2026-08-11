@@ -29,7 +29,7 @@ export const LAYOUT_IDS = ['ipad-landscape', 'phone-portrait', 'desktop'] as con
 export type LayoutId = (typeof LAYOUT_IDS)[number];
 
 const SEMVER_PATTERN = /^\d+\.\d+\.\d+$/;
-const SPREAD_ID_PATTERN = /^(S|A|B)\d{2}$/;
+export const SPREAD_ID_PATTERN = /^(S|A|B)\d{2}$/;
 const SHA256_PATTERN = /^[a-f0-9]{64}$/;
 const WEBP_SRC_PATTERN = /\.webp$/;
 

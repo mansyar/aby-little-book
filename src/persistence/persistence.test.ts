@@ -1,8 +1,9 @@
 import 'fake-indexeddb/auto';
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { openDB } from 'idb';
 import type { DBSchema, IDBPDatabase } from 'idb';
+import { openDB } from 'idb';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { ProgressSnapshot } from '../reader/types';
+import type { AbyDB } from './db';
 import { openDatabase, STORES } from './db';
 import {
   loadKeepsake,
@@ -18,10 +19,25 @@ import {
 
 const DB_NAME = 'aby-little-book-test';
 
+// Every connection is tracked so afterEach can close them all, even when an
+// assertion fails before a test reaches its own close() call. A lingering
+// connection would otherwise block the deleteDatabase cleanup forever.
+const openConnections = new Set<{ close(): void }>();
+
+async function trackedOpen<T extends { close(): void }>(open: () => Promise<T>): Promise<T> {
+  const db = await open();
+  openConnections.add(db);
+  return db;
+}
+
+function openTestDb(): Promise<AbyDB> {
+  return trackedOpen(() => openDatabase(DB_NAME));
+}
+
 async function rawDb(): Promise<IDBPDatabase<TestSchema>> {
   // Opens whatever exists without upgrading, so tests can corrupt records
   // in stores created by openDatabase.
-  return openDB<TestSchema>(DB_NAME);
+  return trackedOpen(() => openDB<TestSchema>(DB_NAME));
 }
 
 type TestSchema = DBSchema & {
@@ -47,14 +63,22 @@ function makeSnapshot(overrides: Partial<ProgressSnapshot> = {}): ProgressSnapsh
 
 afterEach(async () => {
   vi.restoreAllMocks();
-  const db = await rawDb();
-  db.close();
-  await indexedDB.deleteDatabase(DB_NAME);
+  for (const db of openConnections) {
+    db.close();
+  }
+  openConnections.clear();
+  // Resolve on blocked too: cleanup must never hang the suite.
+  await new Promise<void>((resolve) => {
+    const request = indexedDB.deleteDatabase(DB_NAME);
+    request.onsuccess = () => resolve();
+    request.onerror = () => resolve();
+    request.onblocked = () => resolve();
+  });
 });
 
 describe('IndexedDB repositories', () => {
   it('reports no state on first launch', async () => {
-    const db = await openDatabase(DB_NAME);
+    const db = await openTestDb();
     expect(await loadSettings(db)).toBeNull();
     expect(await loadProgress(db, 'the-starlight-rescue')).toBeNull();
     expect(await loadKeepsake(db)).toBeNull();
@@ -63,14 +87,14 @@ describe('IndexedDB repositories', () => {
   });
 
   it('round-trips settings', async () => {
-    const db = await openDatabase(DB_NAME);
+    const db = await openTestDb();
     await saveSettings(db, { locale: 'id', astronautId: 'maya' });
-    expect(await loadSettings(db)).toEqual({ locale: 'id', astronautId: 'maya' });
+    expect(await loadSettings(db)).toEqual({ id: 'app', locale: 'id', astronautId: 'maya' });
     db.close();
   });
 
   it('round-trips progress snapshots with choices and history', async () => {
-    const db = await openDatabase(DB_NAME);
+    const db = await openTestDb();
     const snapshot = makeSnapshot({
       currentSpreadId: 'B05',
       route: 'singing-starfield',
@@ -84,7 +108,7 @@ describe('IndexedDB repositories', () => {
   });
 
   it('round-trips the Lumi keepsake and package readiness', async () => {
-    const db = await openDatabase(DB_NAME);
+    const db = await openTestDb();
     await saveKeepsake(db, true);
     expect(await loadKeepsake(db)).toBe(true);
 
@@ -100,12 +124,16 @@ describe('IndexedDB repositories', () => {
   });
 
   it('rejects malformed records and recovers with defaults', async () => {
-    const db = await openDatabase(DB_NAME);
+    const db = await openTestDb();
     const raw = await rawDb();
     await raw.put('settings', { id: 'app', locale: 'klingon', astronautId: 'aby' });
-    await raw.put('progress', { storyId: 'the-starlight-rescue', currentSpreadId: 42, history: 'nope' });
+    await raw.put('progress', {
+      storyId: 'the-starlight-rescue',
+      currentSpreadId: 42,
+      history: 'nope',
+    });
     await raw.put('completion', { id: 'keepsake', lumiKeepsake: 'yes' });
-    await raw.put('packageState', { id: 'the-starlight-rescue-0.1.0', ready: 'soon' });
+    await raw.put('packageState', { packageId: 'the-starlight-rescue-0.1.0', ready: 'soon' });
     raw.close();
 
     expect(await loadSettings(db)).toBeNull();
@@ -116,21 +144,23 @@ describe('IndexedDB repositories', () => {
   });
 
   it('rejects invalid writes before they reach the database', async () => {
-    const db = await openDatabase(DB_NAME);
+    const db = await openTestDb();
     await saveProgress(db, makeSnapshot());
-    await expect(saveProgress(db, { ...makeSnapshot(), history: [1, 2] } as unknown as ProgressSnapshot)).rejects.toThrow();
+    await expect(
+      saveProgress(db, { ...makeSnapshot(), history: [1, 2] } as unknown as ProgressSnapshot),
+    ).rejects.toThrow();
     expect(await loadProgress(db, 'the-starlight-rescue')).toEqual(makeSnapshot());
     db.close();
   });
 
   it('keeps previously saved state when a transaction aborts', async () => {
-    const db = await openDatabase(DB_NAME);
+    const db = await openTestDb();
     await saveProgress(db, makeSnapshot({ currentSpreadId: 'S03' }));
 
     const raw = await rawDb();
     const tx = raw.transaction('progress', 'readwrite');
     await tx.store.put(makeSnapshot({ currentSpreadId: 'S04' }));
-    await tx.store.put({ unclonable: () => undefined });
+    tx.abort();
     await expect(tx.done).rejects.toThrow();
     raw.close();
 
@@ -139,7 +169,7 @@ describe('IndexedDB repositories', () => {
   });
 
   it('resets story state while preserving settings', async () => {
-    const db = await openDatabase(DB_NAME);
+    const db = await openTestDb();
     await saveSettings(db, { locale: 'id', astronautId: 'niko' });
     await saveProgress(db, makeSnapshot());
     await saveKeepsake(db, true);
@@ -155,12 +185,12 @@ describe('IndexedDB repositories', () => {
     expect(await loadProgress(db, 'the-starlight-rescue')).toBeNull();
     expect(await loadKeepsake(db)).toBeNull();
     expect(await loadPackageState(db, 'the-starlight-rescue-0.1.0')).toBeNull();
-    expect(await loadSettings(db)).toEqual({ locale: 'id', astronautId: 'niko' });
+    expect(await loadSettings(db)).toEqual({ id: 'app', locale: 'id', astronautId: 'niko' });
     db.close();
   });
 
   it('creates all stores through the versioned migration', async () => {
-    const db = await openDatabase(DB_NAME);
+    const db = await openTestDb();
     expect(db.objectStoreNames).toContain('settings');
     expect(db.objectStoreNames).toContain('progress');
     expect(db.objectStoreNames).toContain('completion');
@@ -168,7 +198,7 @@ describe('IndexedDB repositories', () => {
     expect(db.version).toBe(1);
     db.close();
 
-    const reopened = await openDatabase(DB_NAME);
+    const reopened = await openTestDb();
     expect(reopened.version).toBe(1);
     expect(STORES).toEqual(['settings', 'progress', 'completion', 'packageState']);
     reopened.close();
@@ -176,7 +206,7 @@ describe('IndexedDB repositories', () => {
 
   it('performs persistence without any network service', async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch');
-    const db = await openDatabase(DB_NAME);
+    const db = await openTestDb();
     await saveSettings(db, { locale: 'en', astronautId: 'aby' });
     await saveProgress(db, makeSnapshot());
     await saveKeepsake(db, false);
