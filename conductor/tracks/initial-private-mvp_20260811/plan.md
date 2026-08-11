@@ -49,7 +49,7 @@
   - [ ] Define localized UI and story-resource schemas for exactly `en` and `id`
   - [ ] Define asset-layer, layout, package-manifest, and package-readiness schemas
   - [ ] Keep domain types inferred from authoritative schemas
-- [ ] Task: Implement build-time validators
+- [x] Task: Implement build-time validators `ec08782`
   - [ ] Validate English/Indonesian UI key parity
   - [ ] Validate story schema, references, route traversal, lock rules, and convergence
   - [ ] Validate asset references, dimensions, layer ordering, hashes, and package budgets
