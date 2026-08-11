@@ -1,5 +1,5 @@
 import { ErrorBoundary } from './app/ErrorBoundary';
-import { DEFAULT_LOCALE } from './app/locale';
+import { DEFAULT_LOCALE, isLocale, type Locale } from './app/locale';
 import { shellStrings } from './app/strings';
 import { Spread08Preview } from './reader/Spread08Preview';
 
@@ -10,14 +10,19 @@ function isPreviewRequest(): boolean {
   return new URLSearchParams(window.location.search).get('preview') === '1';
 }
 
+function previewLocale(): Locale {
+  const requested = new URLSearchParams(window.location.search).get('locale');
+  return requested !== null && isLocale(requested) ? requested : DEFAULT_LOCALE;
+}
+
 export function App() {
   const strings = shellStrings(DEFAULT_LOCALE);
   if (isPreviewRequest()) {
     // Phase 4 development harness: the Spread 08 vertical slice. The real
     // reader composition replaces this branch in Phase 6.
     return (
-      <ErrorBoundary locale={DEFAULT_LOCALE}>
-        <Spread08Preview locale={DEFAULT_LOCALE} />
+      <ErrorBoundary locale={previewLocale()}>
+        <Spread08Preview locale={previewLocale()} />
       </ErrorBoundary>
     );
   }
