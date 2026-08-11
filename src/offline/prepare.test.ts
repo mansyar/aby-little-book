@@ -71,7 +71,7 @@ function makeManifest(assets: Array<{ src: string; sha256?: string }>): PackageM
     storyVersion: '1.0.0',
     layouts: [],
     assets: assets.map((asset, index) => ({
-      id: 'layer-' + index,
+      id: `layer-${index}`,
       role: 'background',
       order: index,
       src: asset.src,

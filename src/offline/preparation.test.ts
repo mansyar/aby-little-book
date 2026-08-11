@@ -19,7 +19,7 @@ const ASSETS = validManifest.assets.map((asset) => asset.src);
 function assetAt(index: number): string {
   const src = ASSETS[index];
   if (src === undefined) {
-    throw new Error('Fixture has no asset at index ' + index);
+    throw new Error(`Fixture has no asset at index ${index}`);
   }
   return src;
 }
