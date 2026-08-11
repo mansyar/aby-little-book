@@ -1,0 +1,285 @@
+/* Shell screens: bookshelf, preview, preparation, completion, and caregiver.
+   Calm celestial styling for the app chrome; the reader scene composition
+   lives in reader.css. All motion is restrained and the global reduced-motion
+   block in global.css zeroes the transitions below when requested. */
+
+/* Shared celestial shell for full-screen views */
+.bookshelf,
+.preview,
+.completion,
+.prepare {
+  min-height: 100vh;
+  @supports (min-height: 100dvh) {
+    min-height: 100dvh;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  text-align: center;
+  background: radial-gradient(
+    ellipse at top,
+    var(--color-night-700) 0%,
+    var(--color-night-900) 70%
+  );
+}
+
+.bookshelf__app-title,
+.preview__title,
+.completion__title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.bookshelf__shelf {
+  display: flex;
+  justify-content: center;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: 24rem;
+  padding: var(--space-8) var(--space-6);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-night-800) 88%, transparent);
+  box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.35);
+}
+
+.book-card__title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.book-card__status,
+.book-card__keepsake,
+.prepare__status,
+.completion__message {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+}
+
+.book-card__keepsake {
+  color: var(--color-star-400);
+}
+
+.book-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Primary and quiet actions across all shell screens */
+.book-card__action,
+.preview__begin,
+.completion__replay,
+.prepare__retry {
+  min-height: 3rem;
+  padding: 0 var(--space-6);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-star-400);
+  color: var(--color-night-900);
+  font-size: var(--text-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-calm);
+}
+
+.book-card__action:hover,
+.preview__begin:hover,
+.completion__replay:hover,
+.prepare__retry:hover {
+  background: var(--color-star-500);
+}
+
+.bookshelf__caregiver,
+.caregiver-controls__close {
+  min-height: 3rem;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-muted-200);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--text-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-calm),
+    color var(--duration-fast) var(--ease-calm);
+}
+
+.bookshelf__caregiver:hover,
+.caregiver-controls__close:hover {
+  border-color: var(--color-star-400);
+  color: var(--color-star-400);
+}
+
+/* Preparation progress */
+.prepare__bar {
+  width: min(20rem, 80vw);
+  height: 0.625rem;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--color-night-700);
+}
+
+.prepare__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-star-400);
+  transition: width var(--duration-medium) var(--ease-calm);
+}
+
+.prepare__title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+/* Caregiver dialogs: calm overlays, focus never leaves the book's rhythm */
+.caregiver-gate,
+.caregiver-controls,
+.reset-confirm {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  text-align: center;
+  background: rgb(10 14 28 / 0.72);
+}
+
+.caregiver-gate__title,
+.caregiver-controls__title,
+.reset-confirm__title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.caregiver-gate__prompt,
+.reset-confirm__consequence {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+}
+
+.caregiver-gate__enter,
+.reset-confirm__keep,
+.reset-confirm__erase {
+  min-height: 3rem;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-md);
+  font-size: var(--text-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-calm);
+}
+
+.caregiver-gate__enter {
+  border: 0;
+  background: var(--color-star-400);
+  color: var(--color-night-900);
+}
+
+.caregiver-gate__enter:hover {
+  background: var(--color-star-500);
+}
+
+.reset-confirm__keep {
+  border: 1px solid var(--color-muted-200);
+  background: transparent;
+  color: var(--color-text);
+}
+
+.reset-confirm__keep:hover {
+  border-color: var(--color-star-400);
+}
+
+.reset-confirm__erase {
+  border: 0;
+  background: var(--color-star-400);
+  color: var(--color-night-900);
+}
+
+.reset-confirm__erase:hover {
+  background: var(--color-star-500);
+}
+
+.caregiver-controls {
+  gap: var(--space-6);
+}
+
+.caregiver-controls__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.caregiver-controls__group legend {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.caregiver-controls__group button {
+  min-height: 3rem;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-muted-200);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--text-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-calm),
+    border-color var(--duration-fast) var(--ease-calm);
+}
+
+.caregiver-controls__group button[aria-pressed='true'] {
+  border-color: var(--color-star-400);
+  background: color-mix(in srgb, var(--color-star-400) 22%, transparent);
+  color: var(--color-star-400);
+}
+
+.caregiver-controls__preparation,
+.caregiver-controls__reset {
+  display: flex;
+  justify-content: center;
+}
+
+.caregiver-controls__preparation button,
+.caregiver-controls__reset-button {
+  min-height: 3rem;
+  padding: 0 var(--space-6);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-star-400);
+  color: var(--color-night-900);
+  font-size: var(--text-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-calm);
+}
+
+.caregiver-controls__preparation button:hover,
+.caregiver-controls__reset-button:hover {
+  background: var(--color-star-500);
+}
+
+.caregiver-controls__preparation button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
