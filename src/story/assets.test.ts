@@ -4,11 +4,14 @@ import {
   layoutSchema,
   packageManifestSchema,
   packageReadinessSchema,
+  type SceneLayout,
 } from './contracts';
 import { validAssetLayers, validLayouts, validManifest, validReadiness } from './fixtures';
 import {
   assertLayerOrderUnique,
+  assertLayoutCameraInBounds,
   assertLayoutLayersExist,
+  assertLayoutPanelInBounds,
   assertReadinessConsistent,
   assertSafeRegion,
   validateManifest,
@@ -41,14 +44,33 @@ describe('asset layer contract', () => {
 });
 
 describe('layout contract', () => {
+  const landscape = validLayouts.find((entry) => entry.id === 'ipad-landscape') as SceneLayout;
+
   it('accepts an authored layout over known layers', () => {
-    expect(layoutSchema.safeParse(validLayouts[0]).success).toBe(true);
+    expect(layoutSchema.safeParse(landscape).success).toBe(true);
   });
 
   it('rejects an unsupported layout id', () => {
     expect(layoutSchema.safeParse({ id: 'smartwatch', layerIds: ['bg-space'] }).success).toBe(
       false,
     );
+  });
+
+  it('rejects a layout without an authored camera', () => {
+    const broken = { ...landscape };
+    delete (broken as Partial<typeof broken>).camera;
+    expect(layoutSchema.safeParse(broken).success).toBe(false);
+  });
+
+  it('rejects a layout without a text-safe panel placement', () => {
+    const broken = { ...landscape };
+    delete (broken as Partial<typeof broken>).panel;
+    expect(layoutSchema.safeParse(broken).success).toBe(false);
+  });
+
+  it('rejects an unknown panel position', () => {
+    const broken = { ...landscape, panel: { position: 'float', region: landscape.panel.region } };
+    expect(layoutSchema.safeParse(broken).success).toBe(false);
   });
 });
 
@@ -106,6 +128,31 @@ describe('semantic asset guards', () => {
   it('rejects a safe region outside normalized bounds', () => {
     expect(assertSafeRegion({ x: 0.9, y: 0.2, width: 0.4, height: 0.3 })).not.toEqual([]);
     expect(assertSafeRegion({ x: 0.1, y: 0.2, width: 0.4, height: 0.3 })).toEqual([]);
+  });
+
+  it('rejects an authored camera outside normalized bounds', () => {
+    const layout = {
+      ...validLayouts[0],
+      camera: { x: 0.9, y: 0.2, width: 0.4, height: 0.3 },
+    } as SceneLayout;
+    expect(assertLayoutCameraInBounds(layout)).not.toEqual([]);
+  });
+
+  it('rejects a text-safe panel region outside normalized bounds', () => {
+    const layout = {
+      ...validLayouts[0],
+      panel: { position: 'side' as const, region: { x: 0.1, y: 0.9, width: 0.9, height: 0.2 } },
+    } as SceneLayout;
+    expect(assertLayoutPanelInBounds(layout)).not.toEqual([]);
+  });
+
+  it('flags out-of-bounds cameras and panels through manifest validation', () => {
+    const layout = {
+      ...validLayouts[0],
+      camera: { x: 0.5, y: 0.5, width: 1.5, height: 1 },
+    } as SceneLayout;
+    const diagnostics = validateManifest({ ...validManifest, layouts: [layout] });
+    expect(diagnostics.some((entry) => entry.code === 'layout-camera-out-of-bounds')).toBe(true);
   });
 });
 

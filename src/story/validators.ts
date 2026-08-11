@@ -2,7 +2,14 @@
 // diagnostics for authors and tooling. They run at build time only; their
 // output must never appear in child-facing UI.
 
-import type { AssetLayer, PackageManifest, PackageReadiness, SafeRegion, Story } from './contracts';
+import type {
+  AssetLayer,
+  PackageManifest,
+  PackageReadiness,
+  SafeRegion,
+  SceneLayout,
+  Story,
+} from './contracts';
 
 export interface Diagnostic {
   severity: 'error' | 'warning';
@@ -145,6 +152,39 @@ export function assertSafeRegion(region: SafeRegion): Diagnostic[] {
     : [error('safe-region-out-of-bounds', 'Safe region must lie within normalized unit bounds.')];
 }
 
+export function assertLayoutCameraInBounds(layout: SceneLayout): Diagnostic[] {
+  return inBounds(layout.camera)
+    ? []
+    : [
+        error(
+          'layout-camera-out-of-bounds',
+          `Layout ${layout.id} camera must lie within normalized unit bounds.`,
+        ),
+      ];
+}
+
+export function assertLayoutPanelInBounds(layout: SceneLayout): Diagnostic[] {
+  return inBounds(layout.panel.region)
+    ? []
+    : [
+        error(
+          'layout-panel-out-of-bounds',
+          `Layout ${layout.id} text-safe panel region must lie within normalized unit bounds.`,
+        ),
+      ];
+}
+
+function inBounds(region: SafeRegion): boolean {
+  return (
+    region.x >= 0 &&
+    region.y >= 0 &&
+    region.width >= 0 &&
+    region.height >= 0 &&
+    region.x + region.width <= 1 &&
+    region.y + region.height <= 1
+  );
+}
+
 export function assertReadinessConsistent(readiness: PackageReadiness): Diagnostic[] {
   if (
     readiness.ready &&
@@ -161,7 +201,8 @@ export function assertReadinessConsistent(readiness: PackageReadiness): Diagnost
 }
 
 // Whole-manifest validation: non-empty assets, positive byte budget, unique
-// layer ordering, and layouts that only reference declared layers.
+// layer ordering, layouts that only reference declared layers, and authored
+// cameras/panels within normalized bounds.
 export function validateManifest(manifest: PackageManifest): Diagnostic[] {
   const diagnostics: Diagnostic[] = [];
   if (manifest.assets.length === 0) {
@@ -178,6 +219,8 @@ export function validateManifest(manifest: PackageManifest): Diagnostic[] {
   diagnostics.push(...assertLayerOrderUnique(manifest.assets));
   for (const layout of manifest.layouts) {
     diagnostics.push(...assertLayoutLayersExist(layout, manifest.assets));
+    diagnostics.push(...assertLayoutCameraInBounds(layout));
+    diagnostics.push(...assertLayoutPanelInBounds(layout));
   }
   return diagnostics;
 }

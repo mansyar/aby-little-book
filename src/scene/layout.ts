@@ -2,7 +2,7 @@
 // authored layouts; the viewport selects one; the desktop adaptation reuses
 // the landscape layout rather than introducing a third authored art layout.
 
-import type { AssetLayer, PackageManifest, SceneLayout } from '../story/contracts';
+import type { AssetLayer, PackageManifest, SafeRegion, SceneLayout } from '../story/contracts';
 
 export type Viewport = { width: number; height: number };
 
@@ -29,4 +29,8 @@ export function resolveAssetSrc(src: string, basePath: string = '/'): string {
   }
   const base = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
   return `${base}/${src}`;
+}
+
+export function cameraRect(manifest: PackageManifest, layoutId: string): SafeRegion | null {
+  return manifest.layouts.find((layout) => layout.id === layoutId)?.camera ?? null;
 }

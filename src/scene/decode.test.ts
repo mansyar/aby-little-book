@@ -3,9 +3,9 @@
 // navigation can wait for destination assets where the platform allows.
 
 import { describe, expect, it, vi } from 'vitest';
+import type { SceneLayout } from '../story/contracts';
 import { validManifest } from '../story/fixtures';
-import type { ImageLike } from './decode';
-import { decodeImage, predecodeScene, supportsDecode } from './decode';
+import { decodeImage, type ImageLike, predecodeScene, supportsDecode } from './decode';
 
 function fakeImage(
   fields: Partial<ImageLike> = {},
@@ -90,7 +90,8 @@ describe('predecodeScene', () => {
       images.push(image);
       return image;
     };
-    const layouts = [{ id: 'ipad-landscape' as const, layerIds: ['bg-space'] }];
+    const landscape = validManifest.layouts.find((entry) => entry.id === 'ipad-landscape');
+    const layouts = [{ ...(landscape as SceneLayout), layerIds: ['bg-space'] }];
     await predecodeScene({ ...validManifest, layouts }, 'ipad-landscape', '/base', factory);
     expect(images).toHaveLength(1);
     expect(images[0]?.src).toBe('/base/assets/layers/bg-space.webp');

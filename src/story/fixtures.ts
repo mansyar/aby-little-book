@@ -112,8 +112,18 @@ export const validAssetLayers: AssetLayer[] = [
 ];
 
 export const validLayouts: SceneLayout[] = [
-  { id: 'ipad-landscape', layerIds: ['bg-space', 'char-aby', 'fx-glow'] },
-  { id: 'phone-portrait', layerIds: ['bg-space', 'char-aby', 'fx-glow'] },
+  {
+    id: 'ipad-landscape',
+    layerIds: ['bg-space', 'char-aby', 'fx-glow'],
+    camera: { x: 0, y: 0, width: 1, height: 0.75 },
+    panel: { position: 'side', region: { x: 0.55, y: 0.08, width: 0.4, height: 0.84 } },
+  },
+  {
+    id: 'phone-portrait',
+    layerIds: ['bg-space', 'char-aby', 'fx-glow'],
+    camera: { x: 0.15, y: 0, width: 0.7, height: 1 },
+    panel: { position: 'bottom', region: { x: 0.05, y: 0.72, width: 0.9, height: 0.26 } },
+  },
 ];
 
 export const validManifest: PackageManifest = {

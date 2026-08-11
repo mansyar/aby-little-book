@@ -4,9 +4,9 @@
 // landscape layout (never a third authored art layout).
 
 import { describe, expect, it } from 'vitest';
-import type { AssetLayer } from '../story/contracts';
+import type { AssetLayer, SceneLayout } from '../story/contracts';
 import { validManifest } from '../story/fixtures';
-import { activeLayoutLayers, resolveAssetSrc, selectLayout } from './layout';
+import { activeLayoutLayers, cameraRect, resolveAssetSrc, selectLayout } from './layout';
 
 describe('selectLayout', () => {
   it('picks phone-portrait for narrow portrait viewports', () => {
@@ -42,17 +42,30 @@ describe('activeLayoutLayers', () => {
   });
 
   it('returns an empty list when the layout references no layers', () => {
-    const layouts = [{ id: 'phone-portrait' as const, layerIds: [] }];
+    const portrait = validManifest.layouts.find((entry) => entry.id === 'phone-portrait');
+    const layouts = [{ ...(portrait as SceneLayout), layerIds: [] }];
     const layers = activeLayoutLayers({ ...validManifest, layouts }, 'phone-portrait');
     expect(layers).toEqual([]);
   });
 
   it('omits layers the layout does not reference', () => {
-    const layouts = [{ id: 'ipad-landscape' as const, layerIds: ['bg-space', 'char-aby'] }];
+    const landscape = validManifest.layouts.find((entry) => entry.id === 'ipad-landscape');
+    const layouts = [{ ...(landscape as SceneLayout), layerIds: ['bg-space', 'char-aby'] }];
     const manifest = { ...validManifest, layouts };
     const layers = activeLayoutLayers(manifest, 'ipad-landscape');
     expect(layers.map((layer) => layer.id)).toEqual(['bg-space', 'char-aby']);
     expect(layers.some((layer: AssetLayer) => layer.id === 'fx-glow')).toBe(false);
+  });
+});
+
+describe('cameraRect', () => {
+  it('returns the authored camera of the given layout', () => {
+    const layout = validManifest.layouts.find((entry) => entry.id === 'ipad-landscape');
+    expect(cameraRect(validManifest, 'ipad-landscape')).toEqual(layout?.camera);
+  });
+
+  it('returns null for an unknown layout id', () => {
+    expect(cameraRect(validManifest, 'desktop')).toBeNull();
   });
 });
 

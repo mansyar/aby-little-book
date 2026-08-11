@@ -134,6 +134,16 @@ export type AssetLayer = z.infer<typeof assetLayerSchema>;
 export const layoutSchema = z.object({
   id: z.enum(LAYOUT_IDS),
   layerIds: z.array(z.string().min(1)).min(1),
+  // Authored camera: the normalized crop of the master art shown for this
+  // layout. Phone-portrait crops the center column; ipad-landscape shows the
+  // full master. Desktop reuses the ipad-landscape layout (no third art).
+  camera: safeRegionSchema,
+  // Authored text-safe placement of the story panel for this layout. The
+  // region is authored to fit BOTH locales' prose (Indonesian often longer).
+  panel: z.object({
+    position: z.enum(['side', 'bottom']),
+    region: safeRegionSchema,
+  }),
 });
 export type SceneLayout = z.infer<typeof layoutSchema>;
 
