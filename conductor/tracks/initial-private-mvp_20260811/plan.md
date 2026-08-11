@@ -172,11 +172,11 @@
   - [ ] Write failing component tests for new, preparing, ready, in-progress, and complete states
   - [ ] Implement the celestial shelf, book card, portal preview, Open, Continue, and Read Again actions
   - [ ] Keep status and actions understandable in both locales and without motion
-- [~] Task: Implement caregiver controls
+- [x] Task: Implement caregiver controls df28386`r
   - [ ] Write failing tests for adult gate, dialog focus, settings, preparation, and reset confirmation
   - [ ] Implement language, sound, text, reduced-motion, preparation, and protected reset controls
   - [ ] State destructive consequences plainly and restore focus correctly
-- [ ] Task: Implement completion and keepsake
+- [~] Task: Implement completion and keepsake
   - [ ] Write failing tests for close-book completion, Lumi persistence, replay, and alternate-route discovery
   - [ ] Implement the calm ending transition and Lumi shelf presence
   - [ ] Preserve route history while resetting current-reading state for replay
