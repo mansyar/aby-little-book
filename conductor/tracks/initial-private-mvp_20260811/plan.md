@@ -166,7 +166,7 @@
   - [~] Manually prepare, disconnect, terminate, reopen, resume, and complete on the physical iPad
   - [x] Confirm incomplete downloads never produce false-ready state
 
-## Phase 6: Bookshelf, Caregiver Controls, Completion, and Replay
+## Phase 6: Bookshelf, Caregiver Controls, Completion, and Replay (checkpoint c6ba98d)
 
 - [~] Task: Implement bookshelf and portal flows
   - [ ] Write failing component tests for new, preparing, ready, in-progress, and complete states
@@ -186,10 +186,10 @@
   - [x] Add both routes, all astronauts, completion, Continue, replay, and reset
   - [x] Add locale switching, speech cancellation, interaction ownership, keyboard, and reduced-motion journeys
   - [x] Verify phone portrait and desktop adaptations
-- [~] Task: Phase Verification & Checkpoint (Refer to workflow.md)
-  - [ ] Run component, journey, accessibility, browser, and scoped coverage gates
-  - [ ] Manually complete every shell and caregiver flow in both locales
-  - [ ] Confirm all destructive and parent-only actions are protected and comprehensible
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [x] Run component, journey, accessibility, browser, and scoped coverage gates
+  - [x] Manually complete every shell and caregiver flow in both locales
+  - [x] Confirm all destructive and parent-only actions are protected and comprehensible
 
 ## Phase 7: Full Story Art and Content Integration
 
