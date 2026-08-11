@@ -10,10 +10,7 @@ export type RouteChoiceViewProps = {
   onChoose: (route: RouteId) => void;
 };
 
-export function RouteChoiceView({
-  strings,
-  onChoose,
-}: RouteChoiceViewProps): React.JSX.Element {
+export function RouteChoiceView({ strings, onChoose }: RouteChoiceViewProps): React.JSX.Element {
   const routes = Object.keys(strings.routeLabels) as RouteId[];
   return (
     <section className="route-choice" aria-labelledby="route-choice-title">

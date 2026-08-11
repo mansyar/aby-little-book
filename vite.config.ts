@@ -49,6 +49,12 @@ export default defineConfig({
         'src/**/*.d.ts',
         'src/**/*.css',
         'src/main.tsx',
+        // Service worker runs only in real browsers; its routing is exercised
+        // by the Playwright journeys (offline/prepare/update e2e specs).
+        'src/sw.ts',
+        // Type-only modules carry no executable statements.
+        'src/reader/types.ts',
+        'src/speech/speech.ts',
       ],
       reporter: ['text', 'html'],
       thresholds: {

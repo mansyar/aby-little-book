@@ -39,13 +39,20 @@ describe('application state machine', () => {
     expect(invalid).toBe(reader);
   });
 
-  it('begins preparation from the preview only', () => {
-    const preview = reduceAppState(initialAppState(), { type: 'open-story' });
-    const preparing = reduceAppState(preview, { type: 'begin-preparation' });
+  it('begins preparation from the bookshelf and the preview', () => {
+    const base = initialAppState();
+    const preparing = reduceAppState(base, { type: 'begin-preparation' });
     expect(preparing.view).toBe('preparation');
 
-    const base = initialAppState();
-    expect(reduceAppState(base, { type: 'begin-preparation' })).toBe(base);
+    const preview = reduceAppState(initialAppState(), { type: 'open-story' });
+    const preparingFromPreview = reduceAppState(preview, { type: 'begin-preparation' });
+    expect(preparingFromPreview.view).toBe('preparation');
+
+    const reading = reduceAppState(preparing, {
+      type: 'preparation-ready',
+      session: makeSession(),
+    });
+    expect(reduceAppState(reading, { type: 'begin-preparation' })).toBe(reading);
   });
 
   it('enters the reader when preparation is ready', () => {
@@ -172,7 +179,6 @@ describe('application state machine', () => {
       { type: 'close-reader' },
       { type: 'update-reader', session: makeSession() },
       { type: 'preparation-ready', session: makeSession() },
-      { type: 'begin-preparation' },
       { type: 'replay' },
       { type: 'reset' },
       { type: 'close-caregiver' },

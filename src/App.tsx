@@ -1,10 +1,5 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
-import {
-  type AppEvent,
-  type AppState,
-  initialAppState,
-  reduceAppState,
-} from './app/appState';
+import { type AppEvent, type AppState, initialAppState, reduceAppState } from './app/appState';
 import { ErrorBoundary } from './app/ErrorBoundary';
 import { DEFAULT_LOCALE, isLocale, type Locale } from './app/locale';
 import { shellStrings } from './app/strings';
@@ -42,7 +37,7 @@ import { type BookCardState, BookshelfView } from './shelf/BookshelfView';
 import { BOOKSHELF_STRINGS } from './shelf/bookshelfStrings';
 import { PreviewView } from './shelf/PreviewView';
 import type { PackageReadiness } from './story/contracts';
-import { SPREAD08_MANIFEST, SPREAD08_PACKAGE_ID } from './story/spread08';
+import { SPREAD08_BASE_PATH, SPREAD08_MANIFEST, SPREAD08_PACKAGE_ID } from './story/spread08';
 import { story } from './story/starlight-rescue';
 
 function isPreviewRequest(): boolean {
@@ -75,6 +70,10 @@ export function App() {
     reducedMotion: false,
   });
   const [keepsake, setKeepsake] = useState(false);
+  const [progressInfo, setProgressInfo] = useState<{ exists: boolean; completed: boolean }>({
+    exists: false,
+    completed: false,
+  });
   const [packageState, setPackageState] = useState<PackageStateRecord | null>(null);
   const [preparation, setPreparation] = useState<PreparationRun>({
     phase: 'idle',
@@ -92,15 +91,16 @@ export function App() {
   }, []);
 
   // Boot: restore validated local state (settings, package readiness,
-  // keepsake). Progress is loaded lazily when Continue is chosen.
+  // keepsake, progress existence for the Continue/Read Again card actions).
   useEffect(() => {
     let cancelled = false;
     void (async () => {
       const database = await db;
-      const [loadedSettings, loadedPackage, loadedKeepsake] = await Promise.all([
+      const [loadedSettings, loadedPackage, loadedKeepsake, loadedProgress] = await Promise.all([
         loadSettings(database),
         loadPackageState(database, SPREAD08_PACKAGE_ID),
         loadKeepsake(database),
+        loadProgress(database, story.id),
       ]);
       if (cancelled) {
         return;
@@ -119,6 +119,11 @@ export function App() {
       }
       setPackageState(loadedPackage);
       setKeepsake(loadedKeepsake === true);
+      setProgressInfo(
+        loadedProgress === null
+          ? { exists: false, completed: false }
+          : { exists: true, completed: loadedProgress.completed },
+      );
     })();
     return () => {
       cancelled = true;
@@ -128,6 +133,7 @@ export function App() {
   const persistAtBoundary = (event: AppEvent, next: AppState) => {
     if (event.type === 'update-reader' && next.session !== null) {
       const session = next.session;
+      setProgressInfo({ exists: true, completed: session.completed });
       void (async () => {
         const database = await db;
         await saveProgress(database, {
@@ -149,6 +155,7 @@ export function App() {
     }
     if (event.type === 'close-reader' && state.session !== null) {
       const session = state.session;
+      setProgressInfo({ exists: true, completed: session.completed });
       void (async () => {
         const database = await db;
         await saveProgress(database, {
@@ -175,6 +182,12 @@ export function App() {
   };
 
   const bookCardState = (): BookCardState => {
+    if (progressInfo.completed) {
+      return 'complete';
+    }
+    if (progressInfo.exists) {
+      return 'in-progress';
+    }
     if (packageState?.ready === true) {
       return 'ready';
     }
@@ -189,7 +202,7 @@ export function App() {
     setPreparation({ phase: 'downloading', fraction: 0, error: null });
     const database = await db;
     const result = await preparePackage(SPREAD08_MANIFEST, {
-      basePath: '/stories',
+      basePath: SPREAD08_BASE_PATH,
       cacheName: PACKAGE_CACHE_NAME,
       fetchImpl: (input: RequestInfo | URL) => fetch(input),
       cachesImpl: caches,
@@ -257,6 +270,7 @@ export function App() {
     })();
     setKeepsake(false);
     setPackageState(null);
+    setProgressInfo({ exists: false, completed: false });
     setCaregiverStep('gate');
     dispatch({ type: 'reset' });
   };
@@ -288,7 +302,7 @@ export function App() {
           storyTitle={story.title}
           cardState={bookCardState()}
           keepsake={keepsake}
-          onPrepare={() => void dispatchAndPersist({ type: 'open-story' })}
+          onPrepare={() => void beginPreparation()}
           onOpen={() => void dispatchAndPersist({ type: 'open-story' })}
           onContinue={() => void openContinue()}
           onReadAgain={() => void dispatchAndPersist({ type: 'open-story' })}
@@ -338,6 +352,7 @@ export function App() {
           session={state.session}
           locale={state.locale}
           onSessionChange={(next) => dispatchAndPersist({ type: 'update-reader', session: next })}
+          onClose={() => dispatchAndPersist({ type: 'close-reader' })}
         />
       );
       break;

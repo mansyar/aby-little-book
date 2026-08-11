@@ -69,7 +69,9 @@ export function reduceAppState(state: AppState, event: AppEvent): AppState {
       return { ...state, view: 'preview' };
     }
     case 'begin-preparation': {
-      if (state.view !== 'preview') {
+      // Preparation starts from the shelf card or the portal preview; the
+      // card shows its own preparing status while the flow runs.
+      if (state.view !== 'bookshelf' && state.view !== 'preview') {
         return state;
       }
       return { ...state, view: 'preparation' };

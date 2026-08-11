@@ -49,6 +49,7 @@ export type ReaderViewProps = {
   session: ReaderSession;
   locale: Locale;
   onSessionChange: (next: ReaderSession) => void;
+  onClose?: () => void;
   hintDelayMs?: number;
   strings?: ReaderStrings;
 };
@@ -57,6 +58,7 @@ export function ReaderView({
   session,
   locale,
   onSessionChange,
+  onClose,
   hintDelayMs = 6000,
   strings = READER_STRINGS[locale],
 }: ReaderViewProps): React.JSX.Element {
@@ -119,6 +121,15 @@ export function ReaderView({
     lockDurationMs: 250,
   });
 
+  // Close the book (saving progress at the app boundary) with Escape.
+  const handleKeyDown = (event: React.KeyboardEvent): void => {
+    if (event.key === 'Escape' && onClose !== undefined) {
+      event.preventDefault();
+      pronunciation.cancel();
+      onClose();
+    }
+  };
+
   if (layout === null) {
     return <p className="visually-hidden">No layout available for this viewport.</p>;
   }
@@ -137,6 +148,7 @@ export function ReaderView({
       tabIndex={-1}
       className="reader"
       aria-label={strings.readingStatus}
+      onKeyDown={handleKeyDown}
       {...handlers}
     >
       <SceneView
