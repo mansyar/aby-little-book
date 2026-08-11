@@ -2,7 +2,7 @@
 
 ## Phase 1: Toolchain, Quality Gates, and Static Shell
 
-- [ ] Task: Establish the pinned Node.js and pnpm project
+- [x] Task: Establish the pinned Node.js and pnpm project `7bafb7b`
   - [ ] Create the React/Vite project using Node.js 24 LTS and strict TypeScript 7
   - [ ] Pin pnpm through `packageManager` and Corepack
   - [ ] Inspect stable package versions, engine requirements, and peer ranges
