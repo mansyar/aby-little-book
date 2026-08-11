@@ -1,0 +1,43 @@
+{
+  "name": "aby-little-book",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "A calm bilingual English-Indonesian interactive picture-book PWA for children aged 4-6 and accompanying adults.",
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "idb": "8.0.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.7",
+    "@playwright/test": "1.62.1",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.2",
+    "@testing-library/user-event": "14.6.3",
+    "@types/node": "24.13.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@vitejs/plugin-react": "6.0.5",
+    "@vitest/coverage-v8": "4.1.10",
+    "jsdom": "30.0.1",
+    "typescript": "7.0.2",
+    "vite": "8.2.1",
+    "vite-plugin-pwa": "1.3.0",
+    "vitest": "4.1.10",
+    "workbox-build": "7.4.1",
+    "workbox-window": "7.4.1"
+  }
+}
