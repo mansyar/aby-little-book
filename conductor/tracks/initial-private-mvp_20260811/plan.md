@@ -120,11 +120,11 @@
   - [x] Implement a browser SpeechSynthesis provider behind a focused interface
   - [x] Add accessible pressed/busy feedback without blocking reading
   - [x] Add the reviewed-clip provider boundary without activating fallback clips prematurely
-- [~] Task: Integrate the Share the Light interaction
-  - [ ] Add the approved Spread 08 iPad and phone assets and manifest references
-  - [ ] Write failing component/browser tests for lamp ownership, delayed hint, response, and reduced-motion equivalent
-  - [ ] Implement the optional lamp response with restrained CSS/WAAPI effects
-  - [ ] Preserve full comprehension when the interaction is ignored or motion is reduced
+- [x] Task: Integrate the Share the Light interaction `c6faccb`
+  - [x] Add the approved Spread 08 iPad and phone assets and manifest references
+  - [x] Write failing component/browser tests for lamp ownership, delayed hint, response, and reduced-motion equivalent
+  - [x] Implement the optional lamp response with restrained CSS/WAAPI effects
+  - [x] Preserve full comprehension when the interaction is ignored or motion is reduced
 - [ ] Task: Validate visual and accessibility evidence
   - [ ] Add deterministic Chromium/WebKit rest and response captures
   - [ ] Verify alpha edges, seams, layer order, target alignment, safe regions, and bilingual panel fit
