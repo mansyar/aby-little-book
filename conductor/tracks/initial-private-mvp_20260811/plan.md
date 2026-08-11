@@ -54,7 +54,7 @@
   - [ ] Validate story schema, references, route traversal, lock rules, and convergence
   - [ ] Validate asset references, dimensions, layer ordering, hashes, and package budgets
   - [ ] Produce actionable diagnostics without exposing them in child-facing UI
-- [~] Task: Encode the approved story structure
+- [x] Task: Encode the approved story structure `7c804b1`
   - [ ] Add the three astronaut choices and route-neutral astronaut personalization
   - [ ] Add both complete route graphs and their shared converged ending
   - [ ] Add initial English and Indonesian story resources with no placeholder identifiers
