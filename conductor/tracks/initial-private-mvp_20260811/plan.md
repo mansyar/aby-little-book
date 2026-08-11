@@ -152,12 +152,12 @@
   - [x] Precache only the app shell and serve prepared immutable story assets
   - [x] Implement appropriate revalidation for shell, manifest, service worker, and version files
   - [x] Avoid cache rules for third-party or remotely hosted runtime resources
-- [~] Task: Implement safe update behavior
-  - [ ] Write failing tests for update detection during idle and active reading states
-  - [ ] Defer activation that would interrupt an open reader
-  - [ ] Preserve stable progress and provide a calm update action at a safe boundary
-  - [ ] Verify update and rollback behavior across package/application versions
-- [ ] Task: Prove offline and restart journeys
+- [x] Task: Implement safe update behavior `648fddd`
+  - [x] Write failing tests for update detection during idle and active reading states
+  - [x] Defer activation that would interrupt an open reader
+  - [x] Preserve stable progress and provide a calm update action at a safe boundary
+  - [x] Verify update and rollback behavior across package/application versions
+- [~] Task: Prove offline and restart journeys
   - [ ] Add Playwright coverage for preparation, disconnection, completion, reload, and Continue
   - [ ] Add deterministic failure coverage for missing and evicted assets
   - [ ] Verify installed-PWA termination/restart and offline pronunciation provider behavior on iPad
