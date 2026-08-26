@@ -193,7 +193,7 @@
 
 ## Phase 7: Full Story Art and Content Integration
 
-- [ ] Task: Finalize the production scene schedule
+- [x] Task: Finalize the production scene schedule `1ec09d1`
   - [ ] Inventory every required spread, route state, response state, locale fit case, and layout
   - [ ] Reuse approved characters, materials, lighting, cameras, and export conventions
   - [ ] Record text-safe, character-safe, fold, and target bounds before rendering
