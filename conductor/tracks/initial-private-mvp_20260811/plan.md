@@ -168,19 +168,19 @@
 
 ## Phase 6: Bookshelf, Caregiver Controls, Completion, and Replay (checkpoint c6ba98d)
 
-- [~] Task: Implement bookshelf and portal flows
-  - [ ] Write failing component tests for new, preparing, ready, in-progress, and complete states
-  - [ ] Implement the celestial shelf, book card, portal preview, Open, Continue, and Read Again actions
-  - [ ] Keep status and actions understandable in both locales and without motion
-- [x] Task: Implement caregiver controls df28386`r
-  - [ ] Write failing tests for adult gate, dialog focus, settings, preparation, and reset confirmation
-  - [ ] Implement language, sound, text, reduced-motion, preparation, and protected reset controls
-  - [ ] State destructive consequences plainly and restore focus correctly
-- [x] Task: Implement completion and keepsake ``2ef04d9``
-  - [ ] Write failing tests for close-book completion, Lumi persistence, replay, and alternate-route discovery
-  - [ ] Implement the calm ending transition and Lumi shelf presence
-  - [ ] Preserve route history while resetting current-reading state for replay
-  - [ ] Avoid points, streaks, confetti, or reward-like escalation
+- [x] Task: Implement bookshelf and portal flows `f4f963b`
+  - [x] Write failing component tests for new, preparing, ready, in-progress, and complete states
+  - [x] Implement the celestial shelf, book card, portal preview, Open, Continue, and Read Again actions
+  - [x] Keep status and actions understandable in both locales and without motion
+- [x] Task: Implement caregiver controls `df28386`
+  - [x] Write failing tests for adult gate, dialog focus, settings, preparation, and reset confirmation
+  - [x] Implement language, sound, text, reduced-motion, preparation, and protected reset controls
+  - [x] State destructive consequences plainly and restore focus correctly
+- [x] Task: Implement completion and keepsake `2ef04d9`
+  - [x] Write failing tests for close-book completion, Lumi persistence, replay, and alternate-route discovery
+  - [x] Implement the calm ending transition and Lumi shelf presence
+  - [x] Preserve route history while resetting current-reading state for replay
+  - [x] Avoid points, streaks, confetti, or reward-like escalation
 - [x] Task: Complete end-to-end application journeys `9c53466`
   - [x] Add Playwright first-launch through preparation and opening
   - [x] Add both routes, all astronauts, completion, Continue, replay, and reset
