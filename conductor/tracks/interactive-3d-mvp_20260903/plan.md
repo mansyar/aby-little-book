@@ -15,7 +15,7 @@
 
 ## Phase 2: Story, Scene, and Package Contracts
 
-- [ ] Task: Define failing contract tests for story + 3D packages
+- [x] Task: Define failing contract tests for story + 3D packages (9b379e1)
   - [ ] Story spreads/routes/convergence, EN/ID parity, manifest/budget/pivot/hash rules
 - [ ] Task: Implement Zod contracts with inferred types
   - [ ] Story/spread/token/interaction/route/ending, scene/asset/package/readiness schemas
