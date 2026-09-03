@@ -39,7 +39,7 @@
 
 ## Phase 4: Fully-Agent 3D Builder Pipeline
 
-- [ ] Task: Author style bible + versioned builders via Blender MCP
+- [x] Task: Author style bible + versioned builders via Blender MCP (8510c3f)
   - [ ] style-bible.json (colors/roughness/bevel/light rig/cameras), builders for dock/boat/turtle/child, seed logging
 - [ ] Task: Implement headless export + optimize jobs
   - [ ] background Blender build/export, glTF-transform Draco, KTX2, manifest with budgets/hashes/shas/seed
