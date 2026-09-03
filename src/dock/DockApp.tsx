@@ -354,6 +354,8 @@ export function DockApp(): React.JSX.Element {
       storyTitle={sharingTide.title}
       cardState={boatState()}
       keepsake={keepsake !== null}
+      scenes={scenes}
+      posterSrc={posterFor(sharingTide.title[locale])}
       onPrepare={beginPreparation}
       onOpen={() => dispatch({ type: 'board-boat', session: freshSession() })}
       onContinue={() => {

@@ -24,7 +24,7 @@ export type DockCanvasProps = {
   posterSrc: string;
   scenes: Map<string, SceneContract>;
   staged: StagedScene[];
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export function DockCanvas({

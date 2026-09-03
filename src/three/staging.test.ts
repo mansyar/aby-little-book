@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { activeWindow, SLICE_STAGING, STORY_STAGING } from './staging.js';
+import { activeWindow, HOME_STAGING, SLICE_STAGING, STORY_STAGING } from './staging.js';
 
 describe('SLICE_STAGING', () => {
   it('stages the dock and boat for the boarding spread', () => {
@@ -62,6 +62,23 @@ describe('STORY_STAGING', () => {
         expect(PACKAGE_SCENES).toContain(entry.sceneId);
         expect(entry.offset).toHaveLength(3);
       }
+    }
+  });
+});
+
+describe('HOME_STAGING', () => {
+  it('stages the waiting boat at the dock among the lantern props', () => {
+    expect(HOME_STAGING.map((entry) => entry.sceneId).sort()).toEqual(
+      ['boat', 'dock', 'lake_props'].sort(),
+    );
+  });
+
+  it('borrows the approved slice offsets for the shared subjects', () => {
+    const byId = new Map(HOME_STAGING.map((entry) => [entry.sceneId, entry.offset]));
+    expect(byId.get('dock')).toEqual([0, 0, 0]);
+    expect(byId.get('boat')).toEqual([2.2, 0, 0.5]);
+    for (const entry of HOME_STAGING) {
+      expect(entry.offset).toHaveLength(3);
     }
   });
 });

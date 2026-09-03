@@ -4,6 +4,20 @@
    in global.css already zeroes when requested. */
 
 .dock {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: var(--color-night-900);
+}
+
+.dock__scene {
+  position: absolute;
+  inset: 0;
+}
+
+.dock__content {
+  position: relative;
+  z-index: 1;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -12,10 +26,13 @@
   gap: var(--space-6);
   padding: var(--space-6);
   text-align: center;
-  background: radial-gradient(
-    ellipse at top,
-    var(--color-night-700) 0%,
-    var(--color-night-900) 70%
+  /* A soft readable veil: clear sky above, gentle grounding below so the
+     card stays legible without hiding the living scene. */
+  background: linear-gradient(
+    to bottom,
+    rgb(10 24 48 / 0.35) 0%,
+    rgb(10 24 48 / 0.15) 40%,
+    rgb(10 24 48 / 0.6) 100%
   );
 }
 

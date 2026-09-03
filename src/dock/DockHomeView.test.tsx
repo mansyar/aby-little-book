@@ -76,4 +76,16 @@ describe('DockHomeView', () => {
     expect(screen.getByRole('heading', { name: 'Air Pasang Berbagi' })).toBeVisible();
     expect(screen.getByRole('button', { name: 'Naik ke perahu' })).toBeVisible();
   });
+
+  it('falls back to the labelled poster when the package is not staged', () => {
+    show('new');
+    expect(screen.getByRole('img', { name: 'The Starlit Dock' })).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Prepare the boat' })).toBeVisible();
+  });
+
+  it('keeps the card actions above the living scene', () => {
+    show('ready');
+    const action = screen.getByRole('button', { name: 'Climb into the boat' });
+    expect(action.closest('.dock__content')).not.toBeNull();
+  });
 });

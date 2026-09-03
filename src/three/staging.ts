@@ -87,6 +87,16 @@ export const STORY_STAGING: Record<StorySpreadId, StagedScene[]> = {
   ],
 };
 /**
+ * Home staging: the living Starlit Dock behind the boat card. The waiting
+ * boat keeps its approved slice offset; the lake props bring the floating
+ * lanterns. Beat stays null (rest) — the home never plays a camera move.
+ */
+export const HOME_STAGING: StagedScene[] = [
+  { sceneId: 'dock', offset: [0, 0, 0] },
+  { sceneId: 'boat', offset: [2.2, 0, 0.5] },
+  { sceneId: 'lake_props', offset: [0, 0, 0] },
+];
+/**
  * Spreads that stay mounted: the active spread plus immediate neighbors.
  * Everything else unmounts and disposes, bounding iPad GPU memory to at most
  * three spreads regardless of story length.
