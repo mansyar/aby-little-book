@@ -51,7 +51,7 @@
 
 - [x] Task: Build hybrid dock + 3-spread slice renderer (assets daaee8c; renderer 9712f1f)
   - [ ] Failing layout/semantic/hotspot tests first; Three.js scene + DOM overlay; active-content bounds; pre-decode where supported
-- [ ] Task: Implement guided taps, glow-plus-word, camera beats, fallback
+- [x] Task: Implement guided taps, glow-plus-word, camera beats, fallback (d1a9654)
   - [ ] Ownership tests; provider speech cancel/replace; reduced-motion freeze; poster fallback
 - [ ] Task: Prove slice offline + responsive + captures
   - [ ] Playwright prepare/disconnect/complete/reload, rest/response captures, safe-region/overlay fit
