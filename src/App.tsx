@@ -39,12 +39,28 @@ import { PreviewView } from './shelf/PreviewView';
 import type { PackageReadiness } from './story/contracts';
 import { SPREAD08_BASE_PATH, SPREAD08_MANIFEST, SPREAD08_PACKAGE_ID } from './story/spread08';
 import { story } from './story/starlight-rescue';
+import { DockSlicePreview } from './three/DockSlicePreview';
 
 function isPreviewRequest(): boolean {
   if (typeof window === 'undefined') {
     return false;
   }
   return new URLSearchParams(window.location.search).get('preview') === '1';
+}
+
+function scenePreviewId(): 'S01' | 'S02' | 'S03' | null {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  const requested = new URLSearchParams(window.location.search).get('scene');
+  return requested === 'S01' || requested === 'S02' || requested === 'S03' ? requested : null;
+}
+
+function scenePreviewBeat(): 'rest' | 'arrive' {
+  if (typeof window === 'undefined') {
+    return 'rest';
+  }
+  return new URLSearchParams(window.location.search).get('beat') === 'arrive' ? 'arrive' : 'rest';
 }
 
 function previewLocale(): Locale {
@@ -276,6 +292,15 @@ export function App() {
   };
 
   const strings = shellStrings(state.locale);
+  const sceneId = scenePreviewId();
+  if (sceneId !== null) {
+    // Phase 5 development harness: the dock slice preview.
+    return (
+      <ErrorBoundary locale={previewLocale()}>
+        <DockSlicePreview spreadId={sceneId} locale={previewLocale()} beat={scenePreviewBeat()} />
+      </ErrorBoundary>
+    );
+  }
   if (isPreviewRequest()) {
     // Phase 4 development harness: the Spread 08 vertical slice.
     return (

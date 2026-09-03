@@ -93,16 +93,20 @@ export function DockCanvas({
 
   if (!webgl || models === null || model.status === 'failed') {
     return (
-      <div>
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         <img aria-label={label} src={posterSrc} alt={label} />
         {children}
       </div>
     );
   }
   return (
-    <div>
-      <div aria-hidden="true">
-        <canvas ref={canvasRef} />
+    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <div aria-hidden="true" style={{ width: '100%', height: '100%' }}>
+        <canvas
+          ref={canvasRef}
+          data-scene={model.status}
+          style={{ display: 'block', width: '100%', height: '100%' }}
+        />
       </div>
       {children}
     </div>

@@ -1,7 +1,10 @@
-// Copies the Draco decoder (JS + WASM) shipped inside the three npm package
-// into public/draco/ so it is served and precached with the app shell.
+// Copies the Draco decoder shipped inside the three npm package into
+// public/draco/ so it is served and precached with the app shell. Three
+// files: the JS fallback decoder plus the WASM wrapper pair that
+// DRACOLoader requests by default (draco_wasm_wrapper.js bootstraps
+// draco_decoder.wasm inside its worker).
 // Remote decoder URLs are forbidden (local-only/offline rule); the files are
-// build artifacts — public/draco/ is gitignored and regenerated here.
+// build artifacts - public/draco/ is gitignored and regenerated here.
 // Runs as the root `postinstall` script (fresh installs, CI, Docker builds,
 // and three upgrades all flow through install).
 import { copyFileSync, mkdirSync } from 'node:fs';
@@ -14,7 +17,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dracoDir = join(root, 'node_modules', 'three', 'examples', 'jsm', 'libs', 'draco');
 const outDir = join(root, 'public', 'draco');
 mkdirSync(outDir, { recursive: true });
-for (const file of ['draco_decoder.js', 'draco_decoder.wasm']) {
+for (const file of ['draco_decoder.js', 'draco_decoder.wasm', 'draco_wasm_wrapper.js']) {
   copyFileSync(join(dracoDir, file), join(outDir, file));
   console.log(`[copy-draco] ${file} -> public/draco/`);
 }
