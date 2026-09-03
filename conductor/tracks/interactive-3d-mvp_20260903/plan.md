@@ -17,7 +17,7 @@
 
 - [x] Task: Define failing contract tests for story + 3D packages (9b379e1)
   - [ ] Story spreads/routes/convergence, EN/ID parity, manifest/budget/pivot/hash rules
-- [ ] Task: Implement Zod contracts with inferred types
+- [x] Task: Implement Zod contracts with inferred types (185320f)
   - [ ] Story/spread/token/interaction/route/ending, scene/asset/package/readiness schemas
 - [ ] Task: Implement build-time validators
   - [ ] Parity/schema/refs/graphs/budgets/pivots/hashes with actionable diagnostics
