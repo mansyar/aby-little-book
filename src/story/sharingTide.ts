@@ -18,8 +18,8 @@ const tail: Record<string, Spread> = {
     id: 'S04',
     title: { en: 'Which Way Across?', id: 'Lewat Jalan Mana?' },
     prose: {
-      en: 'Two paths cross the night lake. Which one shall we take?',
-      id: 'Ada dua jalan melintasi danau malam. Kita pilih yang mana?',
+      en: 'Two paths cross the quiet lake. Which way shall we go?',
+      id: 'Dua jalur terbentang melintasi danau. Jalan mana yang akan kita pilih?',
     },
     interaction: { kind: 'route-choice', target: 'lake-choice', required: true },
   },
@@ -27,8 +27,8 @@ const tail: Record<string, Spread> = {
     id: 'A05',
     title: { en: 'Tall Reeds', id: 'Gelagah Tinggi' },
     prose: {
-      en: 'Tall reeds whisper in the dark. The little turtle hides behind a leaf.',
-      id: 'Gelagah tinggi berbisik dalam gelap. Kura-kura kecil bersembunyi di balik daun.',
+      en: 'Tall reeds whisper in the breeze. The little turtle hides behind a leaf.',
+      id: 'Gelagah tinggi berbisik ditiup angin. Kura-kura kecil bersembunyi di balik daun.',
     },
     interaction: { kind: 'tap', target: 'turtle', required: false },
   },
@@ -36,8 +36,8 @@ const tail: Record<string, Spread> = {
     id: 'A06',
     title: { en: 'Shared Light', id: 'Cahaya Bersama' },
     prose: {
-      en: 'We lift the lantern high. Its warm light is for everyone.',
-      id: 'Kami mengangkat lentera tinggi-tinggi. Cahayanya yang hangat untuk semua.',
+      en: 'We lift the lantern high. Its warm glow lights the way for everyone.',
+      id: 'Kami mengangkat lentera tinggi-tinggi. Cahayanya yang hangat menerangi semua orang.',
     },
     interaction: { kind: 'tap', target: 'lantern', required: false },
   },
@@ -45,8 +45,8 @@ const tail: Record<string, Spread> = {
     id: 'B05',
     title: { en: 'Lily Pads', id: 'Daun Teratai' },
     prose: {
-      en: 'Green lily pads float like plates. The turtle climbs up to rest.',
-      id: 'Daun teratai hijau mengapung seperti piring. Kura-kura naik untuk beristirahat.',
+      en: 'Soft green lily pads float like stepping stones. The turtle climbs up to rest.',
+      id: 'Daun teratai hijau mengapung bagai pijakan. Kura-kura memanjat naik untuk beristirahat.',
     },
     interaction: { kind: 'tap', target: 'turtle', required: false },
   },
@@ -54,8 +54,8 @@ const tail: Record<string, Spread> = {
     id: 'B06',
     title: { en: 'Cake Crumbs', id: 'Remah Kue' },
     prose: {
-      en: 'We save two crumbs of cake. One for you, one for me.',
-      id: 'Kita menyimpan dua remah kue. Satu untukmu, satu untukku.',
+      en: 'We save two tiny crumbs of cake. One for you, and one for me.',
+      id: 'Kita menyisakan dua remah kue. Satu untukmu, satu lagi untukku.',
     },
     interaction: { kind: 'tap', target: 'cake', required: false },
   },
@@ -63,16 +63,16 @@ const tail: Record<string, Spread> = {
     id: 'S08',
     title: { en: 'The Other Shore', id: 'Tepi Seberang' },
     prose: {
-      en: 'Both paths reach the far shore. Lanterns are waiting there.',
-      id: 'Kedua jalan tiba di tepi seberang. Lentera-lentera menunggu di sana.',
+      en: 'Both paths lead to the far shore, where glowing lanterns wait.',
+      id: 'Kedua jalan berujung di tepi seberang. Lentera-lentera hangat telah menunggu di sana.',
     },
   },
   S10: {
     id: 'S10',
     title: { en: 'Home by Lantern Light', id: 'Pulang Diterangi Lentera' },
     prose: {
-      en: 'We float slowly home. The lake keeps our story safe.',
-      id: 'Kami pulang perlahan. Danau menjaga cerita kita.',
+      en: 'We float softly back home. The quiet lake guards our story.',
+      id: 'Kami berlayar pulang dengan perlahan. Danau yang tenang menjaga cerita kita.',
     },
   },
 };

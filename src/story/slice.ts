@@ -15,8 +15,8 @@ export const slice: Spread[] = [
     id: 'S01',
     title: { en: 'Lanterns on the Water', id: 'Lentera di Atas Air' },
     prose: {
-      en: 'The night lake is still. A little boat waits by the dock.',
-      id: 'Danau malam itu tenang. Sebuah perahu kecil menunggu di dermaga.',
+      en: 'The night lake is still. A small boat sways by the dock.',
+      id: 'Danau malam begitu tenang. Sebuah perahu kecil bersandar di dermaga.',
     },
     interaction: { kind: 'board', target: 'boat', required: true },
   },
@@ -24,16 +24,16 @@ export const slice: Spread[] = [
     id: 'S02',
     title: { en: 'A Shy New Friend', id: 'Teman Baru yang Pemalu' },
     prose: {
-      en: 'Someone peeks from behind a lily leaf. It is a shy baby turtle.',
-      id: 'Seseorang mengintip dari balik daun teratai. Ia bayi penyu yang pemalu.',
+      en: 'Someone peeks from behind a lily pad. It’s a shy baby turtle.',
+      id: 'Seseorang mengintip dari balik daun teratai. Rupanya seekor bayi kura-kura yang pemalu.',
     },
   },
   {
     id: 'S03',
-    title: { en: 'Half for You', id: 'Separuh untuk Kamu' },
+    title: { en: 'Half for You', id: 'Separuh untukmu' },
     prose: {
-      en: 'The child breaks the warm cake in two. Half for you, little turtle.',
-      id: 'Anak itu membagi dua kue hangat. Separuh untukmu, Penyu kecil.',
+      en: 'The child splits the warm cake in two. "Half for you, little turtle."',
+      id: 'Si anak membagi dua kue yang masih hangat. "Separuh untukmu, Kura-Kura kecil."',
     },
     interaction: { kind: 'tap', target: 'cake', required: false },
   },

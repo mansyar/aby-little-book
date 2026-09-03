@@ -17,7 +17,12 @@ const PLACEHOLDER_PATTERN = /todo|lorem|\{\{|xxx/i;
 const SENTENCE_PATTERN = /[.!?…]+/;
 
 function sentenceCount(value: string): number {
-  return value.split(SENTENCE_PATTERN).filter((part) => part.trim().length > 0).length;
+  // Fragments without letters are punctuation debris, not sentences: quoted
+  // dialogue (..."little turtle.") leaves a trailing quote-only fragment
+  // that must not count against the two-sentence budget.
+  return value
+    .split(SENTENCE_PATTERN)
+    .filter((part) => part.trim().length > 0 && /\p{L}/u.test(part)).length;
 }
 
 export const localizedTextSchema = z.object({

@@ -14,7 +14,7 @@ test.describe('3D slice', () => {
   test('renders S01 prose with a labelled hotspot', async ({ page }) => {
     await page.goto('/?scene=S01&locale=en&beat=rest');
     await expect(page.getByRole('heading', { name: 'Lanterns on the Water' })).toBeVisible();
-    await expect(page.getByText('The night lake is still.')).toBeVisible();
+    await expect(page.getByText('A small boat sways by the dock.')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Boat' })).toBeVisible();
   });
 
@@ -74,7 +74,7 @@ test.describe('3D slice', () => {
     const page = await context.newPage();
     await page.goto('/?scene=S01&locale=en&beat=rest');
     await expect(page.getByRole('img', { name: 'Lanterns on the Water' })).toBeVisible();
-    await expect(page.getByText('The night lake is still.')).toBeVisible();
+    await expect(page.getByText('A small boat sways by the dock.')).toBeVisible();
     await page.getByRole('button', { name: 'Boat' }).click();
     await expect(page.getByRole('status')).toContainText('Boat');
     await context.close();
@@ -118,6 +118,6 @@ test.describe('3D slice', () => {
     await context.setOffline(true);
     await page.reload();
     await expect(page.getByRole('heading', { name: 'Lanterns on the Water' })).toBeVisible();
-    await expect(page.getByText('The night lake is still.')).toBeVisible();
+    await expect(page.getByText('A small boat sways by the dock.')).toBeVisible();
   });
 });
