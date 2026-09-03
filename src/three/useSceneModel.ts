@@ -54,8 +54,9 @@ export function useSceneModel(models: StagedModel[]): SceneModel {
         }
         setState({ status: 'ready', group });
       },
-      () => {
+      (error) => {
         if (!cancelled) {
+          console.error('[dock] staged scene load failed', error);
           setState({ status: 'failed', group: null });
         }
       },

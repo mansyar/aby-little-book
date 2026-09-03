@@ -11,6 +11,7 @@
   "scripts": {
     "postinstall": "node scripts/copy-draco.mjs",
     "dev": "vite",
+    "predev": "node scripts/copy-package.mjs public",
     "build": "vite build",
     "postbuild": "node scripts/copy-package.mjs",
     "preview": "vite preview",

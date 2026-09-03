@@ -65,3 +65,5 @@ tools/__pycache__/
 
 # Draco decoder copied from the three package at install time (see postinstall).
 public/draco/
+# Published 3D packages copied from art/ before dev serves them (see predev).
+public/stories/
