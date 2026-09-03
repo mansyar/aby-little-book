@@ -60,8 +60,8 @@
 
 ## Phase 6: Expand to 10 Spreads + Family Flows
 
-- [ ] Task: Produce remaining builders output + integrate full EN/ID prose
-  - [ ] Remaining spreads/boats via pipeline only; fluent review fixes; validate routes/endings
+- [x] Task: Produce remaining builders output + integrate full EN/ID prose (story 47807e5; prose 2167c6b)
+  - [x] Remaining spreads/boats via pipeline only; fluent review fixes; validate routes/endings
 - [ ] Task: Implement dock states, caregiver controls, completion keepsake
   - [ ] States (new/preparing/ready/in-progress/complete), adult gate/settings/reset, calm ending + history
 - [ ] Task: Complete end-to-end journeys + reviews
