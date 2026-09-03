@@ -74,7 +74,7 @@
   - [x] TS/Biome/validators/unit/component/browser/assets/visual gates; fix blockers
 - [x] Task: Complete physical-iPad acceptance + family observation (owner-confirmed 2026-09-03, dev-LAN; install/SW-offline/update deferred to prod journey)
   - [x] Install/prepare/both routes offline/terminate-resume/update/speech/touch/perf/memory; comprehension notes; privacy checklist
-- [ ] Task: Publish tagged release with changelog
+- [x] Task: Publish tagged release with changelog (20b8a1c; tag v0.1.0 local — no remote, GHCR deferred)
   - [ ] Owner-approved v0.x.y tag, CHANGELOG + release notes (3D package version, builder sha, migrations, known issues), GHCR immutable tags, record digest
 - [ ] Task: Deploy via Coolify + verify + rollback drill
   - [ ] Exact tag/digest HTTPS 8080, /healthz/version.json/cache/security/no-index/digest match, prod family journey, prior known-good restore proof
