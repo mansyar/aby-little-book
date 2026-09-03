@@ -37,9 +37,10 @@ import { type BookCardState, BookshelfView } from './shelf/BookshelfView';
 import { BOOKSHELF_STRINGS } from './shelf/bookshelfStrings';
 import { PreviewView } from './shelf/PreviewView';
 import type { PackageReadiness } from './story/contracts';
+import type { RouteId } from './story/sharingTide';
 import { SPREAD08_BASE_PATH, SPREAD08_MANIFEST, SPREAD08_PACKAGE_ID } from './story/spread08';
 import { story } from './story/starlight-rescue';
-import { DockSlicePreview, type RouteId } from './three/DockSlicePreview';
+import { DockSlicePreview } from './three/DockSlicePreview';
 import { STORY_STAGING, type StorySpreadId } from './three/staging';
 
 const STORY_SCENE_IDS = Object.keys(STORY_STAGING);

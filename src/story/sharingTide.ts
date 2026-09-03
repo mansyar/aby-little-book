@@ -100,3 +100,21 @@ export const sharingTide: Story = {
     },
   ],
 };
+
+// Engine-ready companions to the story document: path per route and the
+// spreads in story order. The reader and the dev harness share these so the
+// harness walk stays honest about what the real reader can reach.
+export const ROUTE_IDS = ['reed-channel', 'lily-cove'] as const;
+export type RouteId = (typeof ROUTE_IDS)[number];
+
+export const ROUTE_PATHS: Record<RouteId, string[]> = {
+  'reed-channel': ['S01', 'S02', 'S03', 'S04', 'A05', 'A06', 'S08', 'S10'],
+  'lily-cove': ['S01', 'S02', 'S03', 'S04', 'B05', 'B06', 'S08', 'S10'],
+};
+
+const STORY_ORDER = ['S01', 'S02', 'S03', 'S04', 'A05', 'A06', 'B05', 'B06', 'S08', 'S10'];
+
+export const STORY_SPREADS: Spread[] = STORY_ORDER.flatMap((id) => {
+  const spread = sharingTide.spreads[id];
+  return spread === undefined ? [] : [spread];
+});

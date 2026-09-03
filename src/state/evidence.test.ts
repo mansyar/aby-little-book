@@ -51,7 +51,7 @@ afterEach(async () => {
 it('manual harness: save/reload/Continue, language, routes, replay, reset', async () => {
   // 1. Begin a playthrough, navigate to the route choice, save at the boundary.
   const { state: reading, db } = await makeReader();
-  if (reading.session === undefined) {
+  if (reading.session === undefined || reading.session === null) {
     throw new Error('makeReader must provide a session');
   }
   let session = reading.session;
@@ -68,7 +68,7 @@ it('manual harness: save/reload/Continue, language, routes, replay, reset', asyn
     `spread=${restored?.currentSpreadId} history=${restored?.history.join(',')}`,
   );
   let continued = initialAppState();
-  if (restored === undefined) {
+  if (restored === undefined || restored === null) {
     throw new Error('saved progress must round-trip');
   }
   continued = reduceAppState(continued, {
@@ -105,7 +105,7 @@ it('manual harness: save/reload/Continue, language, routes, replay, reset', asyn
     type: 'preparation-ready',
     session: createSession(story, 'aby', 'en'),
   });
-  if (done.session === undefined) {
+  if (done.session === undefined || done.session === null) {
     throw new Error('reader must hold a session before replay');
   }
   done = reduceAppState(done, {

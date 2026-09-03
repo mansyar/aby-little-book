@@ -26,7 +26,7 @@ import {
   startGuidedSession,
   tapTarget,
 } from '../reader/guided';
-import type { Scene as SceneContract, TapTarget } from '../scene/package';
+import type { Scene as SceneContract } from '../scene/package';
 import { packageManifestSchema } from '../scene/package';
 import { styleBibleSchema } from '../scene/styleBible';
 import { useReducedMotion } from '../scene/useReducedMotion';
@@ -36,8 +36,7 @@ import {
   type UtteranceLike,
 } from '../speech/browserSpeech';
 import type { Locale } from '../story/contracts';
-import type { Spread } from '../story/dock-contracts';
-import { sharingTide } from '../story/sharingTide';
+import { ROUTE_PATHS, type RouteId, STORY_SPREADS, sharingTide } from '../story/sharingTide';
 import { type LayoutId, layoutCamera, poseForBeat } from './camera';
 import { DockCanvas } from './DockCanvas';
 import { HotspotLayer } from './HotspotLayer';
@@ -50,31 +49,6 @@ export type DockSlicePreviewProps = {
   beat: 'rest' | 'arrive';
 };
 
-export type RouteId = 'reed-channel' | 'lily-cove';
-
-const ROUTE_PATHS: Record<RouteId, StorySpreadId[]> = {
-  'reed-channel': ['S01', 'S02', 'S03', 'S04', 'A05', 'A06', 'S08', 'S10'],
-  'lily-cove': ['S01', 'S02', 'S03', 'S04', 'B05', 'B06', 'S08', 'S10'],
-};
-
-const STORY_ORDER: StorySpreadId[] = [
-  'S01',
-  'S02',
-  'S03',
-  'S04',
-  'A05',
-  'A06',
-  'B05',
-  'B06',
-  'S08',
-  'S10',
-];
-
-const STORY_SPREADS: Spread[] = STORY_ORDER.flatMap((id) => {
-  const spread = sharingTide.spreads[id];
-  return spread === undefined ? [] : [spread];
-});
-
 const GLB_URLS: Record<string, string> = {
   dock: dockGlb,
   boat: boatGlb,
@@ -83,45 +57,11 @@ const GLB_URLS: Record<string, string> = {
   lake_props: lakePropsGlb,
 };
 
-// Stand-in tap targets (see module note): one per interactive spread,
-// anchored at the staged scene offset with a touch-height lift so the button
-// floats over its subject instead of the waterline.
-const STAND_IN_TARGETS: Record<StorySpreadId, TapTarget[]> = {
-  S01: [{ id: 'boat', label: { en: 'Boat', id: 'Perahu' }, position: { x: 2.2, y: 1.0, z: 0.5 } }],
-  S02: [
-    {
-      id: 'turtle',
-      label: { en: 'Turtle', id: 'Kura-kura' },
-      position: { x: 0.8, y: 0.6, z: 0.6 },
-    },
-  ],
-  S03: [{ id: 'cake', label: { en: 'Cake', id: 'Kue' }, position: { x: 0.8, y: 1.0, z: 0.4 } }],
-  S04: [],
-  S08: [],
-  S10: [],
-  A05: [
-    {
-      id: 'turtle',
-      label: { en: 'Turtle', id: 'Kura-kura' },
-      position: { x: -0.8, y: 0.6, z: 0.5 },
-    },
-  ],
-  A06: [
-    {
-      id: 'lantern',
-      label: { en: 'Lantern', id: 'Lentera' },
-      position: { x: 0, y: 0.2, z: 2.1 },
-    },
-  ],
-  B05: [
-    {
-      id: 'turtle',
-      label: { en: 'Turtle', id: 'Kura-kura' },
-      position: { x: -0.8, y: 0, z: 0.5 },
-    },
-  ],
-  B06: [{ id: 'cake', label: { en: 'Cake', id: 'Kue' }, position: { x: 0, y: 0, z: 0.9 } }],
-};
+// Tap targets live in the shared module so the harness and the real reader
+// project the same buttons; the tuning note there applies here too.
+import { TAP_TARGETS_BY_SPREAD } from './tapTargets';
+
+const STAND_IN_TARGETS = TAP_TARGETS_BY_SPREAD;
 
 function posterFor(title: string): string {
   // Deterministic stand-in poster: real rest/response stills ship with the
@@ -155,7 +95,9 @@ function walkTo(spreadId: StorySpreadId, route: RouteId): GuidedSession {
 }
 
 function asStorySpreadId(spreadId: string): StorySpreadId {
-  return (STORY_ORDER as string[]).includes(spreadId) ? (spreadId as StorySpreadId) : 'S01';
+  return (Object.keys(STORY_STAGING) as string[]).includes(spreadId)
+    ? (spreadId as StorySpreadId)
+    : 'S01';
 }
 
 export function DockSlicePreview({
