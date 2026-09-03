@@ -40,12 +40,12 @@
 ## Phase 4: Fully-Agent 3D Builder Pipeline
 
 - [x] Task: Author style bible + versioned builders via Blender MCP (8510c3f)
-  - [ ] style-bible.json (colors/roughness/bevel/light rig/cameras), builders for dock/boat/turtle/child, seed logging
+  - [x] style-bible.json (colors/roughness/bevel/light rig/cameras), builders for dock/boat/turtle/child, seed logging
 - [x] Task: Implement headless export + optimize jobs (efa2809)
-  - [ ] background Blender build/export, glTF-transform Draco, KTX2, manifest with budgets/hashes/shas/seed
+  - [x] background Blender build/export, glTF-transform Draco, KTX2, manifest with budgets/hashes/shas/seed
 - [x] Task: Implement auto-review gates (0d0b82d)
-  - [ ] Eevee iPad/phone rest/response previews, vision checks, budget/pivot/no-baked-text gates
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [x] Eevee iPad/phone rest/response previews, vision checks, budget/pivot/no-baked-text gates
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 5: Slice Integration and Approval Gate
 
