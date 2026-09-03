@@ -8,6 +8,9 @@ RUN corepack enable
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
+# scripts/ must precede install: the postinstall hook (copy-draco.mjs)
+# runs during `pnpm install`, before the full source copy below.
+COPY scripts ./scripts
 RUN pnpm install --frozen-lockfile
 
 COPY . .
