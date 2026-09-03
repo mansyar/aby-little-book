@@ -7,9 +7,13 @@
 2. **The tech stack is deliberate.** Update `tech-stack.md` and record the
    reason before implementing an architectural deviation.
 3. **Test behavior, not file existence.** Use test-driven development for
-   logic-bearing code and observable user behavior. Do not require one test file
-   per source file.
-4. **Coverage is scoped.** Maintain at least 80% line and branch coverage for
+   logic-bearing code and observable user behavior, including 3D interaction
+   logic, camera beats, hotspot ownership, and reduced-motion rules. Do not
+   require one test file per source file.
+4. **3D assets are builds, not sources.** Versioned Python builders plus
+   `style-bible.json` are source; `.blend`, GLB, KTX2, and previews are
+   generated. Never hand-edit generated 3D; change the builder and rebuild.
+5. **Coverage is scoped.** Maintain at least 80% line and branch coverage for
    logic-bearing application code. Exclude generated files, static assets,
    styles, type-only declarations, declarative content, and trivial composition
    from the threshold.
@@ -29,12 +33,16 @@ logic, including:
 
 - reducers, state transitions, route traversal, convergence, and replay rules
 - Zod schemas, localization tokenization, and content/package validation
+- scene and asset manifests, budget rules, builder params, and readiness rules
 - persistence repositories, migrations, save/resume behavior, and readiness
   rules
-- service-worker and offline-preparation behavior
+- service-worker and offline-preparation behavior, including 3D package caching
 - speech and sound coordination, cancellation, and priority
-- interaction ownership, gestures, layout classification, and reduced motion
-- accessible component behavior, focus, parent controls, and recovery states
+- interaction ownership, tap hotspots, camera beats, layout classification, and
+  reduced motion (including 3D freeze)
+- accessible component and 3D-hotspot-equivalent behavior, focus, parent
+  controls, and recovery states
+- WebGL fallback to poster + full DOM story
 - complete browser journeys and regressions in acceptance-critical flows
 
 For a bug fix, first add the smallest test that reproduces the defect.
@@ -43,7 +51,8 @@ For a bug fix, first add the smallest test that reproduces the defect.
 
 Do not create tests merely to mirror:
 
-- static images, fonts, audio, Blender files, or generated delivery assets
+- static images, fonts, audio, Blender files, generated GLB/KTX2, Eevee previews,
+  or generated delivery assets
 - CSS-only styling or animation with no behavioral contract
 - type-only declarations
 - static configuration or declarative content already covered by schema,
@@ -66,10 +75,15 @@ Use the lowest level that proves the requirement without duplicating coverage.
 - **Testing Library:** semantic controls, selected and locked states, dialogs,
   focus, reduced-motion equivalents, and localized loading or recovery states.
 - **Playwright:** critical Chromium/WebKit journeys, persistence, locales,
-  offline completion, keyboard and pointer behavior, responsive layouts,
-  reduced motion, and scene-layer loading/alignment.
-- **Build-time validators:** locale parity, story schemas, route graphs, asset
-  references and hashes, manifests, and package budgets.
+  offline completion (including 3D packages), keyboard and pointer behavior,
+  tap ownership, camera beats, responsive layouts, reduced motion (including 3D
+  freeze), WebGL fallback, and deterministic rest/response captures.
+- **Build-time validators:** locale parity, story schemas, route graphs, scene
+  and asset manifests, GLB/KTX2 references, dimensions, bounds, tap pivots,
+  budgets, and hashes, plus package budgets.
+- **3D visual gates:** headless Eevee previews plus browser captures checked for
+  seams, floaters, safe-region intrusion, and EN/ID overlay fit; vision-model
+  scores and diffs recorded as evidence.
 - **Human/device checks:** English and Indonesian quality, accessibility,
   physical iPad Safari, child comprehension, and family reading experience.
 
@@ -144,7 +158,9 @@ must remain green:
 - [ ] Logic-bearing code meets 80% line and branch coverage
 - [ ] Strict TypeScript 7 passes
 - [ ] Biome lint and format checks pass using the project code style guides
-- [ ] Relevant content, locale, route, asset, and hash validators pass
+- [ ] Relevant content, locale, route, scene, asset, and hash validators pass
+- [ ] 3D budgets, tap pivots, bounds, and no-baked-text rules pass where 3D changed
+- [ ] Reduced-motion 3D freeze and WebGL poster fallback verified where 3D changed
 - [ ] Chromium and WebKit journeys pass when browser behavior changed
 - [ ] Accessibility semantics, focus, touch targets, keyboard use, contrast,
       and reduced motion are verified where affected
@@ -177,6 +193,8 @@ CI=true pnpm test:e2e
 pnpm biome:check
 pnpm typecheck
 pnpm validate
+pnpm validate:assets
+pnpm build:assets
 pnpm build
 ```
 
@@ -237,17 +255,39 @@ A task is complete when:
    Git note.
 8. The plan records the functional commit SHA in a separate plan commit.
 
+## Release Pipeline
+
+Releases are explicit, tagged, logged, and reversible.
+
+1. Cut releases only from green `main` after all gates pass.
+2. Use owner-approved semantic tags in the `v0.x.y` range; never deploy floating
+   tags such as `latest`.
+3. Generate the changelog from conventional commits into `CHANGELOG.md` and
+   include release notes with user-facing changes, 3D package version, builder
+   sha, migration notes, and known issues.
+4. Build once, publish the immutable semantic tag plus commit-sha tag to private
+   GHCR, and record the image digest.
+5. Deploy the exact tag or digest via Coolify over HTTPS on port `8080`.
+6. Confirm `/healthz`, `/version.json` (app version, 3D package version, commit,
+   digest), cache headers, security headers, and no-index behavior agree with
+   the approved tag and digest.
+7. Run the prod family journey: install, prepare, complete offline, terminate
+   and resume, update without interrupting an open reader.
+8. Record the prior known-good image and 3D package; verify rollback by
+   redeploying it or proving the drill, then restore the release.
+
 ## Release Verification
 
 Before a private release:
 
-1. Confirm all configured validation, test, build, browser, Docker, and container
-   scan gates pass.
-2. Complete bilingual, accessibility, offline, restart, install, and physical
-   iPad checks.
+1. Confirm all configured validation, test, build, asset, browser, Docker, and
+   container scan gates pass.
+2. Complete bilingual, accessibility, offline, restart, install, 3D fallback,
+   reduced-motion, and physical iPad checks.
 3. Confirm `/healthz`, `/version.json`, HTTPS, cache headers, security headers,
    and no-index behavior.
 4. Publish and deploy only an owner-approved immutable semantic tag or digest;
    never deploy an ambiguous `latest` tag.
-5. Record the prior known-good image and verify rollback instructions.
-6. Confirm the deployed version and image digest match the approved release.
+5. Confirm tag, `CHANGELOG.md` entry, release notes, `/version.json`, Coolify
+   target, and image digest all agree.
+6. Record the prior known-good image and verify rollback instructions.
