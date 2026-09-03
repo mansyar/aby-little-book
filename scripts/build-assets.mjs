@@ -29,4 +29,29 @@ try {
   );
   process.exit(1);
 }
-console.log('build:assets: headless export jobs land in Phase 4 — no packages built yet.');
+try {
+  const { stdout } = await execFileAsync('python', ['--version']);
+  console.log(`build:assets: found ${stdout.split('\n')[0]}`);
+} catch {
+  console.error(
+    'build:assets: FAILED — `python` is not on PATH. ' +
+      'Install Python 3 (see tech-stack.md) and retry.',
+  );
+  process.exit(1);
+}
+
+const seedArg = process.argv.indexOf('--seed');
+const seed = seedArg === -1 ? '7' : (process.argv[seedArg + 1] ?? '7');
+console.log(`build:assets: running headless pipeline (seed ${seed}).`);
+try {
+  const { stdout } = await execFileAsync('python', [
+    join(process.cwd(), 'tools', 'build_all.py'),
+    '--seed',
+    seed,
+  ]);
+  console.log(stdout);
+} catch (error) {
+  console.error(`build:assets: FAILED — headless pipeline failed.\n${error.stdout ?? error}`);
+  process.exit(1);
+}
+console.log('build:assets: packages built — run pnpm validate:assets.');
