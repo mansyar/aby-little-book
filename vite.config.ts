@@ -26,7 +26,7 @@ export default defineConfig({
         theme_color: '#141b33',
       },
       injectManifest: {
-        globPatterns: ['**/*.{js,css,html,woff2,webp,json,svg}'],
+        globPatterns: ['**/*.{js,css,html,woff2,webp,json,svg,wasm}'],
         globIgnores: ['**/version.json', '**/healthz', '**/stories/**', '**/node_modules/**'],
         maximumFileSizeToCacheInBytes: 1024 * 1024,
       },

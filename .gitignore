@@ -62,3 +62,6 @@ temp/
 *.blend1
 art/blender_out/previews/
 tools/__pycache__/
+
+# Draco decoder copied from the three package at install time (see postinstall).
+public/draco/
