@@ -51,7 +51,10 @@ afterEach(async () => {
 it('manual harness: save/reload/Continue, language, routes, replay, reset', async () => {
   // 1. Begin a playthrough, navigate to the route choice, save at the boundary.
   const { state: reading, db } = await makeReader();
-  let session = reading.session!;
+  if (reading.session === undefined) {
+    throw new Error('makeReader must provide a session');
+  }
+  let session = reading.session;
   session = goForward(session);
   session = goForward(session);
   report('at route choice', `${session.currentSpreadId} route=${String(session.route)}`);
@@ -65,9 +68,12 @@ it('manual harness: save/reload/Continue, language, routes, replay, reset', asyn
     `spread=${restored?.currentSpreadId} history=${restored?.history.join(',')}`,
   );
   let continued = initialAppState();
+  if (restored === undefined) {
+    throw new Error('saved progress must round-trip');
+  }
   continued = reduceAppState(continued, {
     type: 'continue-story',
-    session: fromSnapshot(restored!),
+    session: fromSnapshot(restored),
   });
   report('continue-story view', continued.view);
 
@@ -99,9 +105,12 @@ it('manual harness: save/reload/Continue, language, routes, replay, reset', asyn
     type: 'preparation-ready',
     session: createSession(story, 'aby', 'en'),
   });
+  if (done.session === undefined) {
+    throw new Error('reader must hold a session before replay');
+  }
   done = reduceAppState(done, {
     type: 'update-reader',
-    session: { ...done.session!, completed: true },
+    session: { ...done.session, completed: true },
   });
   done = reduceAppState(done, { type: 'replay' });
   report('replay', `view=${done.view} session=${String(done.session)}`);

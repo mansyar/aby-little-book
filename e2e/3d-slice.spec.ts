@@ -28,6 +28,26 @@ test.describe('3D slice', () => {
     await expect(page.getByRole('status')).toContainText('Perahu');
   });
 
+  test('the S04 choice opens the reed-channel route at A05', async ({ page }) => {
+    await page.goto('/?scene=S04&locale=en&beat=rest');
+    await expect(page.getByRole('heading', { name: 'Which Way Across?' })).toBeVisible();
+    await page.getByRole('button', { name: 'Reed Channel' }).click();
+    await expect(page.getByRole('heading', { name: 'Tall Reeds' })).toBeVisible();
+  });
+
+  test('the lily-cove route renders B05 with its turtle tap', async ({ page }) => {
+    await page.goto('/?scene=B05&route=lily-cove&locale=en&beat=rest');
+    await expect(page.getByRole('heading', { name: 'Lily Pads' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Turtle' })).toBeVisible();
+  });
+
+  test('both routes converge and share the S10 ending', async ({ page }) => {
+    await page.goto('/?scene=S10&locale=en&beat=rest');
+    await expect(page.getByRole('heading', { name: 'Home by Lantern Light' })).toBeVisible();
+    await page.goto('/?scene=S10&route=lily-cove&locale=id&beat=rest');
+    await expect(page.getByRole('heading', { name: 'Pulang Diterangi Lentera' })).toBeVisible();
+  });
+
   test('rest and response stills are deterministic', async ({ page }) => {
     await page.goto('/?scene=S01&locale=en&beat=rest');
     await expect(page.getByRole('heading', { name: 'Lanterns on the Water' })).toBeVisible();

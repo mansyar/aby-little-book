@@ -39,7 +39,10 @@ import { PreviewView } from './shelf/PreviewView';
 import type { PackageReadiness } from './story/contracts';
 import { SPREAD08_BASE_PATH, SPREAD08_MANIFEST, SPREAD08_PACKAGE_ID } from './story/spread08';
 import { story } from './story/starlight-rescue';
-import { DockSlicePreview } from './three/DockSlicePreview';
+import { DockSlicePreview, type RouteId } from './three/DockSlicePreview';
+import { STORY_STAGING, type StorySpreadId } from './three/staging';
+
+const STORY_SCENE_IDS = Object.keys(STORY_STAGING);
 
 function isPreviewRequest(): boolean {
   if (typeof window === 'undefined') {
@@ -48,12 +51,23 @@ function isPreviewRequest(): boolean {
   return new URLSearchParams(window.location.search).get('preview') === '1';
 }
 
-function scenePreviewId(): 'S01' | 'S02' | 'S03' | null {
+function scenePreviewId(): StorySpreadId | null {
   if (typeof window === 'undefined') {
     return null;
   }
   const requested = new URLSearchParams(window.location.search).get('scene');
-  return requested === 'S01' || requested === 'S02' || requested === 'S03' ? requested : null;
+  return (STORY_SCENE_IDS as string[]).includes(requested ?? '')
+    ? (requested as StorySpreadId)
+    : null;
+}
+
+function scenePreviewRoute(): RouteId {
+  if (typeof window === 'undefined') {
+    return 'reed-channel';
+  }
+  return new URLSearchParams(window.location.search).get('route') === 'lily-cove'
+    ? 'lily-cove'
+    : 'reed-channel';
 }
 
 function scenePreviewBeat(): 'rest' | 'arrive' {
@@ -297,7 +311,12 @@ export function App() {
     // Phase 5 development harness: the dock slice preview.
     return (
       <ErrorBoundary locale={previewLocale()}>
-        <DockSlicePreview spreadId={sceneId} locale={previewLocale()} beat={scenePreviewBeat()} />
+        <DockSlicePreview
+          spreadId={sceneId}
+          route={scenePreviewRoute()}
+          locale={previewLocale()}
+          beat={scenePreviewBeat()}
+        />
       </ErrorBoundary>
     );
   }

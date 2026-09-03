@@ -64,6 +64,9 @@ export type Spread = z.infer<typeof spreadSchema>;
 
 export const routeSchema = z.object({
   id: z.string().min(1),
+  // Bilingual choice labels: the S04 route-choice renders one button per
+  // route, and both locales need a natural name for each path.
+  title: localizedTextSchema,
   spreadIds: z.array(z.string().min(1)).min(1),
 });
 export type Route = z.infer<typeof routeSchema>;

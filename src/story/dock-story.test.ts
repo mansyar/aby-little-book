@@ -35,8 +35,16 @@ function validStory(overrides: Record<string, unknown> = {}): Record<string, unk
     endingSpreadId: 'S10',
     spreads: spreadEntries(10),
     routes: [
-      { id: 'reed-channel', spreadIds: ['S04', 'S05', 'S06', 'S07', 'S08', 'S09', 'S10'] },
-      { id: 'lily-cove', spreadIds: ['S04', 'S05', 'S06', 'S07', 'S08', 'S09', 'S10'] },
+      {
+        id: 'reed-channel',
+        title: prose('Reed Channel', 'Jalur Gelagah'),
+        spreadIds: ['S04', 'S05', 'S06', 'S07', 'S08', 'S09', 'S10'],
+      },
+      {
+        id: 'lily-cove',
+        title: prose('Lily Cove', 'Teluk Teratai'),
+        spreadIds: ['S04', 'S05', 'S06', 'S07', 'S08', 'S09', 'S10'],
+      },
     ],
     ...overrides,
   };
@@ -73,7 +81,11 @@ describe('dock story contract', () => {
   });
 
   it('requires exactly two routes', () => {
-    const oneRoute = validStory({ routes: [{ id: 'reed-channel', spreadIds: ['S04'] }] });
+    const oneRoute = validStory({
+      routes: [
+        { id: 'reed-channel', title: prose('Reed Channel', 'Jalur Gelagah'), spreadIds: ['S04'] },
+      ],
+    });
     expect(storySchema.safeParse(oneRoute).success).toBe(false);
   });
 

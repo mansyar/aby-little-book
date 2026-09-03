@@ -32,8 +32,12 @@ function validStory(): Story {
     endingSpreadId: 'S10',
     spreads,
     routes: [
-      { id: 'reed-channel', spreadIds: routeSpreads },
-      { id: 'lily-cove', spreadIds: routeSpreads },
+      {
+        id: 'reed-channel',
+        title: prose('Reed Channel', 'Jalur Gelagah'),
+        spreadIds: routeSpreads,
+      },
+      { id: 'lily-cove', title: prose('Lily Cove', 'Teluk Teratai'), spreadIds: routeSpreads },
     ],
   };
 }
@@ -45,11 +49,19 @@ describe('dock route graph validator', () => {
 
   it('rejects a route that skips convergence or the ending', () => {
     const story = validStory();
-    story.routes[0] = { id: 'reed-channel', spreadIds: ['S04', 'S05', 'S09', 'S10'] };
+    story.routes[0] = {
+      id: 'reed-channel',
+      title: prose('Reed Channel', 'Jalur Gelagah'),
+      spreadIds: ['S04', 'S05', 'S09', 'S10'],
+    };
     const codes = validateDockRouteGraph(story).map((diagnostic) => diagnostic.code);
     expect(codes).toContain('route-missing-convergence');
     const badEnding = validStory();
-    badEnding.routes[1] = { id: 'lily-cove', spreadIds: ['S04', 'S08', 'S09'] };
+    badEnding.routes[1] = {
+      id: 'lily-cove',
+      title: prose('Lily Cove', 'Teluk Teratai'),
+      spreadIds: ['S04', 'S08', 'S09'],
+    };
     expect(validateDockRouteGraph(badEnding).map((diagnostic) => diagnostic.code)).toContain(
       'route-missing-ending',
     );
@@ -57,7 +69,11 @@ describe('dock route graph validator', () => {
 
   it('rejects unknown spread references and revisits', () => {
     const story = validStory();
-    story.routes[0] = { id: 'reed-channel', spreadIds: ['S04', 'S99', 'S04', 'S08', 'S10'] };
+    story.routes[0] = {
+      id: 'reed-channel',
+      title: prose('Reed Channel', 'Jalur Gelagah'),
+      spreadIds: ['S04', 'S99', 'S04', 'S08', 'S10'],
+    };
     const codes = validateDockRouteGraph(story).map((diagnostic) => diagnostic.code);
     expect(codes).toContain('route-unknown-spread');
     expect(codes).toContain('route-cycle');
