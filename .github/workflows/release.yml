@@ -1,0 +1,129 @@
+name: release-image
+
+# Builds the immutable release image for an owner-approved tag.
+# Triggers on tag push (v*.*.*) for future releases; already-pushed tags
+# can be built via workflow_dispatch with the tag name.
+# Follow-up: image-layer CVE scanning (e.g. Trivy) is not wired yet;
+# dependency audit gates the release until then.
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to build the image from (e.g. v0.1.0)'
+        required: true
+        type: string
+
+concurrency:
+  group: release-${{ github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  gates:
+    name: Release gates on tag source
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out tag source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+
+      - name: Set up pinned Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: TypeScript 7 check
+        run: pnpm typecheck
+
+      - name: Biome lint and format check
+        run: pnpm biome:check
+
+      - name: Unit and component tests with scoped coverage
+        run: pnpm test:coverage
+
+      - name: Dependency vulnerability audit (high and above)
+        run: pnpm audit --audit-level=high
+
+      - name: Production build
+        run: pnpm build
+
+      - name: Validate 3D asset packages
+        run: pnpm validate:assets
+
+  image:
+    name: Build and push immutable image
+    runs-on: ubuntu-latest
+    needs: gates
+    timeout-minutes: 25
+    outputs:
+      digest: ${{ steps.build.outputs.digest }}
+    steps:
+      - name: Check out tag source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+
+      - name: Resolve release tag
+        id: meta-tag
+        run: echo "tag=${{ inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract image metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ steps.meta-tag.outputs.tag }}
+            type=sha,prefix=sha-,format=short
+
+      - name: Build and push with SBOM and provenance
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          sbom: true
+          provenance: true
+
+  report:
+    name: Record image digest
+    runs-on: ubuntu-latest
+    needs: image
+    timeout-minutes: 5
+    steps:
+      - name: Print immutable reference
+        run: |
+          echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ needs.image.outputs.digest }}"
