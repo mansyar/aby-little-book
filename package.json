@@ -1,7 +1,7 @@
 {
   "name": "aby-little-book",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "description": "A calm bilingual English-Indonesian interactive picture-book PWA for children aged 4-6 and accompanying adults.",
   "packageManager": "pnpm@11.7.0",
