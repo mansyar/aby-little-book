@@ -105,6 +105,12 @@ export function chooseRoute(
   routeId: string,
   path: string[],
 ): GuidedSession {
+  // Commit lock: the first chosen route is final for this reading. The choice
+  // UI only offers routes while routeId is null, and back-travel preserves
+  // the route, so this guard is a second lock at the engine layer.
+  if (session.routeId !== null) {
+    return session;
+  }
   return { ...session, routeId, path };
 }
 

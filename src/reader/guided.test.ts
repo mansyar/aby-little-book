@@ -59,6 +59,11 @@ describe('guided reader engine', () => {
     expect(goBack(session).spreadId).toBe('S01');
   });
 
+  it('locks the first chosen route against re-choosing', () => {
+    const first = chooseRoute(startGuidedSession(STORY_ID, PATH), 'firefly-channel', PATH);
+    expect(chooseRoute(first, 'lily-cove', PATH)).toBe(first);
+  });
+
   it('finishes only at the last spread', () => {
     const session = boardBoat(startGuidedSession(STORY_ID, PATH), slice, 'boat');
     expect(finishGuided(session, slice).completed).toBe(false);

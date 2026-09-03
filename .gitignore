@@ -57,6 +57,7 @@ quit.blend
 # Temporary working directories
 tmp/
 temp/
+dummy-non-existing-folder/
 
 # Blender production intermediates (regenerable via pnpm build:assets)
 *.blend1
