@@ -29,7 +29,7 @@
 
 - [x] Task: Define failing app-state tests, then implement pure app reducer (11f31d4)
   - [ ] Dock/prep/reader/completion/caregiver states, reject invalid, no router
-- [ ] Task: Define failing guided-reader tests, then implement reader engine
+- [x] Task: Define failing guided-reader tests, then implement reader engine (826ef9b)
   - [ ] Spread flow, tap ownership, camera-beat rules, route preserved on back, reduced-motion freeze
 - [ ] Task: Define failing persistence tests, then implement IndexedDB repos
   - [ ] idb schema/migrations/settings/progress/route/history/completion/readiness, calm recovery
