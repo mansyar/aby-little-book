@@ -79,3 +79,7 @@
 - [x] Task: Deploy via Coolify + verify + rollback drill (deferred by owner 2026-09-03 — local-release close; Coolify/GHCR/prod journey/rollback pending)
   - [ ] Exact tag/digest HTTPS 8080, /healthz/version.json/cache/security/no-index/digest match, prod family journey, prior known-good restore proof (deferred to prod journey)
 - [x] Task: Phase Verification & Checkpoint (683a599) — local-release close, prod deferred
+
+## Phase Review Fixes
+
+- [x] Task: Apply review suggestions (b062b97)
