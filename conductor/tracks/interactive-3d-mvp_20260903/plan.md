@@ -43,7 +43,7 @@
   - [ ] style-bible.json (colors/roughness/bevel/light rig/cameras), builders for dock/boat/turtle/child, seed logging
 - [x] Task: Implement headless export + optimize jobs (efa2809)
   - [ ] background Blender build/export, glTF-transform Draco, KTX2, manifest with budgets/hashes/shas/seed
-- [ ] Task: Implement auto-review gates
+- [x] Task: Implement auto-review gates (0d0b82d)
   - [ ] Eevee iPad/phone rest/response previews, vision checks, budget/pivot/no-baked-text gates
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
