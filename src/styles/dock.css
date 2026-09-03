@@ -1,0 +1,112 @@
+/* Starlit Dock home: the calm night-lake landing. The boat card carries the
+   single obvious next step; the grown-ups door stays quiet. Motion is
+   limited to restrained transitions, which the global reduced-motion block
+   in global.css already zeroes when requested. */
+
+.dock {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  text-align: center;
+  background: radial-gradient(
+    ellipse at top,
+    var(--color-night-700) 0%,
+    var(--color-night-900) 70%
+  );
+}
+
+.dock__app-title {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.dock__place {
+  margin: 0;
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+.dock__shore {
+  display: flex;
+  justify-content: center;
+}
+
+.boat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: 24rem;
+  padding: var(--space-8) var(--space-6);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-night-800) 88%, transparent);
+  box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.35);
+}
+
+.boat-card__title {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.boat-card__status,
+.boat-card__keepsake {
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+}
+
+.boat-card__keepsake {
+  color: var(--color-star-400);
+}
+
+.boat-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Primary action: warm lantern gold, dark readable label */
+.boat-card__action {
+  min-height: 3rem;
+  padding: 0 var(--space-6);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-star-400);
+  color: var(--color-night-900);
+  font-size: var(--text-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-calm);
+}
+
+.boat-card__action:hover {
+  background: var(--color-star-500);
+}
+
+/* Quiet grown-ups door: outlined, calm, clearly secondary */
+.dock__caregiver {
+  min-height: 3rem;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-muted-200);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--text-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) var(--ease-calm),
+    color var(--duration-fast) var(--ease-calm);
+}
+
+.dock__caregiver:hover {
+  border-color: var(--color-star-400);
+  color: var(--color-star-400);
+}
