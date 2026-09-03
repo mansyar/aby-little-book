@@ -2,7 +2,7 @@
 
 ## Phase 1: Hybrid Toolchain, Shell, and Container Baseline
 
-- [ ] Task: Pin Three.js hybrid toolchain and test scaffolding
+- [x] Task: Pin Three.js hybrid toolchain and test scaffolding (b8b91a5)
   - [ ] Record pinned Three.js + React + Vite + TS7 + Node24 + pnpm versions
   - [ ] Configure Biome (general/html-css/typescript/python) + Vitest/TL/Playwright
   - [ ] Add `validate:assets` and `build:assets` script roles + CI gates
