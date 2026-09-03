@@ -19,7 +19,7 @@
   - [ ] Story spreads/routes/convergence, EN/ID parity, manifest/budget/pivot/hash rules
 - [x] Task: Implement Zod contracts with inferred types (185320f)
   - [ ] Story/spread/token/interaction/route/ending, scene/asset/package/readiness schemas
-- [ ] Task: Implement build-time validators
+- [x] Task: Implement build-time validators (c730087)
   - [ ] Parity/schema/refs/graphs/budgets/pivots/hashes with actionable diagnostics
 - [ ] Task: Encode 3-spread slice prose (agent draft + fluent fix, EN + ID)
   - [ ] Versioned slice data, no placeholders, no baked text
