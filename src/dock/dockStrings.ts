@@ -13,6 +13,12 @@ export interface DockStrings {
   readAgain: string;
   /** Door to the caregiver controls. */
   caregiver: string;
+  /** Calm line when preparation fails; the story stays unprepared. */
+  prepareFailed: string;
+  /** Retry action after a failed preparation. */
+  tryAgain: string;
+  /** Leave the preparation view back to the dock. */
+  backToDock: string;
   /** Lantern keepsake line shown on the dock after completion. */
   keepsake: string;
 }
@@ -26,6 +32,9 @@ export const DOCK_STRINGS: Record<'en' | 'id', DockStrings> = {
     continueLabel: 'Keep floating',
     readAgain: 'Float again',
     caregiver: 'For grown-ups',
+    prepareFailed: 'The story could not be saved yet. Nothing was lost.',
+    tryAgain: 'Try again',
+    backToDock: 'Back to the dock',
     keepsake: 'A lantern glows on your dock.',
   },
   id: {
@@ -36,6 +45,9 @@ export const DOCK_STRINGS: Record<'en' | 'id', DockStrings> = {
     continueLabel: 'Lanjut berlayar',
     readAgain: 'Berlayar lagi',
     caregiver: 'Untuk orang dewasa',
+    prepareFailed: 'Ceritanya belum bisa disimpan. Tidak ada yang hilang.',
+    tryAgain: 'Coba lagi',
+    backToDock: 'Kembali ke dermaga',
     keepsake: 'Sebuah lentera bersinar di dermagamu.',
   },
 };

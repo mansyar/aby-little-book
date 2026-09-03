@@ -22,6 +22,7 @@ export type DockState = {
 
 export type DockEvent =
   | { type: 'begin-preparation' }
+  | { type: 'cancel-preparation' }
   | { type: 'preparation-ready'; session: unknown; packageId: string }
   | { type: 'board-boat'; session: unknown }
   | { type: 'continue-story'; session: unknown }
@@ -51,6 +52,12 @@ export function reduceDockState(state: DockState, event: DockEvent): DockState {
         return state;
       }
       return { ...state, view: 'preparation' };
+    }
+    case 'cancel-preparation': {
+      if (state.view !== 'preparation') {
+        return state;
+      }
+      return { ...state, view: 'dock' };
     }
     case 'preparation-ready': {
       if (state.view !== 'preparation') {

@@ -63,13 +63,7 @@ import { TAP_TARGETS_BY_SPREAD } from './tapTargets';
 
 const STAND_IN_TARGETS = TAP_TARGETS_BY_SPREAD;
 
-function posterFor(title: string): string {
-  // Deterministic stand-in poster: real rest/response stills ship with the
-  // Phase 6 package layout (render_previews.py). This only needs to prove
-  // the fallback path carries a labelled image.
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="820"><rect width="100%" height="100%" fill="#0a1830"/><text x="50%" y="50%" fill="#ffb45e" font-size="48" text-anchor="middle">${title}</text></svg>`;
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
-}
+import { posterFor } from './poster';
 
 function walkTo(spreadId: StorySpreadId, route: RouteId): GuidedSession {
   const path = ROUTE_PATHS[route];
