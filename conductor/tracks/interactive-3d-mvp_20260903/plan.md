@@ -31,7 +31,7 @@
   - [ ] Dock/prep/reader/completion/caregiver states, reject invalid, no router
 - [x] Task: Define failing guided-reader tests, then implement reader engine (826ef9b)
   - [ ] Spread flow, tap ownership, camera-beat rules, route preserved on back, reduced-motion freeze
-- [ ] Task: Define failing persistence tests, then implement IndexedDB repos
+- [x] Task: Define failing persistence tests, then implement IndexedDB repos (4b7e8d1)
   - [ ] idb schema/migrations/settings/progress/route/history/completion/readiness, calm recovery
 - [ ] Task: Implement explicit 3D preparation + service worker + safe update
   - [ ] Bounded download, hash verify before atomic ready, progress/retry UI, shell precache, prepared-immutable serve, deferred activation
