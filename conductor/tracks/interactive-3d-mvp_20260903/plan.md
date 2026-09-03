@@ -28,14 +28,14 @@
 ## Phase 3: State, Reader Engine, Persistence, and Offline
 
 - [x] Task: Define failing app-state tests, then implement pure app reducer (11f31d4)
-  - [ ] Dock/prep/reader/completion/caregiver states, reject invalid, no router
+  - [x] Dock/prep/reader/completion/caregiver states, reject invalid, no router
 - [x] Task: Define failing guided-reader tests, then implement reader engine (826ef9b)
-  - [ ] Spread flow, tap ownership, camera-beat rules, route preserved on back, reduced-motion freeze
+  - [x] Spread flow, tap ownership, camera-beat rules, route preserved on back, reduced-motion freeze
 - [x] Task: Define failing persistence tests, then implement IndexedDB repos (4b7e8d1)
-  - [ ] idb schema/migrations/settings/progress/route/history/completion/readiness, calm recovery
+  - [x] idb schema/migrations/settings/progress/route/history/completion/readiness, calm recovery
 - [x] Task: Implement explicit 3D preparation + service worker + safe update (f4045d2)
-  - [ ] Bounded download, hash verify before atomic ready, progress/retry UI, shell precache, prepared-immutable serve, deferred activation
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [x] Bounded download, hash verify before atomic ready, progress/retry UI, shell precache, prepared-immutable serve, deferred activation
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 4: Fully-Agent 3D Builder Pipeline
 
