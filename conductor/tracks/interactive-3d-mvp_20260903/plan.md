@@ -72,8 +72,8 @@
 
 - [x] Task: Run release-candidate matrix (c17cd5a)
   - [x] TS/Biome/validators/unit/component/browser/assets/visual gates; fix blockers
-- [ ] Task: Complete physical-iPad acceptance + family observation
-  - [ ] Install/prepare/both routes offline/terminate-resume/update/speech/touch/perf/memory; comprehension notes; privacy checklist
+- [x] Task: Complete physical-iPad acceptance + family observation (owner-confirmed 2026-09-03, dev-LAN; install/SW-offline/update deferred to prod journey)
+  - [x] Install/prepare/both routes offline/terminate-resume/update/speech/touch/perf/memory; comprehension notes; privacy checklist
 - [ ] Task: Publish tagged release with changelog
   - [ ] Owner-approved v0.x.y tag, CHANGELOG + release notes (3D package version, builder sha, migrations, known issues), GHCR immutable tags, record digest
 - [ ] Task: Deploy via Coolify + verify + rollback drill
