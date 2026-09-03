@@ -62,11 +62,11 @@
 
 - [x] Task: Produce remaining builders output + integrate full EN/ID prose (story 47807e5; prose 2167c6b)
   - [x] Remaining spreads/boats via pipeline only; fluent review fixes; validate routes/endings
-- [ ] Task: Implement dock states, caregiver controls, completion keepsake
-  - [ ] States (new/preparing/ready/in-progress/complete), adult gate/settings/reset, calm ending + history
-- [ ] Task: Complete end-to-end journeys + reviews
-  - [ ] Both routes/locales/replay/reset, keyboard/pointer/reduced-motion, a11y + bilingual review fixes
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+- [x] Task: Implement dock states, caregiver controls, completion keepsake (views d870656/1aae604/2f12fc1; rewire 0542651; journeys+publisher 08b5125)
+  - [x] States (new/preparing/ready/in-progress/complete), adult gate/settings/reset, calm ending + history
+- [x] Task: Complete end-to-end journeys + reviews (08b5125)
+  - [x] Both routes/locales/replay/reset, keyboard/pointer/reduced-motion, a11y + bilingual review fixes
+- [x] Task: Phase Verification & Checkpoint (gates: 450 unit + 54 e2e green, biome 182 clean, build + postbuild ok)
 
 ## Phase 7: Validation, Tagged Release, and Rollback
 
