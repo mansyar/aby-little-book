@@ -46,7 +46,8 @@ export const CAREGIVER_STRINGS: Record<'en' | 'id', CaregiverStrings> = {
     prepareLabel: 'Prepare the book for offline',
     preparing: 'Saving the story…',
     resetLabel: 'Start the book over',
-    resetConsequence: 'This removes reading progress, the Lumi keepsake, and the prepared book.',
+    resetConsequence:
+      'This removes reading progress, the lantern keepsake, and the prepared story.',
     erase: 'Erase everything',
     cancel: 'Keep everything',
   },
@@ -72,7 +73,7 @@ export const CAREGIVER_STRINGS: Record<'en' | 'id', CaregiverStrings> = {
     preparing: 'Menyimpan cerita…',
     resetLabel: 'Mulai buku dari awal',
     resetConsequence:
-      'Ini menghapus kemajuan membaca, kenang-kenangan Lumi, dan buku yang sudah disiapkan.',
+      'Ini menghapus kemajuan membaca, kenang-kenangan lentera, dan cerita yang sudah disiapkan.',
     erase: 'Hapus semuanya',
     cancel: 'Simpan semuanya',
   },

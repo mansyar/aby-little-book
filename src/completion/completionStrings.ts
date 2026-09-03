@@ -7,16 +7,16 @@ export interface CompletionStrings {
 
 export const COMPLETION_STRINGS: Record<'en' | 'id', CompletionStrings> = {
   en: {
-    completionTitle: 'Lumi Shines Again',
-    completionMessage: 'You shared the light all the way home.',
-    replay: 'Read the story again',
-    keepsake: 'Lumi glows on your shelf.',
+    completionTitle: 'The Lantern Glows On',
+    completionMessage: 'You shared the cake and the light all the way home.',
+    replay: 'Float the story again',
+    keepsake: 'A lantern glows on your dock.',
   },
   id: {
-    completionTitle: 'Lumi Bersinar Lagi',
-    completionMessage: 'Kamu membagikan cahaya sampai ke rumah.',
-    replay: 'Baca ceritanya lagi',
-    keepsake: 'Lumi bersinar di rakmu.',
+    completionTitle: 'Lentera Tetap Bersinar',
+    completionMessage: 'Kamu berbagi kue dan cahaya sampai ke rumah.',
+    replay: 'Berlayar lagi',
+    keepsake: 'Sebuah lentera bersinar di dermagamu.',
   },
 };
 

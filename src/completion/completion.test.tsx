@@ -42,12 +42,12 @@ describe('CompletionView', () => {
 describe('KeepsakeBadge', () => {
   it('is silent when there is no keepsake', () => {
     render(<KeepsakeBadge strings={COMPLETION_STRINGS.en} hasKeepsake={false} />);
-    expect(screen.queryByText(/lumi/i)).toBeNull();
+    expect(screen.queryByText(/lantern/i)).toBeNull();
   });
 
-  it('announces Lumi when the keepsake exists', () => {
+  it('announces the lantern when the keepsake exists', () => {
     render(<KeepsakeBadge strings={COMPLETION_STRINGS.en} hasKeepsake={true} />);
-    expect(screen.getByText(/lumi/i)).toBeVisible();
+    expect(screen.getByText(/lantern/i)).toBeVisible();
   });
 });
 

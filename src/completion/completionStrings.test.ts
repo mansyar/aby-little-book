@@ -32,7 +32,7 @@ describe('completion strings', () => {
   });
 
   it('names the keepsake and the replay action', () => {
-    expect(COMPLETION_STRINGS.en.keepsake).toMatch(/lumi|shelf/i);
+    expect(COMPLETION_STRINGS.en.keepsake).toMatch(/lantern|dock/i);
     expect(COMPLETION_STRINGS.en.replay).toMatch(/again|once more/i);
     expect(COMPLETION_STRINGS.id.replay).toMatch(/lagi/i);
   });
