@@ -43,7 +43,7 @@ test.describe('offline journeys', () => {
     await context.setOffline(true);
     await page.reload();
     await expect(page.getByRole('heading', { level: 1, name: 'Aby Little Book' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Prepare the book' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Prepare the boat' })).toBeVisible();
   });
 
   test('serves prepared package assets offline from the verified cache', async ({
