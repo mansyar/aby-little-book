@@ -43,6 +43,9 @@ jobs:
       - name: Production build
         run: pnpm build
 
+      - name: Validate 3D asset packages
+        run: pnpm validate:assets
+
       - name: Upload coverage report
         if: always()
         uses: actions/upload-artifact@v4

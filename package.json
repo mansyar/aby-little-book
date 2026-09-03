@@ -19,12 +19,15 @@
     "test:e2e": "playwright test",
     "biome:check": "biome check .",
     "biome:format": "biome format --write .",
-    "validate": "pnpm typecheck && pnpm biome:check && pnpm test:coverage && pnpm build && pnpm test:e2e"
+    "validate": "pnpm typecheck && pnpm biome:check && pnpm validate:assets && pnpm test:coverage && pnpm build && pnpm test:e2e",
+    "validate:assets": "node scripts/validate-assets.mjs",
+    "build:assets": "node scripts/build-assets.mjs"
   },
   "dependencies": {
     "idb": "8.0.3",
     "react": "19.2.8",
     "react-dom": "19.2.8",
+    "three": "0.185.1",
     "zod": "4.4.3"
   },
   "devDependencies": {
@@ -37,6 +40,7 @@
     "@types/node": "24.13.3",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
+    "@types/three": "0.185.4",
     "@vitejs/plugin-react": "6.0.5",
     "@vitest/coverage-v8": "4.1.10",
     "fake-indexeddb": "6.2.5",
