@@ -70,8 +70,8 @@
 
 ## Phase 7: Validation, Tagged Release, and Rollback
 
-- [ ] Task: Run release-candidate matrix
-  - [ ] TS/Biome/validators/unit/component/browser/assets/visual gates; fix blockers
+- [x] Task: Run release-candidate matrix (c17cd5a)
+  - [x] TS/Biome/validators/unit/component/browser/assets/visual gates; fix blockers
 - [ ] Task: Complete physical-iPad acceptance + family observation
   - [ ] Install/prepare/both routes offline/terminate-resume/update/speech/touch/perf/memory; comprehension notes; privacy checklist
 - [ ] Task: Publish tagged release with changelog
