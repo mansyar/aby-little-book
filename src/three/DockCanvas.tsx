@@ -91,6 +91,42 @@ export function DockCanvas({
     };
   }, [webgl, bible, layout, beat, models, model]);
 
+  if (webgl && models !== null && model.status === 'loading') {
+    // Loading branch: the poster stays up with a calm, determinate progress
+    // bar pinned to the bottom edge of the scene layer — behind the DOM
+    // overlay, pointer-transparent, and animation-free so it is honest
+    // under reduced motion too.
+    const percent = Math.round(model.progress * 100);
+    return (
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <img aria-label={label} src={posterSrc} alt={label} />
+        <div
+          role="progressbar"
+          aria-label={label}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={percent}
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: '4px',
+            pointerEvents: 'none',
+          }}
+        >
+          <div
+            style={{
+              width: `${percent}%`,
+              height: '100%',
+              background: bible.palette.lanternGlow,
+            }}
+          />
+        </div>
+        {children}
+      </div>
+    );
+  }
   if (!webgl || models === null || model.status === 'failed') {
     return (
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
