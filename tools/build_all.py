@@ -11,6 +11,7 @@ Requires: blender 5.2.0, gltf-transform, ktx on PATH.
 import argparse
 import hashlib
 import json
+import shutil
 import struct
 import subprocess
 import sys
@@ -34,6 +35,29 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def resolve(cmd: list) -> list:
+    """Resolve a tool through PATH, handling Windows script shims.
+
+    Node-based CLIs (gltf-transform) install as .CMD shims which
+    CreateProcess cannot launch directly, so they run via cmd /c.
+
+    Args:
+        cmd: Command and arguments, no shell.
+
+    Returns:
+        Command with the executable resolved to an absolute path.
+
+    Raises:
+        RuntimeError: When the tool is not on PATH.
+    """
+    found = shutil.which(cmd[0])
+    if found is None:
+        raise RuntimeError(f'tool not on PATH: {cmd[0]}')
+    if found.lower().endswith(('.cmd', '.bat')):
+        return ['cmd', '/c', found, *cmd[1:]]
+    return [found, *cmd[1:]]
+
+
 def run(cmd: list, cwd: Path) -> str:
     """Run a command, raising with output on failure.
 
@@ -47,7 +71,8 @@ def run(cmd: list, cwd: Path) -> str:
     Raises:
         RuntimeError: When the command exits nonzero.
     """
-    proc = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
+    proc = subprocess.run(resolve(cmd), cwd=cwd, capture_output=True,
+                          encoding='utf-8', errors='replace')
     if proc.returncode != 0:
         raise RuntimeError(f'command failed: {" ".join(cmd)}\n{proc.stderr}')
     return proc.stdout
@@ -86,6 +111,24 @@ def vec3(triple: list) -> dict:
         Dict with x, y, z keys matching the Zod vec3 schema.
     """
     return {'x': triple[0], 'y': triple[1], 'z': triple[2]}
+
+
+def center3(low: list, high: list) -> dict:
+    """Compute the bounds-center interaction pivot for a scene.
+
+    The pivot anchors tap targets and camera framing, so it must lie
+    inside the exported bounds by construction.
+
+    Args:
+        low: Bounds-minimum [x, y, z] triple from export stats.
+        high: Bounds-maximum [x, y, z] triple from export stats.
+
+    Returns:
+        Dict with x, y, z keys matching the Zod vec3 schema.
+    """
+    return {'x': (low[0] + high[0]) / 2.0,
+            'y': (low[1] + high[1]) / 2.0,
+            'z': (low[2] + high[2]) / 2.0}
 
 
 def sha256_file(path: Path) -> str:
@@ -132,10 +175,12 @@ def build_subject(builder: str, seed: int, root: Path, tools: Path,
     """
     del tools
     blend = out / f'{builder}.blend'
-    print(run(['blender', '--background', '--python',
-               str(root / 'art' / 'builders' / f'{builder}.py'),
+    print(run(['blender', '--background', '--python-exit-code', '1',
+               '--python', str(root / 'art' / 'builders' / f'{builder}.py'),
                '--', '--seed', str(seed),
                '--out', str(out)], root))
+    if not blend.exists():
+        raise RuntimeError(f'builder {builder} exited 0 but wrote no .blend')
     return blend
 
 
@@ -154,8 +199,8 @@ def export_subject(builder: str, blend: Path, root: Path, tools: Path,
         Tuple of the GLB path and its stats dict.
     """
     glb = glb_dir / f'{builder}.glb'
-    output = run(['blender', '--background', '--python',
-                  str(tools / 'export_glb.py'), '--',
+    output = run(['blender', '--background', '--python-exit-code', '1',
+                  '--python', str(tools / 'export_glb.py'), '--',
                   '--blend', str(blend), '--glb', str(glb)], root)
     stats = json.loads([line for line in output.splitlines()
                         if line.startswith('STATS:')][0][len('STATS:'):])
@@ -230,7 +275,7 @@ def main() -> None:
             'glb': f'glb/{glb.name}',
             'sha256': sha256_file(glb),
             'triangles': stats['triangles'],
-            'pivot': {'x': 0, 'y': 0, 'z': 0},
+            'pivot': center3(stats['boundsMin'], stats['boundsMax']),
             'bounds': {'min': vec3(stats['boundsMin']),
                        'max': vec3(stats['boundsMax'])},
             'textures': textures,

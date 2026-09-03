@@ -8,6 +8,7 @@ Run headless: blender --background --python art/builders/lake_props.py
 """
 import argparse
 import json
+import math
 import random
 import sys
 from pathlib import Path
@@ -15,7 +16,7 @@ from pathlib import Path
 import bpy
 
 BUILDER_NAME = 'lake_props'
-BUILDER_VERSION = '0.1.0'
+BUILDER_VERSION = '0.2.0'
 
 
 def parse_args() -> argparse.Namespace:
@@ -41,17 +42,35 @@ def load_bible() -> dict:
     return json.loads(path.read_text(encoding='utf-8'))
 
 
+def srgb_to_linear(channel: float) -> float:
+    """Decode one display sRGB channel to linear light.
+
+    Args:
+        channel: Display-referred channel in 0..1.
+
+    Returns:
+        Linear-light channel in 0..1.
+    """
+    if channel <= 0.04045:
+        return channel / 12.92
+    return ((channel + 0.055) / 1.055) ** 2.4
+
+
 def hex_to_rgb(value: str) -> tuple:
     """Convert a #rrggbb string to a Blender linear RGB triple.
+
+    The style bible palette is authored as display sRGB, while Blender
+    color inputs and glTF factors are linear, so decode each channel.
 
     Args:
         value: Hex color string from the style bible.
 
     Returns:
-        Tuple of three floats in the 0..1 range.
+        Tuple of three linear floats in the 0..1 range.
     """
     value = value.lstrip('#')
-    return tuple(int(value[i:i + 2], 16) / 255.0 for i in (0, 2, 4))
+    return tuple(srgb_to_linear(int(value[i:i + 2], 16) / 255.0)
+                 for i in (0, 2, 4))
 
 
 def make_clay(name: str, color: str, roughness: float):
@@ -112,11 +131,13 @@ def build_props(bible: dict, seed: int) -> None:
     bpy.ops.object.delete(use_global=False)
 
     for index in range(5):
-        angle = seed + index * 1.256
-        x = 2.5 + random.random()
+        ring = index * 6.2831853 / 5.0 + random.random() * 0.5
+        radius = 2.5 + random.random() * 0.5
+        x = radius * math.cos(ring)
+        y = radius * math.sin(ring)
         bpy.ops.mesh.primitive_cylinder_add(
             radius=0.25 + random.random() * 0.15, depth=0.04,
-            location=(x, angle, 0.02))
+            location=(x, y, 0.02))
         pad = bpy.context.active_object
         pad.name = f'lily_pad_{index:02d}'
         pad.data.materials.append(pad_mat)

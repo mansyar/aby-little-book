@@ -41,17 +41,35 @@ def load_bible() -> dict:
     return json.loads(path.read_text(encoding='utf-8'))
 
 
+def srgb_to_linear(channel: float) -> float:
+    """Decode one display sRGB channel to linear light.
+
+    Args:
+        channel: Display-referred channel in 0..1.
+
+    Returns:
+        Linear-light channel in 0..1.
+    """
+    if channel <= 0.04045:
+        return channel / 12.92
+    return ((channel + 0.055) / 1.055) ** 2.4
+
+
 def hex_to_rgb(value: str) -> tuple:
     """Convert a #rrggbb string to a Blender linear RGB triple.
+
+    The style bible palette is authored as display sRGB, while Blender
+    color inputs and glTF factors are linear, so decode each channel.
 
     Args:
         value: Hex color string from the style bible.
 
     Returns:
-        Tuple of three floats in the 0..1 range.
+        Tuple of three linear floats in the 0..1 range.
     """
     value = value.lstrip('#')
-    return tuple(int(value[i:i + 2], 16) / 255.0 for i in (0, 2, 4))
+    return tuple(srgb_to_linear(int(value[i:i + 2], 16) / 255.0)
+                 for i in (0, 2, 4))
 
 
 def make_clay(name: str, color: str, roughness: float):
@@ -95,18 +113,29 @@ def add_capsule(name: str, radius: float, depth: float, location: tuple,
                 material) -> None:
     """Add a material-assigned capsule limb.
 
+    Built from a core cylinder plus two UV spheres: the extra-objects
+    capsule primitive is unavailable in background Blender, and every
+    builder must run headless.
+
     Args:
-        name: Object name.
+        name: Object name prefix; parts become <name>_mid/<name>_top.
         radius: Capsule radius.
         depth: Capsule mid-section depth.
         location: XYZ center.
         material: Blender material to assign.
     """
-    bpy.ops.mesh.primitive_capsule_add(radius=radius, depth=depth,
-                                       location=location)
-    limb = bpy.context.active_object
-    limb.name = name
-    limb.data.materials.append(material)
+    cx, cy, cz = location
+    bpy.ops.mesh.primitive_cylinder_add(radius=radius, depth=depth,
+                                        location=location)
+    mid = bpy.context.active_object
+    mid.name = f'{name}_mid'
+    mid.data.materials.append(material)
+    for end, z in (('top', cz + depth / 2.0), ('bottom', cz - depth / 2.0)):
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=radius,
+                                             location=(cx, cy, z))
+        cap = bpy.context.active_object
+        cap.name = f'{name}_{end}'
+        cap.data.materials.append(material)
 
 
 def build_child(bible: dict, seed: int) -> None:

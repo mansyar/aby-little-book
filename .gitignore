@@ -57,3 +57,8 @@ quit.blend
 # Temporary working directories
 tmp/
 temp/
+
+# Blender production intermediates (regenerable via pnpm build:assets)
+*.blend1
+art/blender_out/previews/
+tools/__pycache__/
