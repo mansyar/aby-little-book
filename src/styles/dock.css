@@ -107,8 +107,14 @@
   background: var(--color-star-500);
 }
 
-/* Quiet grown-ups door: outlined, calm, clearly secondary */
+/* Quiet grown-ups door: outlined, calm, clearly secondary. It lives in the
+   top-right corner, out of the scene's way at every viewport, instead of
+   under the card where it collides with the dock geometry. */
 .dock__caregiver {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 2;
   min-height: 3rem;
   padding: 0 var(--space-4);
   border: 1px solid var(--color-muted-200);
