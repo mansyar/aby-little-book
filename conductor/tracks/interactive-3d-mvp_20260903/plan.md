@@ -6,7 +6,7 @@
   - [ ] Record pinned Three.js + React + Vite + TS7 + Node24 + pnpm versions
   - [ ] Configure Biome (general/html-css/typescript/python) + Vitest/TL/Playwright
   - [ ] Add `validate:assets` and `build:assets` script roles + CI gates
-- [ ] Task: Create poster-fallback app shell with health and version
+- [x] Task: Create poster-fallback app shell with health and version (422bac5)
   - [ ] Failing landmark/localized shell test, then Vite entry/shell/error boundary
   - [ ] Local fonts/tokens/layout/reduced-motion + /healthz + /version.json
 - [ ] Task: Establish static container baseline
