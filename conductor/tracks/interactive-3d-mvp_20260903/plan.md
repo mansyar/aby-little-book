@@ -53,7 +53,7 @@
   - [ ] Failing layout/semantic/hotspot tests first; Three.js scene + DOM overlay; active-content bounds; pre-decode where supported
 - [x] Task: Implement guided taps, glow-plus-word, camera beats, fallback (d1a9654)
   - [ ] Ownership tests; provider speech cancel/replace; reduced-motion freeze; poster fallback
-- [ ] Task: Prove slice offline + responsive + captures
+- [x] Task: Prove slice offline + responsive + captures (6e1dd6c)
   - [ ] Playwright prepare/disconnect/complete/reload, rest/response captures, safe-region/overlay fit
 - [ ] Task: Slice approval gate (explicit human approval before mass production)
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
