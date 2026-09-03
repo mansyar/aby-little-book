@@ -1,0 +1,169 @@
+{
+  "packageId": "the-sharing-tide-0.1.0",
+  "storyId": "the-sharing-tide",
+  "storyVersion": "0.1.0",
+  "builder": {
+    "blender": "Blender 5.2.0 LTS",
+    "builderSha": "331eaed0c118814c8ef9039dacd322adb8c1bfafb0a2f412fa2a024beb81a02b",
+    "styleSha": "cc00ea9f0968dea78711127add0bdac6cf515e230c685a413f5527469fb219a9",
+    "seed": 7
+  },
+  "totalBytes": 99164,
+  "scenes": [
+    {
+      "id": "dock",
+      "glb": "glb/dock.glb",
+      "sha256": "348037afdc7a8c32c2ca136edd5dd93431ddb7c65c76ccb1465926b35abf4749",
+      "triangles": 604,
+      "pivot": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.3050000071525574
+      },
+      "bounds": {
+        "min": {
+          "x": -0.699999988079071,
+          "y": -1.2400000095367432,
+          "z": -1.2000000476837158
+        },
+        "max": {
+          "x": 0.699999988079071,
+          "y": 1.2400000095367432,
+          "z": 0.5900000333786011
+        }
+      },
+      "textures": [],
+      "tapTargets": [],
+      "bakedText": false,
+      "budgets": {
+        "maxTriangles": 30000,
+        "maxTextureBytes": 4194304,
+        "maxTotalBytes": 4194304
+      }
+    },
+    {
+      "id": "boat",
+      "glb": "glb/boat.glb",
+      "sha256": "d3cecd4eff5695e36632813679285aebb81a0e80c4df8cfb43dc731f2762d3a3",
+      "triangles": 412,
+      "pivot": {
+        "x": 0.0,
+        "y": 0.019999995827674866,
+        "z": 0.8299999833106995
+      },
+      "bounds": {
+        "min": {
+          "x": -0.9849087595939636,
+          "y": -0.3499999940395355,
+          "z": 0.0
+        },
+        "max": {
+          "x": 0.9849087595939636,
+          "y": 0.38999998569488525,
+          "z": 1.659999966621399
+        }
+      },
+      "textures": [],
+      "tapTargets": [],
+      "bakedText": false,
+      "budgets": {
+        "maxTriangles": 30000,
+        "maxTextureBytes": 4194304,
+        "maxTotalBytes": 4194304
+      }
+    },
+    {
+      "id": "turtle",
+      "glb": "glb/turtle.glb",
+      "sha256": "8821591e037e6910e9c1e1b7b55d1c81e7b87f739281d0f26824e79aa50735db",
+      "triangles": 9600,
+      "pivot": {
+        "x": 1.4901161193847656e-08,
+        "y": 0.06297662854194641,
+        "z": 0.26750000193715096
+      },
+      "bounds": {
+        "min": {
+          "x": -0.3699999749660492,
+          "y": -0.32404667139053345,
+          "z": 0.07499999552965164
+        },
+        "max": {
+          "x": 0.3700000047683716,
+          "y": 0.44999992847442627,
+          "z": 0.46000000834465027
+        }
+      },
+      "textures": [],
+      "tapTargets": [],
+      "bakedText": false,
+      "budgets": {
+        "maxTriangles": 30000,
+        "maxTextureBytes": 4194304,
+        "maxTotalBytes": 4194304
+      }
+    },
+    {
+      "id": "child",
+      "glb": "glb/child.glb",
+      "sha256": "1502c1edcb2b83d95f531ac6c6cbd312fe74cf7a3b6ad0648f4842de37e9b2bf",
+      "triangles": 15020,
+      "pivot": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.6150000002235174
+      },
+      "bounds": {
+        "min": {
+          "x": -0.36000001430511475,
+          "y": -0.2199999988079071,
+          "z": -0.019999999552965164
+        },
+        "max": {
+          "x": 0.36000001430511475,
+          "y": 0.2199999988079071,
+          "z": 1.25
+        }
+      },
+      "textures": [],
+      "tapTargets": [],
+      "bakedText": false,
+      "budgets": {
+        "maxTriangles": 30000,
+        "maxTextureBytes": 4194304,
+        "maxTotalBytes": 4194304
+      }
+    },
+    {
+      "id": "lake_props",
+      "glb": "glb/lake_props.glb",
+      "sha256": "7c12bda0f974592304ffd663a181084cc58914e31e8e13f0111fb17c3d0df5c0",
+      "triangles": 1604,
+      "pivot": {
+        "x": -0.29416513442993164,
+        "y": 0.0895071029663086,
+        "z": 0.6440637707710266
+      },
+      "bounds": {
+        "min": {
+          "x": -3.4777088165283203,
+          "y": -2.787553310394287,
+          "z": 0.0
+        },
+        "max": {
+          "x": 2.889378547668457,
+          "y": 2.9665675163269043,
+          "z": 1.2881275415420532
+        }
+      },
+      "textures": [],
+      "tapTargets": [],
+      "bakedText": false,
+      "budgets": {
+        "maxTriangles": 30000,
+        "maxTextureBytes": 4194304,
+        "maxTotalBytes": 4194304
+      }
+    }
+  ]
+}

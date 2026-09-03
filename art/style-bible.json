@@ -1,0 +1,42 @@
+{
+  "version": "0.1.0",
+  "blender": "5.2.0",
+  "defaultSeed": 7,
+  "palette": {
+    "nightSky": "#0a1830",
+    "nightWater": "#0e2a4a",
+    "moonlight": "#e8f1ff",
+    "lanternGlow": "#ffb45e",
+    "lanternPaper": "#ffe3b3",
+    "dockWood": "#7a5a3d",
+    "boatHull": "#a5443c",
+    "turtleShell": "#4e7d5b",
+    "turtleSkin": "#9cc184",
+    "childCoat": "#e8b64c",
+    "childSkin": "#f2c9a0",
+    "blush": "#e88a8a"
+  },
+  "materials": {
+    "clay": { "roughness": 0.85, "bevelSegments": 3, "bevelWidth": 0.02 }
+  },
+  "lightRig": {
+    "key": { "color": "#dfeaff", "energy": 3.0 },
+    "fill": { "color": "#ffb45e", "energy": 1.2 },
+    "rim": { "color": "#7fb2ff", "energy": 0.8 },
+    "ambient": "#16263f"
+  },
+  "cameras": {
+    "ipad-landscape": { "fov": 40, "position": [0, 3.2, 7.5], "target": [0, 1.0, 0] },
+    "phone-portrait": { "fov": 50, "position": [0, 2.6, 6.0], "target": [0, 1.2, 0] }
+  },
+  "characters": {
+    "turtle": { "heightM": 0.35, "face": "beads-and-blush", "primaryColor": "#4e7d5b" },
+    "child": { "heightM": 0.9, "face": "beads-and-blush", "primaryColor": "#e8b64c" }
+  },
+  "budgets": {
+    "maxTrianglesPerScene": 30000,
+    "maxTextureBytes": 4194304,
+    "maxSceneBytes": 4194304,
+    "maxPackageBytes": 12582912
+  }
+}

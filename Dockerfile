@@ -8,10 +8,14 @@ RUN corepack enable
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
+# scripts/ must precede install: the postinstall hook (copy-draco.mjs)
+# runs during `pnpm install`, before the full source copy below.
+COPY scripts ./scripts
 RUN pnpm install --frozen-lockfile
 
 COPY . .
-RUN pnpm build
+# Asset gates run before the build so images never ship unvalidated 3D packages.
+RUN pnpm validate:assets && pnpm build
 
 # ---- Runtime: pinned unprivileged Nginx ----
 FROM nginxinc/nginx-unprivileged:1.31.3-alpine3.24

@@ -1,7 +1,7 @@
 {
   "name": "aby-little-book",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "description": "A calm bilingual English-Indonesian interactive picture-book PWA for children aged 4-6 and accompanying adults.",
   "packageManager": "pnpm@11.7.0",
@@ -9,8 +9,11 @@
     "node": ">=24.15.0"
   },
   "scripts": {
+    "postinstall": "node scripts/copy-draco.mjs",
     "dev": "vite",
+    "predev": "node scripts/copy-package.mjs public",
     "build": "vite build",
+    "postbuild": "node scripts/copy-package.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -19,12 +22,15 @@
     "test:e2e": "playwright test",
     "biome:check": "biome check .",
     "biome:format": "biome format --write .",
-    "validate": "pnpm typecheck && pnpm biome:check && pnpm test:coverage && pnpm build && pnpm test:e2e"
+    "validate": "pnpm typecheck && pnpm biome:check && pnpm validate:assets && pnpm test:coverage && pnpm build && pnpm test:e2e",
+    "validate:assets": "node scripts/validate-assets.mjs",
+    "build:assets": "node scripts/build-assets.mjs"
   },
   "dependencies": {
     "idb": "8.0.3",
     "react": "19.2.8",
     "react-dom": "19.2.8",
+    "three": "0.185.1",
     "zod": "4.4.3"
   },
   "devDependencies": {
@@ -37,6 +43,7 @@
     "@types/node": "24.13.3",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
+    "@types/three": "0.185.4",
     "@vitejs/plugin-react": "6.0.5",
     "@vitest/coverage-v8": "4.1.10",
     "fake-indexeddb": "6.2.5",

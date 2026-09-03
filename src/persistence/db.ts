@@ -4,16 +4,22 @@
 
 import type { DBSchema, IDBPDatabase } from 'idb';
 import { openDB } from 'idb';
+import type { PackageReadiness } from '../scene/package';
+import type { DockCompletionRecord, DockSettingsRecord, GuidedProgressRecord } from './dockRecords';
 import type { KeepsakeRecord, PackageStateRecord, ProgressRecord, SettingsRecord } from './records';
 
 export const DB_NAME = 'aby-little-book';
 export const STORES = ['settings', 'progress', 'completion', 'packageState'] as const;
 
+// Store values are unions while the dock world grows alongside the previous
+// world. Every repository validates through its own Zod schema, so a record
+// written by one world reads as calm null in the other; the dock cutover in
+// a later phase retires the old shapes.
 type AbySchema = DBSchema & {
-  settings: { key: string; value: SettingsRecord };
-  progress: { key: string; value: ProgressRecord };
-  completion: { key: string; value: KeepsakeRecord };
-  packageState: { key: string; value: PackageStateRecord };
+  settings: { key: string; value: SettingsRecord | DockSettingsRecord };
+  progress: { key: string; value: ProgressRecord | GuidedProgressRecord };
+  completion: { key: string; value: KeepsakeRecord | DockCompletionRecord };
+  packageState: { key: string; value: PackageStateRecord | PackageReadiness };
 };
 
 export type AbyDB = IDBPDatabase<AbySchema>;

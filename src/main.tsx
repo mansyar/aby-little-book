@@ -7,6 +7,7 @@ import './styles/tokens.css';
 import './styles/global.css';
 import './styles/reader.css';
 import './styles/screens.css';
+import './styles/dock.css';
 
 const rootElement = document.getElementById('root');
 if (rootElement === null) {

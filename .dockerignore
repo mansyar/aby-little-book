@@ -16,9 +16,16 @@ blob-report/
 .github/
 conductor/
 
-# Project documents and art sources stay out of the build context
+# Project documents and art sources stay out of the build context,
+# except the three runtime inputs src/ imports at build time
+# (style bible, package manifest, GLB binaries). Negations need the
+# parent rule as art/*: a file below an excluded directory cannot be
+# re-included.
 docs/
-art/
+art/*
+!art/style-bible.json
+!art/manifest/
+!art/glb/
 
 # Local environment
 .env
