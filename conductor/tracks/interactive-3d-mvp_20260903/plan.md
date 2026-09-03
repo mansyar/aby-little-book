@@ -3,15 +3,15 @@
 ## Phase 1: Hybrid Toolchain, Shell, and Container Baseline
 
 - [x] Task: Pin Three.js hybrid toolchain and test scaffolding (b8b91a5)
-  - [ ] Record pinned Three.js + React + Vite + TS7 + Node24 + pnpm versions
-  - [ ] Configure Biome (general/html-css/typescript/python) + Vitest/TL/Playwright
-  - [ ] Add `validate:assets` and `build:assets` script roles + CI gates
+  - [x] Record pinned Three.js + React + Vite + TS7 + Node24 + pnpm versions
+  - [x] Configure Biome (general/html-css/typescript/python) + Vitest/TL/Playwright
+  - [x] Add `validate:assets` and `build:assets` script roles + CI gates
 - [x] Task: Create poster-fallback app shell with health and version (422bac5)
-  - [ ] Failing landmark/localized shell test, then Vite entry/shell/error boundary
-  - [ ] Local fonts/tokens/layout/reduced-motion + /healthz + /version.json
+  - [x] Failing landmark/localized shell test, then Vite entry/shell/error boundary
+  - [x] Local fonts/tokens/layout/reduced-motion + /healthz + /version.json
 - [x] Task: Establish static container baseline (b2f0c83)
-  - [ ] Pinned multi-stage Node builder + unprivileged Nginx 8080, SPA/MIME/cache/security/no-index
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [x] Pinned multi-stage Node builder + unprivileged Nginx 8080, SPA/MIME/cache/security/no-index
+- [x] Task: Phase Verification & Checkpoint (62bbea4)
 
 ## Phase 2: Story, Scene, and Package Contracts
 
