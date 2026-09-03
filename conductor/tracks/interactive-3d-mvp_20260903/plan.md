@@ -21,7 +21,7 @@
   - [ ] Story/spread/token/interaction/route/ending, scene/asset/package/readiness schemas
 - [x] Task: Implement build-time validators (c730087)
   - [ ] Parity/schema/refs/graphs/budgets/pivots/hashes with actionable diagnostics
-- [ ] Task: Encode 3-spread slice prose (agent draft + fluent fix, EN + ID)
+- [x] Task: Encode 3-spread slice prose (agent draft + fluent fix, EN + ID) (7ba21dc)
   - [ ] Versioned slice data, no placeholders, no baked text
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
