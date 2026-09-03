@@ -35,6 +35,8 @@
   },
   "budgets": {
     "maxTrianglesPerScene": 30000,
+    "maxTextureBytes": 4194304,
+    "maxSceneBytes": 4194304,
     "maxPackageBytes": 12582912
   }
 }

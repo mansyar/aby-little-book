@@ -51,6 +51,8 @@ export const styleBibleSchema = z.object({
   }),
   budgets: z.object({
     maxTrianglesPerScene: z.number().int().positive(),
+    maxTextureBytes: z.number().int().positive(),
+    maxSceneBytes: z.number().int().positive(),
     maxPackageBytes: z.number().int().positive(),
   }),
 });

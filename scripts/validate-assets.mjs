@@ -54,29 +54,65 @@ for (const name of manifestFiles) {
       bytes += data.length;
     }
   };
-  if (!Array.isArray(manifest.scenes)) {
-    fail(name, 'manifest needs a scenes array');
+  if (!Array.isArray(manifest.scenes) || manifest.scenes.length === 0) {
+    fail(name, 'manifest needs a non-empty scenes array');
     continue;
   }
+  const builder = manifest.builder;
+  if (
+    !builder ||
+    typeof builder.blender !== 'string' ||
+    typeof builder.builderSha !== 'string' ||
+    typeof builder.styleSha !== 'string' ||
+    typeof builder.seed !== 'number'
+  ) {
+    fail(name, 'manifest needs builder provenance (blender/builderSha/styleSha/seed)');
+    continue;
+  }
+  const isVec3 = (value) =>
+    value !== null &&
+    typeof value === 'object' &&
+    typeof value.x === 'number' &&
+    typeof value.y === 'number' &&
+    typeof value.z === 'number';
   for (const scene of manifest.scenes) {
     scenes += 1;
-    const tag = `${id}/${scene.sceneId ?? 'scene'}`;
-    const data = await readAsset(name, scene.source);
+    const tag = `${id}/${scene.id ?? 'scene'}`;
+    const data = await readAsset(name, scene.glb);
     if (data === null) continue;
-    countBytes(scene.source, data);
+    countBytes(scene.glb, data);
     if (sha256(data) !== scene.sha256) {
-      fail(name, `${tag}: hash mismatch for ${scene.source}`);
+      fail(name, `${tag}: hash mismatch for ${scene.glb}`);
     }
-    if (typeof scene.triangles !== 'number' || scene.triangles > scene.maxTriangles) {
+    const maxTriangles = scene.budgets?.maxTriangles;
+    if (typeof scene.triangles !== 'number' || scene.triangles > maxTriangles) {
       fail(name, `${tag}: over triangle budget`);
     }
     if (scene.bakedText !== false) {
       fail(name, `${tag}: baked text is forbidden`);
     }
-    if (!Array.isArray(scene.pivot) || scene.pivot.length !== 3) {
-      fail(name, `${tag}: pivot must be a 3-number vector`);
+    if (!isVec3(scene.pivot)) {
+      fail(name, `${tag}: pivot must be an {x, y, z} vector`);
+    }
+    for (const target of scene.tapTargets ?? []) {
+      if (
+        typeof target.id !== 'string' ||
+        typeof target.label?.en !== 'string' ||
+        typeof target.label?.id !== 'string' ||
+        !isVec3(target.position)
+      ) {
+        fail(name, `${tag}: tap target needs id, bilingual label, and position`);
+      }
     }
     for (const texture of scene.textures ?? []) {
+      if (
+        typeof texture.id !== 'string' ||
+        typeof texture.width !== 'number' ||
+        typeof texture.height !== 'number'
+      ) {
+        fail(name, `${tag}: texture needs id, width, and height`);
+        continue;
+      }
       const pixels = await readAsset(name, texture.src);
       if (pixels === null) continue;
       countBytes(texture.src, pixels);

@@ -11,6 +11,7 @@ Requires: blender 5.2.0, gltf-transform, ktx on PATH.
 import argparse
 import hashlib
 import json
+import struct
 import subprocess
 import sys
 from pathlib import Path
@@ -50,6 +51,41 @@ def run(cmd: list, cwd: Path) -> str:
     if proc.returncode != 0:
         raise RuntimeError(f'command failed: {" ".join(cmd)}\n{proc.stderr}')
     return proc.stdout
+
+
+KTX2_MAGIC = b'\xabKTX 20\xbb\r\n\x1a\n'
+
+
+def ktx2_dimensions(path: Path) -> tuple:
+    """Read pixel dimensions from a KTX2 header.
+
+    Args:
+        path: KTX2 file produced by `ktx create`.
+
+    Returns:
+        Tuple of (width, height) in pixels.
+
+    Raises:
+        ValueError: When the file is not a KTX2 container.
+    """
+    with path.open('rb') as handle:
+        header = handle.read(28)
+    if len(header) < 28 or header[:12] != KTX2_MAGIC:
+        raise ValueError(f'not a KTX2 file: {path}')
+    width, height = struct.unpack_from('<II', header, 20)
+    return width, height
+
+
+def vec3(triple: list) -> dict:
+    """Convert an [x, y, z] stats triple to the manifest vec3 shape.
+
+    Args:
+        triple: Three-number list from export stats.
+
+    Returns:
+        Dict with x, y, z keys matching the Zod vec3 schema.
+    """
+    return {'x': triple[0], 'y': triple[1], 'z': triple[2]}
 
 
 def sha256_file(path: Path) -> str:
@@ -136,7 +172,8 @@ def compress_textures(root: Path, ktx_dir: Path) -> list:
         ktx_dir: Destination directory for KTX2 files.
 
     Returns:
-        List of texture manifest entries with src and sha256.
+        List of texture manifest entries with id, src, dims, and sha256,
+        matching the Zod texture schema.
     """
     src_dir = root / 'art' / 'textures_src'
     entries = []
@@ -146,7 +183,11 @@ def compress_textures(root: Path, ktx_dir: Path) -> list:
         target = ktx_dir / f'{png.stem}.ktx2'
         run(['ktx', 'create', '--format', 'UASTC', str(png), str(target)],
             root)
-        entries.append({'src': f'ktx/{target.name}',
+        width, height = ktx2_dimensions(target)
+        entries.append({'id': png.stem,
+                        'src': f'ktx/{target.name}',
+                        'width': width,
+                        'height': height,
                         'sha256': sha256_file(target)})
     return entries
 
@@ -174,37 +215,43 @@ def main() -> None:
     scenes = []
     total = sum((ktx_dir / entry['src'].split('/')[1]).stat().st_size
                 for entry in textures)
+    pipeline_sha = sha256_file(tools / 'build_all.py')
+    style_sha = sha256_file(bible_path)
     for builder in BUILDERS:
         builder_path = root / 'art' / 'builders' / f'{builder}.py'
+        builder_sha = sha256_file(builder_path)
+        print(f'[pipeline] builder={builder} sha={builder_sha}')
         blend = build_subject(builder, args.seed, root, tools, out)
         glb, stats = export_subject(builder, blend, root, tools, glb_dir)
         size = glb.stat().st_size
         total += size
         scenes.append({
-            'sceneId': builder,
-            'source': f'glb/{glb.name}',
+            'id': builder,
+            'glb': f'glb/{glb.name}',
             'sha256': sha256_file(glb),
             'triangles': stats['triangles'],
-            'maxTriangles': budgets['maxTrianglesPerScene'],
-            'pivot': [0, 0, 0],
-            'bounds': {'min': stats['boundsMin'],
-                       'max': stats['boundsMax']},
-            'bakedText': False,
+            'pivot': {'x': 0, 'y': 0, 'z': 0},
+            'bounds': {'min': vec3(stats['boundsMin']),
+                       'max': vec3(stats['boundsMax'])},
             'textures': textures,
             'tapTargets': [],
-            'budgets': budgets,
-            'builder': {
-                'blender': version,
-                'builderName': builder,
-                'builderSha': sha256_file(builder_path),
-                'styleSha': sha256_file(bible_path),
-                'seed': args.seed,
+            'bakedText': False,
+            'budgets': {
+                'maxTriangles': budgets['maxTrianglesPerScene'],
+                'maxTextureBytes': budgets['maxTextureBytes'],
+                'maxTotalBytes': budgets['maxSceneBytes'],
             },
         })
     manifest = {
         'packageId': args.package,
         'storyId': 'the-sharing-tide',
         'storyVersion': '0.1.0',
+        'builder': {
+            'blender': version,
+            'builderSha': pipeline_sha,
+            'styleSha': style_sha,
+            'seed': args.seed,
+        },
         'totalBytes': total,
         'scenes': scenes,
     }
