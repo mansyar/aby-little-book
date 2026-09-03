@@ -158,7 +158,7 @@ export function DockSlicePreview({
     measure();
     window.addEventListener('resize', measure);
     return () => window.removeEventListener('resize', measure);
-  }, [layout]);
+  }, []);
   const width = stageSize.width;
   const height = stageSize.height;
 
@@ -168,17 +168,18 @@ export function DockSlicePreview({
   };
 
   return (
-    <main aria-label={`Scene preview ${spread.title[locale]}`}>
-      <h1>{spread.title[locale]}</h1>
-      <p>{spread.prose[locale]}</p>
-      <div
-        ref={stageRef}
-        style={{
-          position: 'relative',
-          width: '100%',
-          aspectRatio: layout === 'ipad-landscape' ? '1180 / 820' : '390 / 844',
-        }}
-      >
+    <main
+      aria-label={`Scene preview ${spread.title[locale]}`}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        overflow: 'hidden',
+        margin: 0,
+        backgroundColor: '#0a1830',
+        color: '#fdf6ec',
+      }}
+    >
+      <div ref={stageRef} style={{ position: 'absolute', inset: 0 }}>
         <DockCanvas
           bible={bible}
           layout={layout}
@@ -199,6 +200,20 @@ export function DockSlicePreview({
             onActivate={activate}
           />
         </DockCanvas>
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          padding: '24px 28px 48px',
+          background: 'linear-gradient(to bottom, rgba(10, 24, 48, 0.88), transparent)',
+          pointerEvents: 'none',
+        }}
+      >
+        <h1 style={{ margin: 0, fontSize: '2rem' }}>{spread.title[locale]}</h1>
+        <p style={{ margin: '8px 0 0', fontSize: '1.125rem' }}>{spread.prose[locale]}</p>
       </div>
     </main>
   );
