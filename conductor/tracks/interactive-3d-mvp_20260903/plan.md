@@ -16,14 +16,14 @@
 ## Phase 2: Story, Scene, and Package Contracts
 
 - [x] Task: Define failing contract tests for story + 3D packages (9b379e1)
-  - [ ] Story spreads/routes/convergence, EN/ID parity, manifest/budget/pivot/hash rules
+  - [x] Story spreads/routes/convergence, EN/ID parity, manifest/budget/pivot/hash rules
 - [x] Task: Implement Zod contracts with inferred types (185320f)
-  - [ ] Story/spread/token/interaction/route/ending, scene/asset/package/readiness schemas
+  - [x] Story/spread/token/interaction/route/ending, scene/asset/package/readiness schemas
 - [x] Task: Implement build-time validators (c730087)
-  - [ ] Parity/schema/refs/graphs/budgets/pivots/hashes with actionable diagnostics
+  - [x] Parity/schema/refs/graphs/budgets/pivots/hashes with actionable diagnostics
 - [x] Task: Encode 3-spread slice prose (agent draft + fluent fix, EN + ID) (7ba21dc)
-  - [ ] Versioned slice data, no placeholders, no baked text
-- [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
+  - [x] Versioned slice data, no placeholders, no baked text
+- [x] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
 ## Phase 3: State, Reader Engine, Persistence, and Offline
 
