@@ -22,6 +22,9 @@ export const textureSchema = z.object({
   src: z.string().regex(KTX2_SRC_PATTERN),
   width: z.number().int().positive(),
   height: z.number().int().positive(),
+  // Optional so older manifests still parse; preparation treats a missing
+  // hash as unverifiable and refuses to cache the texture.
+  sha256: z.string().regex(SHA256_PATTERN).optional(),
 });
 export type SceneTexture = z.infer<typeof textureSchema>;
 
