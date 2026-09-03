@@ -27,7 +27,7 @@
 
 ## Phase 3: State, Reader Engine, Persistence, and Offline
 
-- [ ] Task: Define failing app-state tests, then implement pure app reducer
+- [x] Task: Define failing app-state tests, then implement pure app reducer (11f31d4)
   - [ ] Dock/prep/reader/completion/caregiver states, reject invalid, no router
 - [ ] Task: Define failing guided-reader tests, then implement reader engine
   - [ ] Spread flow, tap ownership, camera-beat rules, route preserved on back, reduced-motion freeze
