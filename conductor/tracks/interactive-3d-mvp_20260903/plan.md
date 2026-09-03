@@ -49,7 +49,7 @@
 
 ## Phase 5: Slice Integration and Approval Gate
 
-- [~] Task: Build hybrid dock + 3-spread slice renderer (assets produced daaee8c; renderer next)
+- [x] Task: Build hybrid dock + 3-spread slice renderer (assets daaee8c; renderer 9712f1f)
   - [ ] Failing layout/semantic/hotspot tests first; Three.js scene + DOM overlay; active-content bounds; pre-decode where supported
 - [ ] Task: Implement guided taps, glow-plus-word, camera beats, fallback
   - [ ] Ownership tests; provider speech cancel/replace; reduced-motion freeze; poster fallback
