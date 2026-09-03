@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import bibleJson from '../../art/style-bible.json';
 import type { Locale } from '../app/locale.js';
 import type { Scene as SceneContract } from '../scene/package.js';
@@ -87,6 +87,22 @@ export function GuidedReaderView({
     readerRef.current?.focus();
   }, []);
 
+  // Escape closes from anywhere: button clicks move browser focus off the
+  // reader landmark, and key events on <body> never reach its onKeyDown.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        speech?.cancel();
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [onClose, speech]);
+
   // Measured stage pixels drive both the aspect layout and hotspot
   // projection, so buttons sit on their subjects at any viewport.
   const stageRef = useRef<HTMLDivElement | null>(null);
@@ -171,13 +187,6 @@ export function GuidedReaderView({
       ref={readerRef}
       tabIndex={-1}
       aria-label={spread.title[locale]}
-      onKeyDown={(event) => {
-        if (event.key === 'Escape') {
-          event.preventDefault();
-          speech?.cancel();
-          onClose();
-        }
-      }}
       style={{ position: 'fixed', inset: 0, overflow: 'hidden', background: '#0a1830' }}
     >
       <div ref={stageRef} style={{ position: 'absolute', inset: 0 }}>

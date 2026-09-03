@@ -183,7 +183,7 @@ export function DockApp(): React.JSX.Element {
     void runPreparation();
   };
 
-  const boardFresh = (): GuidedSession => startGuidedSession(sharingTide.id, REED_PATH);
+  const freshSession = (): GuidedSession => startGuidedSession(sharingTide.id, REED_PATH);
 
   const boatState = (): BoatState => {
     if (prep.phase === 'working') {
@@ -273,7 +273,7 @@ export function DockApp(): React.JSX.Element {
         storyTitle={sharingTide.title}
         locale={locale}
         onReplay={() => {
-          const fresh = boardFresh();
+          const fresh = freshSession();
           persistSession(fresh);
           dispatch({ type: 'replay', session: fresh });
         }}
@@ -355,14 +355,14 @@ export function DockApp(): React.JSX.Element {
       cardState={boatState()}
       keepsake={keepsake !== null}
       onPrepare={beginPreparation}
-      onOpen={() => dispatch({ type: 'board-boat', session: boardFresh() })}
+      onOpen={() => dispatch({ type: 'board-boat', session: freshSession() })}
       onContinue={() => {
         if (savedSession !== null) {
           dispatch({ type: 'continue-story', session: savedSession });
         }
       }}
       onReadAgain={() => {
-        const fresh = boardFresh();
+        const fresh = freshSession();
         persistSession(fresh);
         dispatch({ type: 'board-boat', session: fresh });
       }}

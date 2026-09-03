@@ -12,6 +12,7 @@
     "postinstall": "node scripts/copy-draco.mjs",
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "node scripts/copy-package.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
