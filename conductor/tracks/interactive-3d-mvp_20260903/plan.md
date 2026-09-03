@@ -33,7 +33,7 @@
   - [ ] Spread flow, tap ownership, camera-beat rules, route preserved on back, reduced-motion freeze
 - [x] Task: Define failing persistence tests, then implement IndexedDB repos (4b7e8d1)
   - [ ] idb schema/migrations/settings/progress/route/history/completion/readiness, calm recovery
-- [ ] Task: Implement explicit 3D preparation + service worker + safe update
+- [x] Task: Implement explicit 3D preparation + service worker + safe update (f4045d2)
   - [ ] Bounded download, hash verify before atomic ready, progress/retry UI, shell precache, prepared-immutable serve, deferred activation
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
