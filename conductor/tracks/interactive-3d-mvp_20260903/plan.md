@@ -9,7 +9,7 @@
 - [x] Task: Create poster-fallback app shell with health and version (422bac5)
   - [ ] Failing landmark/localized shell test, then Vite entry/shell/error boundary
   - [ ] Local fonts/tokens/layout/reduced-motion + /healthz + /version.json
-- [ ] Task: Establish static container baseline
+- [x] Task: Establish static container baseline (b2f0c83)
   - [ ] Pinned multi-stage Node builder + unprivileged Nginx 8080, SPA/MIME/cache/security/no-index
 - [ ] Task: Phase Verification & Checkpoint (Refer to workflow.md)
 
